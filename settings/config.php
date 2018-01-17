@@ -15,7 +15,7 @@
 	$WorkingHoursPerDay = 8;
 
 	//subject of email to employee for salary credit form EMS sysytem
-
+	$sendEmailToEmployee = 'true';
 	$payslipSubject = "Salary Credited";
 
 	// list of currencies used in EMS
@@ -27,7 +27,7 @@
 	$invoiceTypes = array("National Invoice", "Export Invoice");
 
 	//subject of email sent to client form EMS system
-
+	$sendEmailToClient = 'true';
 	$invoiceSubject = "Invoice Details";
 
 	//subject of email sent from EMS for change Password 

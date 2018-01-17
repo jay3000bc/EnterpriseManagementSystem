@@ -62,9 +62,12 @@ if (isset($_POST["saveInvoice"])) {
 		$pdf=exec('/usr/local/bin/wkhtmltopdf --page-size A4 --print-media-type --include-in-outline  "http://www.enterhelix.com/mukesh/ems/generateInvoice.php?invoice_id='.$invoice_id.'" ../ems/uploads/invoices/'.$invoice_id.'.pdf 2>&1');
 
 		// send invoice details to client
-		$invoicelink = 'http://www.enterhelix.com/mukesh/ems/uploads/invoices/'.$invoice_id.'.pdf';
-		include_once 'emails/invoiceEmailToClient.php';
-		mail($client_email, $invoiceSubject, $message, $from);
+		if($sendEmailToClient == 'true') {
+
+			$invoicelink = 'http://www.enterhelix.com/mukesh/ems/uploads/invoices/'.$invoice_id.'.pdf';
+			include_once 'emails/invoiceEmailToClient.php';
+			mail($client_email, $invoiceSubject, $message, $from);
+		}	
 		// end
 		if($_POST['saveInvoice'] == 'Print') {
 			$_SESSION['successMsg'] = 'success';
