@@ -1,15 +1,9 @@
 <?php
 
 	/* database creadientails web */
-	// $host = 'localhost'; /* mysql server name default is localhost */
-	// $databaseName = 'mukesh'; /* Database to be used */
-	// $databaseUser = 'mukesh'; /* Database username */
-	// $databasePassword = 'MKUghy49'; /* Database  password */
-	/* end */
-	/* database creadientails local */
 	$host = 'localhost'; /* mysql server name default is localhost */
-	$databaseName = 'ems'; /* Database to be used */
-	$databaseUser = 'root'; /* Database username */
+	$databaseName = ''; /* Database to be used */
+	$databaseUser = ''; /* Database username */
 	$databasePassword = ''; /* Database  password */
 	/* end */
 	// EMS email address for all out going emails
