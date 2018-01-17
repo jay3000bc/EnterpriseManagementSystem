@@ -1,0 +1,19 @@
+{
+    "name": "ticketpark/htmlphpexcel",
+    "type": "library",
+    "description": "A php library based on PHPExcel to convert html tables to Excel files, including styling.",
+    "keywords": ["html", "tables", "excel", "phpexcel"],
+    "homepage": "https://github.com/Ticketpark/HtmlPhpExcel",
+    "license": "MIT",
+    "authors": [
+        {"name": "Manuel Reinhard", "email": "manu@sprain.ch"}
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "doctrine/common": "~2.4",
+        "phpoffice/phpexcel": "~1.8"
+    },
+    "autoload": {
+        "psr-4": { "Ticketpark\\HtmlPhpExcel\\": "lib/HtmlPhpExcel" }
+    }
+}
