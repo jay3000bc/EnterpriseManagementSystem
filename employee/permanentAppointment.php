@@ -29,7 +29,7 @@ $result = $appointmentManager->getPermanentAppointment($employee_id);
                         <?php if($result !='') {?>
                         <p>This is your Permanent Appointment Letter.<br>
                         Now you can download or print the same.</p>
-                        <iframe src="http://enterhelix.com/mukesh/ems/uploads/appointment_pdf/permanent/<?php echo $result['pdf_name'];?>" width="100%" height="500px"></iframe>
+                        <iframe src="<?php echo $relativeUrl;?>uploads/appointment_pdf/permanent/<?php echo $result['pdf_name'];?>" width="100%" height="500px"></iframe>
                         <?php } else { ?>
                         <p>It seems the Administrator has not provided any Permanent Appointment Letter</p>
                         <?php } ?>

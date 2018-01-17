@@ -27,7 +27,7 @@ $result = $adminManager->getEmployeeTermsConditions();
                 <div class="box box-primary">
                     <div class="box-body">
                         <?php if($result['file_name'] != '') {?>
-                        <iframe src="http://enterhelix.com/mukesh/ems/uploads/termsAndConditions_pdf/<?php echo $result['file_name'];?>" width="100%" height="500px"></iframe>
+                        <iframe src="<?php echo $relativeUrl;?>uploads/termsAndConditions_pdf/<?php echo $result['file_name'];?>" width="100%" height="500px"></iframe>
                         <?php } else { ?>
                         <p>It seems the Administrator has not provided any Terms &amp; Conditions.</p>
                         <?php } ?>

@@ -1,10 +1,11 @@
 <?php
+  include('settings/config.php');
   date_default_timezone_set('Asia/Kolkata');
   $microtime = microtime(true);
   /*******************************************************
    * Only these origins will be allowed to upload images *
    ******************************************************/
-  $accepted_origins = array("http://localhost", "http://192.168.1.1", "http://enterhelix.com/mukesh/ems/");
+  $accepted_origins = array("http://localhost", "http://192.168.1.1", $relativeUrl);
 
   /*********************************************
    * Change this line to set the upload folder *

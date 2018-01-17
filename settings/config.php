@@ -42,6 +42,5 @@
 	$salaryPayCurrency = '&#8377;';
 
 	// target folder name/path name where you will install EMS 
-	//$relativeUrl = 'http://www.enterhelix.com/ems/';
-	$relativeUrl = 'http://ems.localhost/';
+	$relativeUrl = 'http://www.enterhelix.com/ems/';
 ?>

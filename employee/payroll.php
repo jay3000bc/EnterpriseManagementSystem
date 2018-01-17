@@ -43,7 +43,7 @@ $allPayrolls = $payrollManager->getAllEmployeePayroll($employee_id);
                                     <td><?php $created_at = $payrollManager->created_at[$i]; echo date('F Y', strtotime("-1 months", strtotime($created_at)));
                                     ?></td>
                                     <td><?php echo $salaryPayCurrency.' '.$payrollManager->net_pay[$i]; ?></td>
-                                    <td><a target="_blank" class="btn btn-sm btn-primary" href="http://enterhelix.com/mukesh/ems/uploads/payroll_pdf/<?php echo $payrollManager->pdf_name[$i];?>">View</a></td>
+                                    <td><a target="_blank" class="btn btn-sm btn-primary" href="<?php echo $relativeUrl;?>uploads/payroll_pdf/<?php echo $payrollManager->pdf_name[$i];?>">View</a></td>
                                     <td>
                                         <?php  
                                             if($payrollManager->status[$i] ==1) { ?>
