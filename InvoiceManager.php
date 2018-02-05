@@ -1,4 +1,5 @@
 <?php
+include_once('settings/config.php');
 include_once 'DBManager.php';
 class InvoiceManager { 
 	public function getInvoiceId() {
@@ -21,10 +22,11 @@ class InvoiceManager {
         return $result;
     }
 	public function getAutoIncrimentIDInvoice() {
+        $databaseName = $GLOBALS['databaseName'];
         $db = new DBManager();
         $sql = "SELECT `AUTO_INCREMENT`
             FROM  INFORMATION_SCHEMA.TABLES
-            WHERE TABLE_SCHEMA = 'mukesh'
+            WHERE TABLE_SCHEMA = $databaseName
             AND   TABLE_NAME   = 'ems_invoices'";
         $data = $db->getARecord($sql);
         return $data;

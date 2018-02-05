@@ -1,4 +1,6 @@
-<?php include('include/header.php');
+<?php 
+$title = 'Create Employee';
+include('include/header.php');
 date_default_timezone_set('Asia/Kolkata');
 $date = date('ymdGis');
 include_once 'LoaderManager.php';
@@ -132,11 +134,11 @@ if($manageIdStatus['employee_id'] ==1) {
                                     
                                     
                                     <div class="form-group">
-                                        <label for="currentAddress">Current Adreess <span class="mandatory">*</span></label>
+                                        <label for="currentAddress">Current Address <span class="mandatory">*</span></label>
                                         <input name="current_address" value="<?php if(isset($_SESSION['session_current_address'])) echo htmlspecialchars($_SESSION['session_current_address']); unset($_SESSION['session_current_address']); ?>" class="form-control" id="currentAddress" placeholder="Enter Employee Address" type="text" autocomplete="off" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="permanentAddress">Permanent Adreess <span class="mandatory">*</span></label>
+                                        <label for="permanentAddress">Permanent Address <span class="mandatory">*</span></label>
                                         <input name="permanent_address" value="<?php if(isset($_SESSION['session_permanent_address'])) echo htmlspecialchars($_SESSION['session_permanent_address']); unset($_SESSION['session_permanent_address']); ?>" class="form-control" id="permanentAddress" placeholder="Enter Employee Permament Address" type="text" autocomplete="off" required>
                                     </div>
                                     <div class="form-group">

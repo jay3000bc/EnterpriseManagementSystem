@@ -1,7 +1,7 @@
 <?php
 session_start();
 include('../settings/config.php');
-$current_link = $relativeUrl.'employee/'.basename($_SERVER['PHP_SELF']);
+$current_link = $absoluteUrl.'employee/'.basename($_SERVER['PHP_SELF'],".php");
 date_default_timezone_set('Asia/Kolkata');
 $current_date = time();
 if(isset($_SESSION['email'])) {
@@ -17,7 +17,7 @@ if(isset($_SESSION['email'])) {
     $employeeInfo = $employeeManager->getEmployeeDetails($id);
 }
 else {
-   header('Location:../index.php');
+   header('Location:../index');
 }
 ?>
 <!DOCTYPE html>
@@ -25,7 +25,7 @@ else {
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Employee | Dashboard</title>
+  <title>Employee | <?php echo $title;?></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -62,7 +62,7 @@ else {
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="home.php" class="logo">
+    <a href="home" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LB</span>
       <!-- logo for regular state and mobile devices -->
@@ -120,36 +120,36 @@ else {
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="treeview <?php if($current_link == $relativeUrl.'employee/home.php') echo 'active'; ?>">
-          <a href="home.php">
+        <li class="treeview <?php if($current_link == $absoluteUrl.'employee/home') echo 'active'; ?>">
+          <a href="home">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
-        <li class="treeview <?php if($current_link == $relativeUrl.'employee/payroll.php' || $current_link == $relativeUrl.'employee/probationerAppointment.php' || $current_link == $relativeUrl.'employee/employeeTermsConditions.php' || $current_link == $relativeUrl.'employee/permanentAppointment.php' ) echo 'active'; ?>">
+        <li class="treeview <?php if($current_link == $absoluteUrl.'employee/payroll' || $current_link == $absoluteUrl.'employee/probationerAppointment' || $current_link == $absoluteUrl.'employee/employeeTermsConditions' || $current_link == $absoluteUrl.'employee/permanentAppointment' ) echo 'active'; ?>">
           <a href="#">
             <i class="fa fa-user" aria-hidden="true"></i>
             <span>Employees</span>
           </a>
 
           <ul class="treeview-menu">
-             <li class="<?php if($current_link == $relativeUrl.'employee/probationerAppointment.php') echo 'active'; ?>"><a href="probationerAppointment.php"><div class="menu-round-icon"><i class="fa fa-circle"></i><br><i class="fa fa-circle" style="opacity:0;"></i></div><div class="modified-submenu">Probationer <br>Appointment Letter</div></a></li>
+             <li class="<?php if($current_link == $absoluteUrl.'employee/probationerAppointment') echo 'active'; ?>"><a href="probationerAppointment"><div class="menu-round-icon"><i class="fa fa-circle"></i><br><i class="fa fa-circle" style="opacity:0;"></i></div><div class="modified-submenu">Probationer <br>Appointment Letter</div></a></li>
 
-             <li class="<?php if($current_link == $relativeUrl.'employee/permanentAppointment.php') echo 'active'; ?>"><a href="permanentAppointment.php"><div class="menu-round-icon"><i class="fa fa-circle"></i><br><i class="fa fa-circle" style="opacity:0;"></i></div><div class="modified-submenu">Permanent <br>Appointment Letter</div></a></li>
+             <li class="<?php if($current_link == $absoluteUrl.'employee/permanentAppointment') echo 'active'; ?>"><a href="permanentAppointment"><div class="menu-round-icon"><i class="fa fa-circle"></i><br><i class="fa fa-circle" style="opacity:0;"></i></div><div class="modified-submenu">Permanent <br>Appointment Letter</div></a></li>
             
 
-            <li  class="<?php if($current_link == $relativeUrl.'employee/employeeTermsConditions.php') echo 'active'; ?>"><a href="employeeTermsConditions.php"><div class="menu-round-icon"><i class="fa fa-circle"></i><br><i class="fa fa-circle" style="opacity:0;"></i></div><div class="modified-submenu">Employee <br>Terms &amp; Conditions</div></a></li>
-            <li  class="<?php if($current_link == $relativeUrl.'employee/payroll.php') echo 'active'; ?>"><a href="payroll.php"><i class="fa fa-circle"></i>Payroll</a></li>
+            <li  class="<?php if($current_link == $absoluteUrl.'employee/employeeTermsConditions') echo 'active'; ?>"><a href="employeeTermsConditions"><div class="menu-round-icon"><i class="fa fa-circle"></i><br><i class="fa fa-circle" style="opacity:0;"></i></div><div class="modified-submenu">Employee <br>Terms &amp; Conditions</div></a></li>
+            <li  class="<?php if($current_link == $absoluteUrl.'employee/payroll') echo 'active'; ?>"><a href="payroll"><i class="fa fa-circle"></i>Payroll</a></li>
           </ul>
         </li>
-        <li class="treeview <?php if($current_link == $relativeUrl.'employee/profile.php' || $current_link == $relativeUrl.'employee/changePasswordForm.php' || $current_link == $relativeUrl.'employee/editProfile.php') echo 'active'; ?>">
+        <li class="treeview <?php if($current_link == $absoluteUrl.'employee/profile' || $current_link == $absoluteUrl.'employee/changePasswordForm' || $current_link == $absoluteUrl.'employee/editProfile') echo 'active'; ?>">
           <a href="#">
             <i class="fa fa-cog" aria-hidden="true"></i>
             <span>Settings</span>
           </a>
           <ul class="treeview-menu">
-            <li class="<?php if($current_link == $relativeUrl.'employee/profile.php') echo 'active'; ?>"><a href="profile.php"><i class="fa fa-circle"></i>Profile</a></li>
-            <li class="<?php if($current_link == $relativeUrl.'employee/editProfile.php') echo 'active'; ?>"><a href="editProfile.php"><i class="fa fa-circle"></i>Edit Profile</a></li>
-            <li class="<?php if($current_link == $relativeUrl.'employee/changePasswordForm.php') echo 'active'; ?>"><a href="changePasswordForm.php"><i class="fa fa-circle"></i>Change Password</a></li>
+            <li class="<?php if($current_link == $absoluteUrl.'employee/profile') echo 'active'; ?>"><a href="profile"><i class="fa fa-circle"></i>Profile</a></li>
+            <li class="<?php if($current_link == $absoluteUrl.'employee/editProfile') echo 'active'; ?>"><a href="editProfile"><i class="fa fa-circle"></i>Edit Profile</a></li>
+            <li class="<?php if($current_link == $absoluteUrl.'employee/changePasswordForm') echo 'active'; ?>"><a href="changePasswordForm"><i class="fa fa-circle"></i>Change Password</a></li>
           </ul>  
         </li>
         <li class="treeview">

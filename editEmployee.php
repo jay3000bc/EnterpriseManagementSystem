@@ -1,4 +1,6 @@
-<?php include('include/header.php');
+<?php 
+$title = 'Edit Employee';
+include('include/header.php');
 include_once 'EmployeeManager.php';
 date_default_timezone_set('Asia/Kolkata');
 $date = date('ymdGis');
@@ -15,8 +17,8 @@ if (isset($_GET['request_id'])) {
     //echo $employee_id;
     $employeeManager = new EmployeeManager();
     $result = $employeeManager->getEmployeeDetailsByEmployeeId($employee_id);
+    
     $resultRequestProfileDetails = $employeeManager->getRequestProfileEmployeeDetails($employee_id);
-    $employeeIdType = $employeeManager->getEmployeeIdType();
 }  
                     
 ?>

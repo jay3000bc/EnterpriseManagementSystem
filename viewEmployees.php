@@ -1,4 +1,5 @@
-<?php 
+<?php
+$title = 'View Employees'; 
 include('include/header.php');
 include_once 'EmployeeManager.php';?>
 
@@ -18,7 +19,7 @@ include_once 'EmployeeManager.php';?>
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <a href="createEmployee.php" class="btn btn-primary pull-right"><i class="fa fa-plus" aria-hidden="true"></i> &nbsp;Create New Employee</a>
+                        <a href="createEmployee" class="btn btn-primary pull-right"><i class="fa fa-plus" aria-hidden="true"></i> &nbsp;Create New Employee</a>
                     </div>
                     <div class="box-body">
                         <table id="display_employee_table" class="table table-bordered table-striped">
@@ -60,8 +61,8 @@ include_once 'EmployeeManager.php';?>
                                 <td><?php echo $employeeManager->date_of_joining[$i];?></td>
                                 <td><?php echo $employeeManager->current_address[$i];?></td>
                                 <td>
-                                    <a title="View" href="viewEmployeeDetails.php?employee_id=<?php echo $employeeManager->employee_id[$i]; ?>" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a>
-                                    <a title="Edit" class="btn btn-sm btn-success" href="editEmployee.php?employee_id=<?php echo $employeeManager->employee_id[$i]; ?>"><i class="fa fa-pencil"></i></a>
+                                    <a title="View" href="viewEmployeeDetails?employee_id=<?php echo $employeeManager->employee_id[$i]; ?>" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                    <a title="Edit" class="btn btn-sm btn-success" href="editEmployee?employee_id=<?php echo $employeeManager->employee_id[$i]; ?>"><i class="fa fa-pencil"></i></a>
                                     <a title="Delete" class="delete-btn btn btn-sm btn-danger"><i class="fa fa-trash-o"></i></a>
                                     <input type="hidden" name="delete_employee_id" value="<?php echo $employeeManager->employee_id[$i]; ?>">
                                 </td>

@@ -161,7 +161,7 @@ if(isset($_GET['period_print'])) {
 ?>	
 <script type="text/javascript">
 	window.print();
-	window.location.assign('viewGST.php?period=<?php echo $period;?>');
+	window.location.assign('viewGST?period=<?php echo $period;?>');
 </script>
 <?php
 	}

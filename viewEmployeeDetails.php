@@ -1,4 +1,5 @@
 <?php 
+$title = 'Employee Details';
 include('include/header.php');
 include_once 'EmployeeManager.php';?>
 

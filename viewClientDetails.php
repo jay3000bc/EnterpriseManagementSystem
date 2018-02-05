@@ -1,4 +1,5 @@
-<?php 
+<?php
+$title = 'Client Details'; 
 include('include/header.php');
 if (isset($_GET['client_id'])) {
     include_once 'ClientManager.php';
@@ -7,7 +8,7 @@ if (isset($_GET['client_id'])) {
     $result = $clientManager->getClientDetails($client_id);
 }
 else {
-    header('Location:viewClients.php');
+    header('Location:viewClients');
 }
 ?>
 

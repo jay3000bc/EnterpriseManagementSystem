@@ -1,4 +1,5 @@
 <?php 
+$title = 'Search Payroll';
 include('include/header.php');
 include_once 'PayrollManager.php';
 $payrollManager = new PayrollManager();
@@ -67,7 +68,7 @@ $allPayrolls = $payrollManager->listPayroll();
                                     <td><?php $created_at = $payrollManager->created_at[$i]; echo date('F Y', strtotime("-1 months", strtotime($created_at)));
                                     ?></td>
                                     <td><?php echo $salaryPayCurrency.' '.$payrollManager->net_pay[$i]; ?></td>
-                                    <td><a target="_blank" href="<?php echo $relativeUrl.'uploads/payroll_pdf/'.$payrollManager->pdf_name[$i];?>"><u>View</u></a></td>
+                                    <td><a target="_blank" href="<?php echo $absoluteUrl.'uploads/payroll_pdf/'.$payrollManager->pdf_name[$i];?>"><u>View</u></a></td>
                                     <td>
                                         <?php  
                                             if($payrollManager->status[$i] ==1) { ?>

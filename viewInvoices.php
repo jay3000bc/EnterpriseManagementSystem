@@ -1,4 +1,5 @@
 <?php 
+$title = 'View Invoices';
 include('include/header.php');
 include_once 'DBManager.php';
 include_once 'InvoiceManager.php';
@@ -42,7 +43,7 @@ if(isset($_POST['invoice_type'])) {
                     <div class="box-body">
                         <div class="row">
                             <div class="col-md-3">
-                                <form method="POST" action="viewInvoices.php">
+                                <form id="filtetInvoice" method="POST" action="viewInvoices">
                                     <div class="form-group">
                                         <label for="invoice_type">Invoice Type </label>
                                         <select id="invoice_type" name="invoice_type" class="form-control">
@@ -51,7 +52,7 @@ if(isset($_POST['invoice_type'])) {
                                             <option value="0" <?php if($_POST['invoice_type'] == 0) echo 'selected';?>>Created Invoice</option>
                                             <option value="1" <?php if($_POST['invoice_type'] == 1) echo 'selected';?>>Received Invoice</option>
                                             <?php }  else { ?>
-                                            <option value="0">Created Invoice</option>
+                                            <option value="0" selected>Created Invoice</option>
                                             <option value="1" >Received Invoice</option>
                                             <?php } ?>
                                         </select>
@@ -82,7 +83,7 @@ if(isset($_POST['invoice_type'])) {
                                     <?php } elseif(isset($_POST['invoice_type']) and ($_POST['invoice_type'] == 0 )) { ?>
                                     <b>Showing "Created invoices"</b>
                                     <?php } else {  ?>
-                                    <b>Showing "All invoices"</b>
+                                    <b>Showing "Created invoices"</b>
                                     <?php } ?> 
                                 </h4>
                                 <hr>
@@ -268,7 +269,7 @@ $(document).ready(function () {
         
     });
     $('#invoice_type').change(function() {
-        $('form').submit();
+        $('#filtetInvoice').submit();
     });
 });
 </script>

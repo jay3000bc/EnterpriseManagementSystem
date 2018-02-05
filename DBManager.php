@@ -1,13 +1,16 @@
 <?php
 include_once('settings/config.php');
 class DBManager {
+    var $records;
     var $conn;
-    //var $records;
+    var $mysqlConnectError;
     function __construct() {
+        
         $this->conn = mysqli_connect($GLOBALS['host'], $GLOBALS['databaseUser'], $GLOBALS['databasePassword'], $GLOBALS['databaseName']);
+           
         if (mysqli_connect_errno())
         {
-          echo "Failed to connect to MySQL: " . mysqli_connect_error();
+          $this->mysqlConnectError = "Failed to connect to MySQL: " . mysqli_connect_error();
         }
     }
 

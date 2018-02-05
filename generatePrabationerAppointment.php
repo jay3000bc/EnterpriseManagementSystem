@@ -6,7 +6,14 @@ include_once 'DBManager.php';
 include_once 'AppointmentManager.php';
 $DBManager = new DBManager();
 $appointmentManager = new AppointmentManager();
-$employee_id = $_GET['employee_id'];
+if(isset($_GET['employee_id'])) {
+	$employee_id = $_GET['employee_id'];
+} elseif(isset($_GET['print_appointment'])) {
+	$employee_id = $_GET['print_appointment'];
+} else {
+	header('Location:probationerAppointment');
+}
+
 $result = $appointmentManager->getProbationAppointment($employee_id);
 ?>
 <!DOCTYPE html>
@@ -27,4 +34,13 @@ $result = $appointmentManager->getProbationAppointment($employee_id);
 	
 </body>
 </html>
-
+<?php 
+if(isset($_GET['print_appointment'])) {
+?>	
+<script type="text/javascript">
+	window.print();
+	window.location.assign('probationerAppointment');
+</script>
+<?php
+	}
+?>

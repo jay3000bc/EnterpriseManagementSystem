@@ -8,7 +8,7 @@ class Validate {
     		$errorMesgForm = $key . "can't be Empty";
     		$_SESSION['inputFieldName'] = $key;
     		$_SESSION['inputFieldNameError'] = $key . "can't be Empty";
-    		header('Location:createEmployee.php');
+    		header('Location:createEmployee');
     	}
     }
     function removeComma($value) {

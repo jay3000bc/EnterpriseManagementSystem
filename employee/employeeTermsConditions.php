@@ -1,4 +1,6 @@
-<?php include('../employee/include/header.php');
+<?php 
+$title = 'Terms and Conditions';
+include('../employee/include/header.php');
 include_once '../AdminManager.php';
 $adminManager = new AdminManager();
 $result = $adminManager->getEmployeeTermsConditions();
@@ -12,9 +14,9 @@ $result = $adminManager->getEmployeeTermsConditions();
         
       </h1>
       <ol class="breadcrumb">
-        <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="home"><i class="fa fa-dashboard"></i> Home</a></li>
         <li>Employee</li>
-        <li class="active"><a href="employeeTermsConditions.php">Employee Terms &amp; Conditions</a></li>
+        <li class="active"><a href="employeeTermsConditions">Employee Terms &amp; Conditions</a></li>
       </ol>
     </section>
 
@@ -27,7 +29,7 @@ $result = $adminManager->getEmployeeTermsConditions();
                 <div class="box box-primary">
                     <div class="box-body">
                         <?php if($result['file_name'] != '') {?>
-                        <iframe src="<?php echo $relativeUrl;?>uploads/termsAndConditions_pdf/<?php echo $result['file_name'];?>" width="100%" height="500px"></iframe>
+                        <iframe src="<?php echo $absoluteUrl;?>uploads/termsAndConditions_pdf/<?php echo $result['file_name'];?>" width="100%" height="500px"></iframe>
                         <?php } else { ?>
                         <p>It seems the Administrator has not provided any Terms &amp; Conditions.</p>
                         <?php } ?>

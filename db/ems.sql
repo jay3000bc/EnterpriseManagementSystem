@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `ems_clients` (
   `photo` varchar(50) NOT NULL,
   `created_at` varchar(50) NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `status` int(11) NOT NULL COMMENT '0-on going, 1-completed',
+  `status` int(11) NOT NULL DEFAULT '0' COMMENT '0-on going, 1-completed',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -216,12 +216,11 @@ CREATE TABLE IF NOT EXISTS `ems_invoices` (
   `state` int(11) NOT NULL,
   `invoice_mode` int(2) NOT NULL COMMENT '0-online, 1-manual',
   `reverse_charge` int(2) NOT NULL COMMENT '0-No, 1-Yes',
-  `sac_code` int(11) NOT NULL,
   `bank_id` int(11) NOT NULL,
   `currency_type` varchar(50) NOT NULL,
   `net_amount` int(11) NOT NULL,
   `invoice_date` varchar(50) NOT NULL,
-  `status` int(11) NOT NULL COMMENT '0-Unpaid, 1-Paid, 2-Partially Paid',
+  `status` int(11) DEFAULT NULL COMMENT '0-Unpaid, 1-Paid, 2-Partially Paid',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -560,7 +559,7 @@ CREATE TABLE IF NOT EXISTS `ems_projects` (
   `description` text NOT NULL,
   `created_at` varchar(50) NOT NULL,
   `ended_at` varchar(50) DEFAULT NULL,
-  `status` int(11) NOT NULL COMMENT '0-on going, 1-completed',
+  `status` int(11) NOT NULL DEFAULT '0' COMMENT '0-on going, 1-completed',
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
@@ -583,7 +582,7 @@ CREATE TABLE IF NOT EXISTS `ems_receive_invoice` (
   `invoice_amount` decimal(10,2) NOT NULL,
   `gstin` varchar(100) NOT NULL,
   `upload_invoice` varchar(100) NOT NULL,
-  `status` int(11) NOT NULL COMMENT '0-Unpaid, 1-Paid, 2-Partially Paid',
+  `status` int(11) DEFAULT NULL COMMENT '0-Unpaid, 1-Paid, 2-Partially Paid',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -696,3 +695,5 @@ CREATE TABLE IF NOT EXISTS `ems_setup` (
 
 INSERT INTO `ems_setup` (`id`, `status`, `created_at`) VALUES
 (1, 0, '2018-01-13 11:49:32');
+
+ALTER TABLE `ems_receive_invoice` CHANGE `status` `status` INT(11) NULL DEFAULT '0' COMMENT '0-Unpaid, 1-Paid, 2-Partially Paid';

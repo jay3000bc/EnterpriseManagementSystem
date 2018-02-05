@@ -1,4 +1,5 @@
 <?php
+$title = 'Edit Profile';
 include('../employee/include/header.php');
 $microtime = microtime(true);
 $result = $employeeManager->getEmployeeDetails($id);
@@ -14,7 +15,7 @@ if(isset($_POST['requestProfileChanges'])) {
             if($check_email_unique_result > 0 ) {
                 $_SESSION['ErrorMsg'] = "Email already exist. Please try another.";
                 echo '<script type="text/javascript">
-                   window.location = "editProfile.php"
+                   window.location = "editProfile"
               </script>';
                 die();
             }
@@ -31,7 +32,7 @@ if(isset($_POST['requestProfileChanges'])) {
             if($check_phone_unique_result > 0 ) {
                 $_SESSION['ErrorMsg'] = "Phone number already exist. Please try another.";
                 echo '<script type="text/javascript">
-                   window.location = "editProfile.php"
+                   window.location = "editProfile"
               </script>';
                 die();
             }
@@ -61,7 +62,7 @@ if(isset($_POST['requestProfileChanges'])) {
         if ($check == false) {
             $_SESSION['ErrorMsg'] = "File is not an image.";
             echo '<script type="text/javascript">
-               window.location = "editProfile.php"
+               window.location = "editProfile"
             </script>';
         }
         // Check if file already exists
@@ -69,7 +70,7 @@ if(isset($_POST['requestProfileChanges'])) {
             //echo "string"; die();
             $_SESSION['ErrorMsg'] = "Sorry, image file already exists.";
             echo '<script type="text/javascript">
-               window.location = "editProfile.php"
+               window.location = "editProfile"
             </script>';
             exit();
         } 
@@ -77,7 +78,7 @@ if(isset($_POST['requestProfileChanges'])) {
         elseif ($_FILES["photo"]["size"] > 5242880) {
             $_SESSION['ErrorMsg'] = "Sorry, image file is too large. Maximum file size must be less than 5MB.";
             echo '<script type="text/javascript">
-                window.location = "editProfile.php"
+                window.location = "editProfile"
             </script>';
             exit();
         }
@@ -86,7 +87,7 @@ if(isset($_POST['requestProfileChanges'])) {
         && $imageFileType != "gif" ) {
             $_SESSION['ErrorMsg'] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
             echo '<script type="text/javascript">
-                window.location = "editProfile.php"
+                window.location = "editProfile"
             </script>';
             exit();
         }
@@ -98,7 +99,7 @@ if(isset($_POST['requestProfileChanges'])) {
             } else {
                 $_SESSION['ErrorMsg'] = "Sorry, there was an error uploading your file.";
                 echo '<script type="text/javascript">
-                   window.location = "editProfile.php"
+                   window.location = "editProfile"
                 </script>';
                 exit();
 
@@ -161,7 +162,7 @@ if(isset($_POST['requestProfileChanges'])) {
             if($check_pan_unique_result > 0 ) {
                 $_SESSION['ErrorMsg'] = "PAN already exist..";
                 echo '<script type="text/javascript">
-                   window.location = "editProfile.php"
+                   window.location = "editProfile"
                 </script>';
                 die();
             }
@@ -187,7 +188,7 @@ if(isset($_POST['requestProfileChanges'])) {
             if($check_bank_account_unique_result > 0 ) {
                 $_SESSION['ErrorMsg'] = "Bank Account already exist.";
                 echo '<script type="text/javascript">
-                   window.location = "editProfile.php"
+                   window.location = "editProfile"
                 </script>';
                 die();
             }
@@ -200,18 +201,19 @@ if(isset($_POST['requestProfileChanges'])) {
     } else {
         $ifsc_code = NULL;
     }
+    
     $result = $employeeManager->editProfileRequset($employee_id, $name, $designation, $email, $phone_no, $encryptpassword, $photo, $current_address, $permanent_address, $father_name, $gender, $date_of_joining, $date_of_birth, $pf_account, $policy_no, $lic_id, $pan, $passport_no, $driving_license_no, $bank_account, $ifsc_code);
     if($result) {
         $_SESSION['successMsg'] = "successProfileRequest";
         echo '<script type="text/javascript">
-           window.location = "home.php"
+           window.location = "home"
         </script>';
         die();
     }
     else {
         $_SESSION['ErrorMsg'] = "Sorry, Failed to send profile Request Update";
         echo '<script type="text/javascript">
-           window.location = "editProfile.php"
+           window.location = "editProfile"
         </script>';
         die();
     }
@@ -223,9 +225,9 @@ if(isset($_POST['requestProfileChanges'])) {
     <section class="content-header">
         <h1>Edit Profile</h1>
         <ol class="breadcrumb">
-            <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="home"><i class="fa fa-dashboard"></i> Home</a></li>
             <li> Settings</li>
-            <li class="active"><a href="editProfile.php"> Edit Profile</a></li>
+            <li class="active"><a href="editProfile"> Edit Profile</a></li>
         </ol>
     </section>
 
@@ -236,7 +238,7 @@ if(isset($_POST['requestProfileChanges'])) {
             <div class="col-md-12">
                 <!-- general form elements -->
                 <div class="box box-primary">
-                    <form role="form" id="createEmployeeForm" method="POST" action="editProfile.php" enctype="multipart/form-data">
+                    <form role="form" id="createEmployeeForm" method="POST" action="editProfile" enctype="multipart/form-data">
                        <!--  <form role="form" id="createEmployeeForm" method="POST" action="../EmployeeController.php" enctype="multipart/form-data"> -->
                         <div class="box-body">
                             <div class="row">

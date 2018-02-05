@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 session_start();
 include('settings/config.php');
 date_default_timezone_set('Asia/Kolkata');
@@ -28,29 +31,91 @@ if (isset($_POST["savePayroll"])) {
 	$bankAccount = mysqli_real_escape_string($DBManager->conn, $_POST['bankAccount']);
     $name = mysqli_real_escape_string($DBManager->conn, $_POST['name']);
     $basic = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['basic']));
-    $house_rent_allowance = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['house_rent_allowance']));
-    $conveyance_allowance = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['conveyance_allowance']));
-    $special_allowance = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['special_allowance']));
-    $bonus = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['bonus']));
-    $overtime = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['overtime']));
-    $overtimeAmount = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['overtimeAmount']));
-    $professional_tax = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['professional_tax']));
-    $income_tax = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['income_tax']));
-    $provident_fund = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['provident_fund']));
-    $health_insurance = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['health_insurance']));
-    $un_paid_days_amount = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['un_paid_days_amount']));
-    $misc = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['misc']));
-    $gross_earnings = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['gross_earnings']));
-    $gross_deductions = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['gross_deductions']));
-	$net_pay = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['net_pay']));
+    if($_POST['house_rent_allowance'] != '') {
+
+    	$house_rent_allowance = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['house_rent_allowance']));
+    } else {
+    	$house_rent_allowance = 0.00;
+    }
+    if($_POST['conveyance_allowance'] != '') {
+    	$conveyance_allowance = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['conveyance_allowance']));
+    } else {
+    	$conveyance_allowance = 0.00;
+    }
+    if($_POST['special_allowance'] != '') {
+    	$special_allowance = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['special_allowance']));
+    } else {
+    	$special_allowance = 0.00;
+    }
+    if($_POST['bonus'] != '') {
+    	$bonus = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['bonus']));
+    } else {
+    	$bonus= 0.00;
+    }
+    if($_POST['overtime'] != '') {
+    	$overtime = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['overtime']));
+    } else {
+    	$overtime = 0.00;
+    }
+    if($_POST['overtimeAmount'] != '') {
+    	$overtimeAmount = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['overtimeAmount']));
+    } else {
+    	$overtimeAmount = 0.00;
+    }
+    if($_POST['professional_tax'] != '') {
+    	$professional_tax = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['professional_tax']));
+    } else {
+    	$professional_tax = 0.00;
+    }
+    if($_POST['income_tax'] != '') {
+    	$income_tax = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['income_tax']));
+    } else {
+    	$income_tax = 0.00;
+    }
+    if($_POST['provident_fund'] != '') {
+    	$provident_fund = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['provident_fund']));
+    } else {
+    	$provident_fund = 0.00;
+    }
+    if($_POST['health_insurance'] != '') {
+    	$health_insurance = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['health_insurance']));
+    } else {
+    	$health_insurance = 0.00;
+    }
+    if($_POST['un_paid_days_amount'] != '') {
+    	$un_paid_days_amount = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['un_paid_days_amount']));
+    } else {
+    	$un_paid_days_amount = 0.00;
+    } 
+    if($_POST['misc'] != '') {
+    	$misc = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['misc']));
+    } else {
+    	$misc = 0.00;
+    }
+    if($_POST['gross_earnings'] != '') {
+    	$gross_earnings = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['gross_earnings']));
+    } else {
+    	$gross_earnings = 0.00;
+    }
+    if($_POST['gross_deductions'] != '') {
+    	$gross_deductions = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['gross_deductions']));
+    } else {
+    	$gross_deductions = 0.00;
+    }
+    if($_POST['net_pay'] != '') {
+		$net_pay = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['net_pay']));
+
+	} else {
+		$net_pay = 0.00;
+	}
 	$paid_days_count = mysqli_real_escape_string($DBManager->conn,$_POST['paid_days_count']);
-	$un_paid_days_count = mysqli_real_escape_string($DBManager->conn,$_POST['un_paid_days_count']);
-	// echo $un_paid_days_amount;
-	// die();
+	if($_POST['un_paid_days_count'] != '') { 
+		$un_paid_days_count = mysqli_real_escape_string($DBManager->conn,$_POST['un_paid_days_count']);
+	} else {
+		$un_paid_days_count = 0.00;
+	}
 	$status = mysqli_real_escape_string($DBManager->conn,$_POST['status']);	
 	$name_clean=preg_replace('/\s+/', '', $name);
-
-	session_start();
 	$pdf_name = $employee_id.date("dmY",$current_date).'.pdf';
 	$target_dir = "uploads/payroll_pdf/";
 	$target_file = $target_dir . $pdf_name;
@@ -63,16 +128,21 @@ if (isset($_POST["savePayroll"])) {
 		   $_SESSION[$key] = $value;
 		   //If you need to database process the data, you can put mysql_escape_string( $value );
 		}
-		header ("Location: payroll.php");
+		header ("Location: payroll");
 	}
 	else {
 		$result = $payrollManager->savePayroll($employee_id, $basic, $house_rent_allowance, $conveyance_allowance, $special_allowance, $bonus, $overtime, $overtimeAmount, $professional_tax, $income_tax, $provident_fund, $health_insurance, $un_paid_days_amount, $misc, $gross_earnings, $gross_deductions, $net_pay, $pdf_name, $paid_days_count, $un_paid_days_count, $status);
 		if($result) {
-			$pdf=exec('/usr/local/bin/wkhtmltopdf --page-size A4 --print-media-type --include-in-outline http://www.enterhelix.com/mukesh/ems/generatePayrollPdf.php?employee_id='.$employee_id.' ../ems/'.$target_file.' 2>&1');
+			$generatePdfUrl = $absoluteUrl.'generatePayrollPdf.php?employee_id='.$employee_id;
 
+			$pdf=exec('/usr/local/bin/wkhtmltopdf --page-size A4 --print-media-type --include-in-outline '.$generatePdfUrl.' '.$target_file.' 2>&1');
+			if(!$pdf) {
+				$_SESSION['payroll_error'] = 'Failed to generate Pdf.';
+				header('location:payroll');
+				die();
+			}
 			// send mail to employee for salary credit acknowledgement
-			if($sendEmailToEmployee == 'true') {
-
+			if($sendEmailToEmployee == true) { 
 				// create email header
 				$paysilipHeaders  = 'MIME-Version: 1.0' . "\r\n";
 				$paysilipHeaders .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
@@ -80,7 +150,7 @@ if (isset($_POST["savePayroll"])) {
 				$paysilipHeaders .= 'From: '.$fromEMS."\r\n".'Reply-To: '.$fromEMS."\r\n" .'X-Mailer: PHP/' . phpversion();
 			    // end header
 				$lastMonth = date("F Y",strtotime("-1 month"));
-				$pdf_link = 'http://www.enterhelix.com/mukesh/ems/'.$target_file;
+				$pdf_link = $absoluteUrl.$target_file;
 				$paysilipMessage = '<html><body>';
 
 				$paysilipMessage .= '<p>Dear '.$name.',</p>';
@@ -98,12 +168,12 @@ if (isset($_POST["savePayroll"])) {
 				//echo $_POST["savePayroll"];
 				$_SESSION['payroll_success'] = 'Congrats, Payroll generated successfully.';
 				header('Location:generatePayrollPdf.php?print_payroll='.$employee_id);
+				die();
 			} else {
 				$_SESSION['payroll_success'] = 'Congrats, Payroll generated successfully.';
-				header("Location:payroll.php");
+				header("Location:payroll");
+				die();
 			}
-			//$_SESSION['payroll_success'] = 'Congrats, Payroll generated successfully.';
-			//header("Location: payroll.php");
 		}
 	}
 }
@@ -114,25 +184,89 @@ if (isset($_POST["previewPayroll"])) {
 	$email = mysqli_real_escape_string($DBManager->conn, $_POST['email']);
     $name = mysqli_real_escape_string($DBManager->conn, $_POST['name']);
     $basic = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['basic']));
-    $house_rent_allowance = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['house_rent_allowance']));
-    $conveyance_allowance = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['conveyance_allowance']));
-    $special_allowance = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['special_allowance']));
-    $bonus = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['bonus']));
-    $overtime = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['overtime']));
-    $overtimeAmount = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['overtimeAmount']));
-    $professional_tax = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['professional_tax']));
-    $income_tax = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['income_tax']));
-    $provident_fund = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['provident_fund']));
-    $health_insurance = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['health_insurance']));
-    $un_paid_days_amount = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['un_paid_days_amount']));
-    $misc = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['misc']));
-    $gross_earnings = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['gross_earnings']));
-    $gross_deductions = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['gross_deductions']));
-	$net_pay = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['net_pay']));
+    if($_POST['house_rent_allowance'] != '') {
+
+    	$house_rent_allowance = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['house_rent_allowance']));
+    } else {
+    	$house_rent_allowance = 0.00;
+    }
+    if($_POST['conveyance_allowance'] != '') {
+    	$conveyance_allowance = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['conveyance_allowance']));
+    } else {
+    	$conveyance_allowance = 0.00;
+    }
+    if($_POST['special_allowance'] != '') {
+    	$special_allowance = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['special_allowance']));
+    } else {
+    	$special_allowance = 0.00;
+    }
+    if($_POST['bonus'] != '') {
+    	$bonus = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['bonus']));
+    } else {
+    	$bonus= 0.00;
+    }
+    if($_POST['overtime'] != '') {
+    	$overtime = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['overtime']));
+    } else {
+    	$overtime = 0.00;
+    }
+    if($_POST['overtimeAmount'] != '') {
+    	$overtimeAmount = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['overtimeAmount']));
+    } else {
+    	$overtimeAmount = 0.00;
+    }
+    if($_POST['professional_tax'] != '') {
+    	$professional_tax = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['professional_tax']));
+    } else {
+    	$professional_tax = 0.00;
+    }
+    if($_POST['income_tax'] != '') {
+    	$income_tax = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['income_tax']));
+    } else {
+    	$income_tax = 0.00;
+    }
+    if($_POST['provident_fund'] != '') {
+    	$provident_fund = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['provident_fund']));
+    } else {
+    	$provident_fund = 0.00;
+    }
+    if($_POST['health_insurance'] != '') {
+    	$health_insurance = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['health_insurance']));
+    } else {
+    	$health_insurance = 0.00;
+    }
+    if($_POST['un_paid_days_amount'] != '') {
+    	$un_paid_days_amount = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['un_paid_days_amount']));
+    } else {
+    	$un_paid_days_amount = 0.00;
+    } 
+    if($_POST['misc'] != '') {
+    	$misc = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['misc']));
+    } else {
+    	$misc = 0.00;
+    }
+    if($_POST['gross_earnings'] != '') {
+    	$gross_earnings = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['gross_earnings']));
+    } else {
+    	$gross_earnings = 0.00;
+    }
+    if($_POST['gross_deductions'] != '') {
+    	$gross_deductions = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['gross_deductions']));
+    } else {
+    	$gross_deductions = 0.00;
+    }
+    if($_POST['net_pay'] != '') {
+		$net_pay = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['net_pay']));
+
+	} else {
+		$net_pay = 0.00;
+	}
 	$paid_days_count = mysqli_real_escape_string($DBManager->conn,$_POST['paid_days_count']);
-	$un_paid_days_count = mysqli_real_escape_string($DBManager->conn,$_POST['un_paid_days_count']);
-	// echo $un_paid_days_amount;
-	// die();
+	if($_POST['un_paid_days_count'] != '') { 
+		$un_paid_days_count = mysqli_real_escape_string($DBManager->conn,$_POST['un_paid_days_count']);
+	} else {
+		$un_paid_days_count = 0.00;
+	}
 	$status = mysqli_real_escape_string($DBManager->conn,$_POST['status']);	
 	$pdf_name = $employee_id.date("dmY",$current_date).'.pdf';
 	$result = $payrollManager->previewPayroll($employee_id, $basic, $house_rent_allowance, $conveyance_allowance, $special_allowance, $bonus, $overtime, $overtimeAmount, $professional_tax, $income_tax, $provident_fund, $health_insurance, $un_paid_days_amount, $misc, $gross_earnings, $gross_deductions, $net_pay, $pdf_name, $paid_days_count, $un_paid_days_count, $status);

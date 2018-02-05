@@ -1,4 +1,6 @@
-<?php include('../employee/include/header.php');
+<?php 
+$title = 'Payroll';
+include('../employee/include/header.php');
 include_once '../PayrollManager.php';
 $payrollManager = new PayrollManager();
 $allPayrolls = $payrollManager->getAllEmployeePayroll($employee_id);
@@ -9,9 +11,9 @@ $allPayrolls = $payrollManager->getAllEmployeePayroll($employee_id);
     <section class="content-header">
         <h1>Payroll</h1>
             <ol class="breadcrumb">
-                <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="home"><i class="fa fa-dashboard"></i> Home</a></li>
                 <li> Employees</li>
-                <li class="active"><a href="payroll.php"> Payroll</a></li>
+                <li class="active"><a href="payroll"> Payroll</a></li>
             </ol>
     </section>
 
@@ -43,7 +45,7 @@ $allPayrolls = $payrollManager->getAllEmployeePayroll($employee_id);
                                     <td><?php $created_at = $payrollManager->created_at[$i]; echo date('F Y', strtotime("-1 months", strtotime($created_at)));
                                     ?></td>
                                     <td><?php echo $salaryPayCurrency.' '.$payrollManager->net_pay[$i]; ?></td>
-                                    <td><a target="_blank" class="btn btn-sm btn-primary" href="<?php echo $relativeUrl;?>uploads/payroll_pdf/<?php echo $payrollManager->pdf_name[$i];?>">View</a></td>
+                                    <td><a target="_blank" class="btn btn-sm btn-primary" href="<?php echo $absoluteUrl;?>uploads/payroll_pdf/<?php echo $payrollManager->pdf_name[$i];?>">View</a></td>
                                     <td>
                                         <?php  
                                             if($payrollManager->status[$i] ==1) { ?>

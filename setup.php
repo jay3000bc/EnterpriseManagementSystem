@@ -2,13 +2,11 @@
 session_start();
 include_once('settings/config.php');
 include_once 'DBManager.php';
-$mysql = mysql_connect($host, $databaseUser, $databasePassword);
-
-if(mysql_select_db($databaseName, $mysql)) {
+$DBManager = new DBManager();
+if(!isset($DBManager->mysqlConnectError)) {
 	$current_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-
 	// check if given reletive folder given in config is currect or not 
-	if($current_link == $relativeUrl.'setup.php') {
+	if($current_link == $absoluteUrl.'setup') {
         // create all database tables
         $file = 'db/ems.sql';
 
@@ -23,17 +21,22 @@ if(mysql_select_db($databaseName, $mysql)) {
             }
         }
         //end
-        $DBManager = new DBManager();
-        include_once 'LoaderManager.php';
-        $loaderManager = new LoaderManager();
-        $manageIdStatus = $loaderManager->manageIdStatus();
-		$result = $loaderManager->checkSettingComplete();
+        if($result) {
+            $DBManager = new DBManager();
+            include_once 'LoaderManager.php';
+            $loaderManager = new LoaderManager();
+            $manageIdStatus = $loaderManager->manageIdStatus();
+            $result = $loaderManager->checkSettingComplete();
+        } else {
+            header('location:index');
+        }
+        
 		if($result['status'] == 0) {
 			
 		} else {
-			header('location:index.php');
+			header('location:index');
 		}
-	} elseif($current_link == $relativeUrl.'setup.php?step=1') {
+	} elseif($current_link == $absoluteUrl.'setup?step=1') {
         $DBManager = new DBManager();
         include_once 'LoaderManager.php';
         $loaderManager = new LoaderManager();
@@ -41,9 +44,9 @@ if(mysql_select_db($databaseName, $mysql)) {
         if($manageIdStatus['employee_id'] == 0 && $manageIdStatus['client_id'] == 0 && $manageIdStatus['invoice_id'] == 0) {
             $step = 1;
         } else {
-            header('location:setup.php?step=2');
+            header('location:setup?step=2');
         }
-	} elseif($current_link == $relativeUrl.'setup.php?step=2') {
+	} elseif($current_link == $absoluteUrl.'setup?step=2') {
         $DBManager = new DBManager();
         include_once 'LoaderManager.php';
         $loaderManager = new LoaderManager();
@@ -51,9 +54,9 @@ if(mysql_select_db($databaseName, $mysql)) {
         if($manageIdStatus['employee_id'] == 1 && $manageIdStatus['client_id'] == 0 && $manageIdStatus['invoice_id'] == 0) {
             $step = 2;
         } else {
-            header('location:setup.php?step=3');
+            header('location:setup?step=3');
         }
-	} elseif($current_link == $relativeUrl.'setup.php?step=3') {
+	} elseif($current_link == $absoluteUrl.'setup?step=3') {
         $DBManager = new DBManager();
         include_once 'LoaderManager.php';
         $loaderManager = new LoaderManager();
@@ -61,14 +64,10 @@ if(mysql_select_db($databaseName, $mysql)) {
         if($manageIdStatus['employee_id'] == 1 && $manageIdStatus['client_id'] == 1 && $manageIdStatus['invoice_id'] == 0) {
             $step = 3;
         } else {
-            header('location:index.php');
+            header('location:index');
         }
 		
 	}  else {
-        $DBManager = new DBManager();
-        include_once 'LoaderManager.php';
-        $loaderManager = new LoaderManager();
-        $manageIdStatus = $loaderManager->manageIdStatus();
 		$error = 'relativeUrlNotCorrect';
 	}
 } else {
@@ -79,7 +78,7 @@ if(mysql_select_db($databaseName, $mysql)) {
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Setup</title>
+	<title>EMS | Setup</title>
 	<!-- Bootstrap CSS -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <!-- sweet alert -->
@@ -104,7 +103,7 @@ if(mysql_select_db($databaseName, $mysql)) {
 						<?php if(isset($result) && $result['status'] == 0) { ?>
 						<h3>Welcome To EMS</h3>
 						<p>All tables have been installed succcesfully.</p>
-						<a href="setup.php?step=1" class="btn btn-primary">Continue</a>
+						<a href="setup?step=1" class="btn btn-primary">Continue</a>
 						<?php } elseif(isset($step) && $step == 1) { ?>
 						<h3>Manage employees</h3>
 						<p class="alert alert-warning border-color-red">The Employee Module, supports creation of employees, payrolls and leave/ holidays.<br>If you don't know what to enter, please visit our <a href="www.alegralabs.com/support" target="_blank"><u>support</u></a> page.</p>

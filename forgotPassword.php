@@ -4,7 +4,7 @@ include_once 'AdminManager.php';
 $adminManager = new AdminManager();
 $companyInfo = $adminManager->getAdminDetails();
 if(isset($_SESSION['username'])) {
-    header('Location:adminHome.php');
+    header('Location:adminHome');
 }
 ?>
 <!DOCTYPE html>

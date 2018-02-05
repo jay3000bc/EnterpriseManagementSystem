@@ -1,4 +1,6 @@
-<?php include('include/header.php');
+<?php 
+$title = 'Edit Client';
+include('include/header.php');
 date_default_timezone_set('Asia/Kolkata');
 $date = date('ymdGis');
 include_once 'LoaderManager.php';
@@ -14,7 +16,7 @@ if (isset($_GET['client_id'])) {
     $total = $clientManager->getClientProjects($client_id);
 }
 else {
-    header('Location:viewClients.php');
+    header('Location:viewClients');
 }
 ?>
 <!-- Content Wrapper. Contains page content -->

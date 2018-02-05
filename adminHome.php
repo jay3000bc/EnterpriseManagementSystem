@@ -1,4 +1,5 @@
 <?php 
+$title = 'Home';
 include_once('include/header.php');
 // rss feeds
 include_once('include/rssfeeds.php');

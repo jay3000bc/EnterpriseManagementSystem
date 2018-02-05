@@ -1,4 +1,5 @@
 <?php
+$title = 'Experience Certificate';
 date_default_timezone_set('Asia/Kolkata');
 $current_date = time(); 
 include('include/header.php');
@@ -108,7 +109,7 @@ $employeeManager = new EmployeeManager();
                                     <a class="btn btn-info preview-btn pull-left">Preview</a>
                                     
                                     <input type="submit" class="btn btn-sm btn-success pull-right" name="saveExperienceCertificate" value="Generate Pdf">
-                                    <a style="margin: 0 10px;" class="btn btn-sm btn-warning printMe pull-right" onclick="printMe();">Print</a>
+                                    <input style="margin: 0 10px;" type="submit" class="btn btn-sm btn-warning pull-right" name="saveExperienceCertificate" value="Print">
                                 </div>
                             </div>
                         </div>

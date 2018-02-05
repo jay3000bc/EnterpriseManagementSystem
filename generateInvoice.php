@@ -10,7 +10,7 @@ else if(isset($_GET['print_invoice'])) {
 	$invoice_id = $_GET['print_invoice'];
 }
 else {
-	header('location: index.php');
+	header('location: index');
 }
 include_once 'AdminManager.php';
 $adminManager = new AdminManager();
@@ -217,7 +217,7 @@ if(isset($_GET['print_invoice'])) {
 ?>	
 <script type="text/javascript">
 	window.print();
-	window.location.assign('createInvoice.php');
+	window.location.assign('createInvoice');
 </script>
 <?php
 	}

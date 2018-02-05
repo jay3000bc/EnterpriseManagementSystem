@@ -15,7 +15,7 @@ if(isset($_POST['forgotPassword'])) {
     $email = mysqli_real_escape_string($DBManager->conn, $_POST['email']);
     $accountDetails = $forgotPasswordManager->getAccountDetails($email);
     $name = $accountDetails['name'];
-    if(count($accountDetails) > 0 ) {
+    if($accountDetails!= '' ) {
         //Generate a random string.
         $token = openssl_random_pseudo_bytes(16);
         //Convert the binary data into hexadecimal representation.
@@ -31,17 +31,22 @@ if(isset($_POST['forgotPassword'])) {
             // include mail format 
             include('emails/forgotPasswordEmailMessage.php');
             // send mail
-            mail($email, $resetPasswordSubject, $message, $from);
+            if(mail($email, $resetPasswordSubject, $message, $from)) {
+                //echo "Mail Sent";
+            } else {
+                $_SESSION['loginErrorMsg'] = 'Sorry, Email cannot be sent now.Please try again later';
+                header('Location:index');
+            }
             // end
             $_SESSION['successMsgSentPasswordResetEmail'] = 'success';
-            header('Location:index.php');
+            header('Location:index');
         } else {
             $_SESSION['loginErrorMsg'] = 'Sorry, something went wrong please try again.';
-            header('Location:forgotpassword.php');
+            header('Location:forgotpassword');
         }    
     } else {
         $_SESSION['loginErrorMsg'] = 'Sorry, Your email is not registered with us.';
-        header('Location:index.php');
+        header('Location:index');
     }
 }
 // save reset password
@@ -55,14 +60,14 @@ if(isset($_POST['saveResetPassword'])) {
             $encryptpassword = md5($password);
             $result = $forgotPasswordManager->saveResetPassword($email, $encryptpassword);
             $_SESSION['loginErrorMsg'] = 'Congrats, Your password have been reset successfully.';
-            header('Location:index.php');
+            header('Location:index');
         } else {
             $_SESSION['loginErrorMsg'] = 'Sorry, Your password new password and confirm password doesnot matches.';
-            header('Location:index.php');
+            header('Location:index');
         }
     } else {
         $_SESSION['loginErrorMsg'] = 'Sorry, Password fields cannot be empty.';
-        header('Location:index.php');
+        header('Location:index');
     }
     
 }

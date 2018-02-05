@@ -1,4 +1,6 @@
-<?php include('../employee/include/header.php');
+<?php 
+$title = 'Permanent Appointment';
+include('../employee/include/header.php');
 include_once '../AppointmentManager.php';
 $appointmentManager = new AppointmentManager();
 $result = $appointmentManager->getPermanentAppointment($employee_id);
@@ -12,9 +14,9 @@ $result = $appointmentManager->getPermanentAppointment($employee_id);
         
       </h1>
       <ol class="breadcrumb">
-        <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="home"><i class="fa fa-dashboard"></i> Home</a></li>
         <li>Employee</li>
-        <li class="active"><a href="permanentAppointment.php">Permanent Appointment Letter</a></li>
+        <li class="active"><a href="permanentAppointment">Permanent Appointment Letter</a></li>
       </ol>
     </section>
 
@@ -29,7 +31,7 @@ $result = $appointmentManager->getPermanentAppointment($employee_id);
                         <?php if($result !='') {?>
                         <p>This is your Permanent Appointment Letter.<br>
                         Now you can download or print the same.</p>
-                        <iframe src="<?php echo $relativeUrl;?>uploads/appointment_pdf/permanent/<?php echo $result['pdf_name'];?>" width="100%" height="500px"></iframe>
+                        <iframe src="<?php echo $absoluteUrl;?>uploads/appointment_pdf/permanent/<?php echo $result['pdf_name'];?>" width="100%" height="500px"></iframe>
                         <?php } else { ?>
                         <p>It seems the Administrator has not provided any Permanent Appointment Letter</p>
                         <?php } ?>

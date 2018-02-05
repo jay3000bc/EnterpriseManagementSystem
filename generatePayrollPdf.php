@@ -166,7 +166,7 @@ if(isset($_GET['print_payroll'])) {
 ?>	
 <script type="text/javascript">
 	window.print();
-	window.location.assign('payroll.php');
+	window.location.assign('payroll');
 </script>
 <?php
 	}

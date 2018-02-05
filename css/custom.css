@@ -361,3 +361,23 @@ form .mandatory {
 #myDiv {
   display: none;
 }
+
+/* 404 error page styling */
+.error-template {
+	padding: 40px 15px;
+	text-align: center;
+}
+.error-actions {
+	margin-top:15px;
+	margin-bottom:15px;
+}
+.error-actions .btn { 
+	margin-right:10px; 
+}
+.centered-middle{
+	display: flex;
+	justify-content: center;
+	align-items: center; 
+	height: 100vh;
+}
+/* 404 error page styling end*/

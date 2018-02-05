@@ -1,4 +1,5 @@
 <?php
+$title = 'Change Password';
 include('../employee/include/header.php');
 
 // change password
@@ -23,7 +24,7 @@ if (isset($_POST["changePasswordForm"])) {
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
             <li>Settings</li>
-            <li class="active"><a href="changePasswordForm.php">Change Password</a></li>
+            <li class="active"><a href="changePasswordForm">Change Password</a></li>
         </ol>
     </section>
 
@@ -44,7 +45,7 @@ if (isset($_POST["changePasswordForm"])) {
                         } ?>
                         <div class="col-md-3"></div>
                         <div class="col-md-6">  
-                            <form role="form" id="changePasswordForm" method="POST" action="changePasswordForm.php">
+                            <form role="form" id="changePasswordForm" method="POST" action="changePasswordForm">
                                 <input type="hidden" name="id" value="<?php echo $id; ?>">
                                 <div class="form-group">
                                     <label for="currentPassword">Current Password</label>

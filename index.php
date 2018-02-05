@@ -1,19 +1,28 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 session_start();
 include_once('settings/config.php');
-$mysql = mysql_connect($host, $databaseUser, $databasePassword);
-
-if(mysql_select_db($databaseName, $mysql)) { 
-
+include_once 'DBManager.php';
+$DBManager = new DBManager();
+if(isset($DBManager->mysqlConnectError)) { 
+    $error = 'mysqlError';
 } else {
-    header('Location:setup.php');
-}
-include_once 'AdminManager.php';
-$adminManager = new AdminManager();
-$companyInfo = $adminManager->getAdminDetails();
-if(isset($_SESSION['username'])) {
-    header('Location:adminHome.php');
-}
+    include_once 'LoaderManager.php';
+    $loaderManager = new LoaderManager();
+    $resultCheckTableExist = $loaderManager->checkTableExist();
+    if(count($resultCheckTableExist) > 0 ) {
+        include_once 'AdminManager.php';
+        $adminManager = new AdminManager();
+        $companyInfo = $adminManager->getAdminDetails();
+        if(isset($_SESSION['username'])) {
+            header('Location:adminHome');
+        }
+    } else {
+        $error = 'tablesDoesNotExist';
+    }
+}    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,6 +47,17 @@ if(isset($_SESSION['username'])) {
   </head>
 <body>
     <div class="container">
+        <?php if(isset($error) && $error =='mysqlError') { ?>
+            <div class="jumbotron div-centered">
+                <h4>Welcome To EMS</h4>
+                <p class="alert alert-danger">You have not configured your config file under setting folder. Please open the config file in any of your editor and give the necessary database credientials and full url where you want to install your EMS and then refresh the site.</p>
+            </div>
+        <?php } elseif(isset($error) && $error =='tablesDoesNotExist') { ?>
+            <div class="jumbotron div-centered">
+                <h3>Welcome To EMS</h3>
+                <p class="alert alert-danger">You have not installed your tables yet. <a href="setup">Click here for table installation</a></p>
+            </div>
+        <?php } else { ?>
         <div class="row">
             <div class="col-md-6 col-md-offset-3 header-image">
                 <?php if($companyInfo['company_logo'] != '') { ?>
@@ -80,7 +100,7 @@ if(isset($_SESSION['username'])) {
                     </div>
                     <?php } ?>
                     <div class="form-group text-left">
-                        <a href="forgotPassword.php">Forgot Password ?</a>
+                        <a href="forgotPassword">Forgot Password ?</a>
                     </div>
                     <div class="form-group">
                         <input class="btn btn-success pull-left" type="submit" value="Submit" name="loginForm">
@@ -89,6 +109,7 @@ if(isset($_SESSION['username'])) {
                 </form>
             </div>
         </div>
+        <?php } ?>
     </div>
     <!-- sweet alert -->
     <script type="text/javascript" src="plugins/sweetalert/sweetalert.min.js"></script>

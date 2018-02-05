@@ -1,4 +1,5 @@
 <?php 
+$title = 'Search GST';
 date_default_timezone_set('Asia/Kolkata');
 include('settings/config.php');
 include('include/header.php');
@@ -77,7 +78,7 @@ $resultGSTPeriod = $GSTManager->getAllGSTPeriod();
                                                 <span class="text-danger" style="color:#FF0000;">NOT GENERATED</span>
                                             <?php } ?>
                                             </td>
-                                            <td><a href="viewGST.php?period=<?php echo $period; ?>">View</a></td>
+                                            <td><a href="viewGST?period=<?php echo $period; ?>">View</a></td>
                                             <?php 
                                             if($GSTManager->period[$i] == $period) { ?>
                                             <td><a target="_blank" href="uploads/GST/<?php echo $period;?>.xlsx">Download Excel</a></td>

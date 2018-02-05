@@ -1,4 +1,5 @@
 <?php
+$title = 'Create Invoice';
 setlocale(LC_MONETARY, 'en_IN'); 
 include('include/header.php');
 $sacResults = $adminManager->getSac();
@@ -43,6 +44,16 @@ $bankDetails= $adminManager->getBankDetails();
                             <input type="hidden" name="current_national_id" value="<?php echo $invoiceId['current_india_based_id']+1;?>">
                             <div class="form-content">
                                 <div class="row">
+                                    <?php 
+                                    if(isset($_SESSION['ErrorMsgInvoice'])) {
+                                ?>
+                                    <div class="col-md-12 error-message">
+                                        <p class="alert alert-danger"><?php echo $_SESSION['ErrorMsgInvoice'];?><span style="color:#fff;" class="clear-error-msg close">&times;</span></p>
+                                    </div>
+                                <?php
+                                    unset($_SESSION['ErrorMsgInvoice']);  
+                                    }
+                                ?>
                                 <p class="col-md-12"><label>Note: &nbsp;<span class="mandatory"> * </span></label> &nbsp;fields are mandatory.</p>
                                 <div class="col-md-6" style="border-right: 2px solid #a1a1a1;">
                                     <h4><b>Bill to party</b></h4>

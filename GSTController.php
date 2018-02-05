@@ -12,7 +12,9 @@ if (isset($_POST["generateGST"])) {
     $result = $GSTManager->generateGST($period, $status);
     if($result) {
     	$_SESSION['GSTMessage'] = 'success';
-		$pdf=exec('/usr/local/bin/wkhtmltopdf --page-size A4 --print-media-type --include-in-outline  http://www.enterhelix.com/mukesh/ems/generateGST.php?period='.$period.' ../ems/uploads/GST/'.$period.'.pdf 2>&1');
+    	// GENERATE PDF
+		$generatePdfUrl = $absoluteUrl.'generateGST.php?period='.$period;
+		$pdf=exec('/usr/local/bin/wkhtmltopdf --page-size A4 --print-media-type --include-in-outline '.$generatePdfUrl.' uploads/GST/'.$period.'.pdf 2>&1');
 		//generate xl file
         include_once 'generateGSTXL.php';
         
@@ -20,12 +22,12 @@ if (isset($_POST["generateGST"])) {
 		if($_POST["generateGST"] == 'Print') {
 			header('location:generateGST.php?period_print='.$period);
 		} else {
-			header('location:viewGST.php?period='.$period);
+			header('location:viewGST?period='.$period);
 		}
 		
 	}
 	else {
 		$_SESSION['GSTMessage'] = 'fail';
-		header('viewGST.php?period='.$period);
+		header('viewGST?period='.$period);
 	}
 }

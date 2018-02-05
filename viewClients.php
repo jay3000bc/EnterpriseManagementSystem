@@ -1,4 +1,5 @@
 <?php 
+$title = 'Clients';
 include('include/header.php');
 include_once 'ClientManager.php';
 $clientManager = new ClientManager();
@@ -58,9 +59,9 @@ $result = $clientManager->listClients();
                                 <td><?php echo $clientManager->country[$i];?></td>
                                 <td><?php echo $clientManager->created_at[$i];?></td>
                                 <td>
-                                    <a title="View" href="viewClientDetails.php?client_id=<?php echo $clientManager->client_id[$i]; ?>" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                    <a title="View" href="viewClientDetails?client_id=<?php echo $clientManager->client_id[$i]; ?>" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a>
 
-                                    <a title="Edit" class="btn btn-sm btn-success" href="editClient.php?client_id=<?php echo $clientManager->client_id[$i]; ?>"><i class="fa fa-pencil"></i></a>
+                                    <a title="Edit" class="btn btn-sm btn-success" href="editClient?client_id=<?php echo $clientManager->client_id[$i]; ?>"><i class="fa fa-pencil"></i></a>
                                     <input type="hidden" name="name" value="<?php echo $clientManager->name[$i]; ?>">
                                     <a title="Delete" class="delete-btn btn btn-sm btn-danger"><i class="fa fa-trash-o"></i></a>
                                     <input type="hidden" name="delete_client_id" value="<?php echo $clientManager->client_id[$i]; ?>">

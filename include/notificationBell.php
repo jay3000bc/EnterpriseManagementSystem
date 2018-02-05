@@ -19,14 +19,14 @@
                             $employeeDetails = $employeeManager->getEmployeeDetailsByEmployeeId($employeeManager->request_profile_employee_id[$i]);
                         ?>
                         <li>
-                        <a href="editEmployee.php?request_id=<?php echo $employeeDetails['employee_id'];?>">
+                        <a href="editEmployee?request_id=<?php echo $employeeDetails['employee_id'];?>">
                         <i class="fa fa-user text-aqua"></i><?php echo $employeeDetails['name']. ' has requested for Profile Update'; ?>
                         </a>
                         </li>
                         <?php } ?>
                     </ul>
                 </li>
-                <li class="footer"><a href="notifications.php">View all</a></li>
+                <li class="footer"><a href="notifications">View all</a></li>
             </ul>
         </li>
         <li><a href="http://www.alegralabs.com/support" target="_blank">Support</a></li>

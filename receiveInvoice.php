@@ -1,4 +1,5 @@
 <?php
+$title = 'Receive Invoice';
 setlocale(LC_MONETARY, 'en_IN'); 
 include('include/header.php');
 $sacResults = $adminManager->getSac();

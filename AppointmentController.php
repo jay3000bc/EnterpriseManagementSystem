@@ -1,5 +1,6 @@
 <?php
 session_start();
+include_once('settings/config.php');
 date_default_timezone_set('Asia/Kolkata');
 $current_date = time();
 include_once 'DBManager.php';
@@ -28,9 +29,16 @@ if (isset($_POST["saveProbationerAppointment"])) {
 	}
 		
 	if($result) {
-		$pdf=exec('/usr/local/bin/wkhtmltopdf --page-size A4 --print-media-type --include-in-outline  http://www.enterhelix.com/mukesh/ems/generatePrabationerAppointment.php?employee_id='.$employee_id.' ../ems/'.$target_file.' 2>&1');
+		$generatePdfUrl = $absoluteUrl.'generatePrabationerAppointment.php?employee_id='.$employee_id;
+
+		$pdf=exec('/usr/local/bin/wkhtmltopdf --page-size A4 --print-media-type --include-in-outline '.$generatePdfUrl.' '.$target_file.' 2>&1');
 		$_SESSION['probationer_success'] = 'success';
-		header("Location: probationerAppointment.php");
+		if($_POST["saveProbationerAppointment"] == 'Print') {
+			header('Location:generatePrabationerAppointment.php?print_appointment='.$employee_id);
+		} else {
+			header("Location: probationerAppointment");
+		}
+		
 	}
 }
 if (isset($_POST["savePermanentAppointment"])) {
@@ -53,9 +61,14 @@ if (isset($_POST["savePermanentAppointment"])) {
 		$result = $appointmentManager->savePermanentAppointment($employee_id, $appointment_details, $pdf_name);
 	}
 	if($result) {
-		$pdf=exec('/usr/local/bin/wkhtmltopdf --page-size A4 --print-media-type --include-in-outline  http://www.enterhelix.com/mukesh/ems/generatePermanentAppointment.php?employee_id='.$employee_id.' ../ems/'.$target_file.' 2>&1');
+		$generatePdfUrl = $absoluteUrl.'generatePermanentAppointment?employee_id='.$employee_id;
+		$pdf=exec('/usr/local/bin/wkhtmltopdf --page-size A4 --print-media-type --include-in-outline '.$generatePdfUrl.' '.$target_file.' 2>&1');
 		$_SESSION['permanent_success'] = 'success';
-		header("Location: permanentAppointment.php");
+		if($_POST["savePermanentAppointment"] == 'Print') {
+			header('Location:generatePermanentAppointment.php?print_appointment='.$employee_id);
+		} else {
+			header("Location: permanentAppointment");
+		}
 	}
 	
 }
@@ -105,9 +118,14 @@ if (isset($_POST["saveExperienceCertificate"])) {
 		$result = $appointmentManager->saveExperienceCertificate($employee_id, $experience_details, $pdf_name);
 	}
 	if($result) {
-		$pdf=exec('/usr/local/bin/wkhtmltopdf --page-size A4 --print-media-type --include-in-outline  http://www.enterhelix.com/mukesh/ems/generateExperienceCertificate.php?employee_id='.$employee_id.' ../ems/'.$target_file.' 2>&1');
+		$generatePdfUrl = $absoluteUrl.'generateExperienceCertificate?employee_id='.$employee_id;
+		$pdf=exec('/usr/local/bin/wkhtmltopdf --page-size A4 --print-media-type --include-in-outline '.$generatePdfUrl.' '.$target_file.' 2>&1');
 		$_SESSION['experience_certificate_success'] = 'success';
-		header("Location: experienceCertificate.php");
+		if($_POST["saveExperienceCertificate"] == 'Print') {
+			header('Location:generateExperienceCertificate.php?print_experience='.$employee_id);
+		} else {
+			header("Location: experienceCertificate");
+		}
 	}
 	
 }

@@ -1,7 +1,10 @@
 <?php
-//ini_set('display_errors', 1);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 date_default_timezone_set('Asia/Kolkata');
 $current_date = time();
+$microtime = microtime(true);
 session_start();
 include_once 'DBManager.php';
 $DBManager = new DBManager();
@@ -14,7 +17,7 @@ if(isset($_POST['manageClientIdForm'])) {
     $result = $clientManager->manageClientId($type);
     if($result) {
         $_SESSION['ClientIdTypeSelected'] = "ClientIdTypeSelected";
-        header('Location:createClient.php');
+        header('Location:createClient');
         die();
     }
     else {
@@ -42,19 +45,20 @@ if(isset($_POST['saveClientDetails'])) {
         $gstin = mysqli_real_escape_string($DBManager->conn, $_POST['gstin']);
     }
     $created_at = date("d/m/Y",$current_date);
-
+    // echo $_FILES["photo"]['name'];
+    // die();
     /*image upload*/
-    if($_FILES["photo"]['name'][0] != '') {
+    if($_FILES["photo"]['name'] != '') {
         //echo "string";die();
         $target_dir = "uploads/client_image/";
-        $target_file = $target_dir . basename($_FILES["photo"]["name"]);
+        $target_file = $target_dir . $microtime . basename($_FILES["photo"]["name"]);
         //echo $target_file; die();
         $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
         $check = getimagesize($_FILES["photo"]["tmp_name"]);
         // Check if image file is a actual image or fake image
         if ($check == false) {
             $_SESSION['ErrorMsg'] = "File is not an image.";
-            header('Location:createClient.php');
+            header('Location:createClient');
         }
         // Check if file already exists
         elseif (file_exists($target_file)) {
@@ -64,24 +68,24 @@ if(isset($_POST['saveClientDetails'])) {
          // Check file size
         elseif ($_FILES["photo"]["size"] > 5242880) {
             $_SESSION['ErrorMsg'] = "Sorry, image file is too large. Maximum file size must be less than 5kb.";
-            header('Location:createClient.php');
+            header('Location:createClient');
             exit();
         }
         // Allow certain file formats
         elseif ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
         && $imageFileType != "gif" ) {
             $_SESSION['ErrorMsg'] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-            header('Location:createClient.php');
+            header('Location:createClient');
             exit();
         }
         else {
             if (move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file)) {
-                $photo = basename($_FILES["photo"]["name"]);
+                $photo = $microtime . basename($_FILES["photo"]["name"]);
                 $_SESSION['session_client_photo_name'] = $photo;
                 //die();
             } else {
                 $_SESSION['ErrorMsg'] = "Sorry, there was an error uploading your file.";
-                header('Location:createClient.php');
+                header('Location:createClient');
                 exit();
 
             }
@@ -98,8 +102,8 @@ if(isset($_POST['saveClientDetails'])) {
         $_SESSION[$session_key] = mysqli_real_escape_string($DBManager->conn, $_POST['project_title'][$key]);
         $session_key = 'session_client_project_desc_'.$key;
         $_SESSION[$session_key] = mysqli_real_escape_string($DBManager->conn, $_POST['project_description'][$key]);
-       echo $project_title = mysqli_real_escape_string($DBManager->conn, $_POST['project_title'][$key]);
-       echo $project_description = mysqli_real_escape_string($DBManager->conn, $_POST['project_description'][$key]);
+            $project_title = mysqli_real_escape_string($DBManager->conn, $_POST['project_title'][$key]);
+            $project_description = mysqli_real_escape_string($DBManager->conn, $_POST['project_description'][$key]);
        $result2 = $clientManager->saveClientProjects($client_id, $project_title, $project_description, $created_at );
 
     }
@@ -113,12 +117,12 @@ if(isset($_POST['saveClientDetails'])) {
         }
         unset($_SESSION['session_client_photo_name']);
         unset($_SESSION['session_no_of_project']);
-        header('Location:viewClients.php');
+        header('Location:viewClients');
         die();
     }
     else {
         $_SESSION['ErrorMsg'] = "Opps Something went Wrong.";
-        header('Location:createClient.php');
+        header('Location:createClient');
         die();
     }
     
@@ -149,7 +153,7 @@ if(isset($_POST['editClientDetails'])) {
         // Check if image file is a actual image or fake image
         if ($check == false) {
             $_SESSION['ErrorMsg'] = "File is not an image.";
-            header('Location:editClient.php?client_id='.$client_id);
+            header('Location:editClient?client_id='.$client_id);
         }
         // Check if file already exists
         elseif (file_exists($target_file)) {
@@ -159,14 +163,14 @@ if(isset($_POST['editClientDetails'])) {
          // Check file size
         elseif ($_FILES["photo"]["size"] > 5242880) {
             $_SESSION['ErrorMsg'] = "Sorry, image file is too large. Maximum file size must be less than 5kb.";
-            header('Location:editClient.php?client_id='.$client_id);
+            header('Location:editClient?client_id='.$client_id);
             exit();
         }
         // Allow certain file formats
         elseif ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
         && $imageFileType != "gif" ) {
             $_SESSION['ErrorMsg'] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-            header('Location:editClient.php?client_id='.$client_id);
+            header('Location:editClient?client_id='.$client_id);
             exit();
         }
         else {
@@ -175,7 +179,7 @@ if(isset($_POST['editClientDetails'])) {
                 //die();
             } else {
                 $_SESSION['ErrorMsg'] = "Sorry, there was an error uploading your file.";
-                header('Location:editClient.php?client_id='.$client_id);
+                header('Location:editClient?client_id='.$client_id);
                 exit();
 
             }
@@ -206,11 +210,11 @@ if(isset($_POST['editClientDetails'])) {
     if($result1) {
 
         $_SESSION['successMsg'] = "clientEdited";
-        header('Location:viewClients.php');
+        header('Location:viewClients');
     }
     else {
         $_SESSION['ErrorMsg'] = "Opps Something went Wrong.";
-        header('Location:editClient.php?client_id='.$client_id);
+        header('Location:editClient?client_id='.$client_id);
     }
 }
 // change project status

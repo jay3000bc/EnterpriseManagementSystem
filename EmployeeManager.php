@@ -5,10 +5,12 @@ class EmployeeManager {
 
     //function create a new Employee
     function CreateEmployee($employee_id, $name, $designation, $email, $phone_no, $password, $photo, $current_address, $permanent_address, $father_name, $gender, $date_of_joining, $date_of_birth, $pf_account, $policy_no, $lic_id, $pan, $passport_no, $driving_license_no, $bank_account, $ifsc_code) {
+        $current_time = time();
+        $ip = $_SERVER["REMOTE_ADDR"];
         $db = new DBManager();
-        $sql = "INSERT into ems_employees(employee_id, name, designation, email, phone_no, password, photo, current_address, permanent_address, father_name, gender, date_of_joining, date_of_birth, pf_account, policy_no, lic_id, pan, passport_no, driving_license_no, bank_account, ifsc_code) 
+        $sql = "INSERT into ems_employees(employee_id, name, designation, email, phone_no, password, photo, current_address, permanent_address, father_name, gender, date_of_joining, date_of_birth, pf_account, policy_no, lic_id, pan, passport_no, driving_license_no, bank_account, ifsc_code, last_logged_in, ip) 
 
-        Values('$employee_id', '$name','$designation', '$email', $phone_no, '$password','$photo','$current_address','$permanent_address','$father_name','$gender','$date_of_joining','$date_of_birth','$pf_account','$policy_no','$lic_id','$pan','$passport_no','$driving_license_no','$bank_account','$ifsc_code')";
+        Values('$employee_id', '$name','$designation', '$email', $phone_no, '$password','$photo','$current_address','$permanent_address','$father_name','$gender','$date_of_joining','$date_of_birth','$pf_account','$policy_no','$lic_id','$pan','$passport_no','$driving_license_no','$bank_account','$ifsc_code', '$current_time', '$ip')";
 
         $result = $db->execute($sql);
         return $result;
@@ -63,7 +65,7 @@ class EmployeeManager {
             $sql = "SELECT * from ems_employees where employee_id=$employee_id";
         }
         else {
-            $sql = "SELECT * from ems_employees where employee_id='".$employee_id."'";
+            $sql = "SELECT * from ems_employees where employee_id='$employee_id'";
 
         }
         //echo $sql;
@@ -148,7 +150,7 @@ class EmployeeManager {
     }
 
     //function to authenticate employee
-    function SubmitForm($email, $password) {
+    function loginRequest($email, $password) {
         session_start();
         $db = new DBManager();
         $sql = "SELECT * from ems_employees where email='$email'";
@@ -172,16 +174,16 @@ class EmployeeManager {
                 $_SESSION['id'] = $dbid;
                 $_SESSION['employee_id'] = $dbemployee_id;
                 //$_SESSION['photo'] = $photo;
-                header('Location:employee/home.php');
+                header('Location:employee/home');
             }
             else {
                 $_SESSION['loginErrorMsg'] = "Incorrect Username or Password.";
-                header('Location:index.php');
+                header('Location:index');
             }
         }
         else {
             $_SESSION['loginErrorMsg'] = "Your are not a vaild user.";
-            header('Location:index.php');
+            header('Location:index');
         }
     }
     public function checkUnique($data, $dbfield) {
@@ -207,11 +209,11 @@ class EmployeeManager {
             $sql = "UPDATE ems_employees set password = '$newPassword' where id=$id";
             $result = $db->execute($sql);
             $_SESSION['changePasswordSuccessMsg'] = "success";
-            header('Location:changePasswordForm.php');
+            header('Location:changePasswordForm');
         }
         else {
             $_SESSION['changePasswordErrorMsg'] = "Your Current Password is incorrect.";
-            header('Location:changePasswordForm.php');
+            header('Location:changePasswordForm');
         }
 
     }
@@ -244,10 +246,12 @@ class EmployeeManager {
     function editProfileRequset($employee_id, $name, $designation, $email, $phone_no, $password, $photo, $current_address, $permanent_address, $father_name, $gender, $date_of_joining, $date_of_birth, $pf_account, $policy_no, $lic_id, $pan, $passport_no, $driving_license_no, $bank_account, $ifsc_code) {
         date_default_timezone_set('Asia/Kolkata');
         $created_at = date("Y-m-d H:i:s");
+        $current_time = time();
+        $ip = $_SERVER["REMOTE_ADDR"];
         $db = new DBManager();
-        $sql = "INSERT into ems_profile_update_request(employee_id, name, designation, email, phone_no, password, photo, current_address, permanent_address, father_name, gender, date_of_joining, date_of_birth, pf_account, policy_no, lic_id, pan, passport_no, driving_license_no, bank_account, ifsc_code, created_at) 
+        $sql = "INSERT into ems_profile_update_request(employee_id, name, designation, email, phone_no, password, photo, current_address, permanent_address, father_name, gender, date_of_joining, date_of_birth, pf_account, policy_no, lic_id, pan, passport_no, driving_license_no, bank_account, ifsc_code, last_logged_in, ip, created_at) 
 
-        Values('$employee_id', '$name','$designation', '$email', '$phone_no', '$password','$photo','$current_address','$permanent_address','$father_name','$gender','$date_of_joining','$date_of_birth','$pf_account','$policy_no','$lic_id','$pan','$passport_no','$driving_license_no','$bank_account','$ifsc_code','$created_at')";
+        Values('$employee_id', '$name','$designation', '$email', '$phone_no', '$password','$photo','$current_address','$permanent_address','$father_name','$gender','$date_of_joining','$date_of_birth','$pf_account','$policy_no','$lic_id','$pan','$passport_no','$driving_license_no','$bank_account','$ifsc_code','$current_time', '$ip', '$created_at')";
 
         $result = $db->execute($sql);
         return $result;
@@ -274,7 +278,12 @@ class EmployeeManager {
     //getRequestProfileEmployeeDetails
     public function getRequestProfileEmployeeDetails($employee_id) {
         $db = new DBManager();
-        $sql = "SELECT * from ems_profile_update_request where employee_id='$employee_id'";
+        if(is_numeric($employee_id)) {
+            $sql = "SELECT * from ems_profile_update_request where employee_id=$employee_id";
+        } else {
+            $sql = "SELECT * from ems_profile_update_request where employee_id='$employee_id'";
+        }
+        
         $employeeDetails = $db->getARecord($sql);
         return $employeeDetails;
     }

@@ -1,4 +1,6 @@
-<?php include('include/header.php');
+<?php 
+$title = 'Company Profile';
+include('include/header.php');
 include('settings/indian_bankname_list.php');
 $sacResults = $adminManager->getSac();
 $bankDetails= $adminManager->getBankDetails();

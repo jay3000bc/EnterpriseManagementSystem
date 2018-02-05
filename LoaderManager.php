@@ -1,7 +1,18 @@
 <?php
 include_once 'DBManager.php';
 class LoaderManager {
-
+	public function checkTableExist() {
+		$table_name = [];
+		$db = new DBManager();
+		$databaseName = $GLOBALS['databaseName'];
+        $sql= "SELECT table_name FROM information_schema.tables WHERE table_schema = '$databaseName'";
+        $data = $db->getAllRecords($sql);
+        $total = $db->getNumRow($sql);
+        while ($row = $db->getNextRow()) {
+            $table_name[] = $row['table_name'];
+        }
+        return $table_name;
+    }
 	// sql to create invoice table
 	public function createInvoiceTable($invoice_digits, $starting_no, $export_invoice_prefix, $india_based_prefix) {
 		$db = new DBManager();
@@ -32,12 +43,11 @@ class LoaderManager {
 		  `state` int(11) NOT NULL,
 		  `invoice_mode` int(2) NOT NULL COMMENT '0-online, 1-manual',
 		  `reverse_charge` int(2) NOT NULL COMMENT '0-No, 1-Yes',
-		  `sac_code` int(11) NOT NULL,
 		  `bank_id` int(11) NOT NULL,
 		  `currency_type` varchar(50) NOT NULL,
 		  `net_amount` int(11) NOT NULL,
 		  `invoice_date` varchar(50) NOT NULL,
-		  `status` int(11) NOT NULL COMMENT '0-Unpaid, 1-Paid, 2-Partially Paid',
+		  `status` int(11) DEFAULT NULL COMMENT '0-Unpaid, 1-Paid, 2-Partially Paid',
   		  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 		  PRIMARY KEY (`id`)
 		) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=$starting_no";
@@ -135,7 +145,7 @@ class LoaderManager {
 		  `photo` varchar(50) NOT NULL,
 		  `created_at` varchar(50) NOT NULL,
 		  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-		  `status` int(11) NOT NULL COMMENT '0-on going, 1-completed',
+		  `status` int(11) NOT NULL DEFAULT '0' COMMENT '0-on going, 1-completed',
 		  PRIMARY KEY (`id`)
 		) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=$starting_no";
 		$result = $db->execute($sql3);

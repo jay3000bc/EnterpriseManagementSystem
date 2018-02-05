@@ -89,7 +89,7 @@ class PayrollManager {
     // get preview details
     function getPreviewPayroll() {
         $db = new DBManager();
-        $sql = "SELECT * from preview_payroll";
+        $sql = "SELECT * from ems_preview_payroll";
         $result = $db->getARecord($sql);
         return $result;
     }

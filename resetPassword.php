@@ -9,7 +9,7 @@ include_once 'ForgotPasswordManager.php';
 $forgotPasswordManager = new ForgotPasswordManager();
 
 if(isset($_SESSION['username'])) {
-    header('Location:adminHome.php');
+    header('Location:adminHome');
 }
 elseif(isset($_GET['token'])) {
     $resultResetPassword = $forgotPasswordManager->getResetPasswordDetails($_GET['token']);
@@ -27,10 +27,10 @@ elseif(isset($_GET['token'])) {
         
     } else {
        $_SESSION['loginErrorMsg'] = 'Invalid url'; 
-       header('Location:index.php');
+       header('Location:index');
     }
 } else {
-    header('Location:index.php');
+    header('Location:index');
 }
 ?>
 <!DOCTYPE html>

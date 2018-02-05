@@ -1,4 +1,5 @@
 <?php 
+$title = 'View Projects';
 include('include/header.php');
 include_once 'ClientManager.php';
 $clientManager = new ClientManager();
@@ -43,7 +44,7 @@ $result = $clientManager->listAllProjects();
                                 <td><?php echo $clientManager->created_at[$i];?></td>
                                 <td id="ended_at_value<?php echo $clientManager->project_id[$i]; ?>"><?php if($clientManager->ended_at[$i]) echo $clientManager->ended_at[$i]; else echo 'On Going'?></td>
                                 <td>
-                                    <a title="View" href="viewSingleProjectDetails.php?project_id=<?php echo $clientManager->project_id[$i]; ?>" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                    <a title="View" href="viewSingleProjectDetails?project_id=<?php echo $clientManager->project_id[$i]; ?>" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a>
 
                                     <?php 
                                     if($clientManager->status[$i] == 1) { ?>

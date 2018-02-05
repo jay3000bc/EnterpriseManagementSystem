@@ -1,4 +1,5 @@
 <?php 
+$title = 'View GST';
 include('settings/config.php');
 include('include/header.php');
 include_once 'GSTManager.php';

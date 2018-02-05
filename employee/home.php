@@ -1,4 +1,6 @@
-<?php include('../employee/include/header.php');
+<?php 
+$title = 'Home';
+include('../employee/include/header.php');
 $totalProfileUpdateRequest = $employeeManager->getProfileUpdateRequest();
 // rss feeds
 include_once('../include/rssfeeds.php');

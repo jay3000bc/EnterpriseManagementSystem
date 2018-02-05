@@ -1,4 +1,6 @@
-<?php include('include/header.php');
+<?php 
+$title = 'Change Password';
+include('include/header.php');
 include_once 'AdminManager.php';
 $adminManager = new AdminManager();
 $result = $adminManager->getAdminDetails();

@@ -1,4 +1,5 @@
 <?php 
+$title = 'Payroll';
 include('include/header.php');
 date_default_timezone_set('Asia/Kolkata');
 include_once 'EmployeeManager.php';
@@ -611,7 +612,6 @@ $('.project_title_input').blur(function() {
         var btn_text = $(this).val();
         var form = $("#payrollForm");
         $('.generate-pdf-btn').attr('disabled','disabled');
-        //$('#invoiceForm').submit();
         $.ajax({
             type:"POST",
             url:form.attr("action"),
@@ -626,6 +626,7 @@ $('.project_title_input').blur(function() {
                } 
             }
         });
+        
     });
 
     // $('.generate-pdf-btn').click(function() {

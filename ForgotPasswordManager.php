@@ -110,7 +110,7 @@ class ForgotPasswordManager {
 		$db = new DBManager();
 		$sql = "SELECT * from ems_admin where email = '$email'";
 		$accountDetails = $db->getARecord($sql);
-		if(count($accountDetails) > 0) {
+		if($accountDetails != '') {
 			$sql = "UPDATE ems_admin set password = '$password' where email = '$email'";
 			$result = $db->execute($sql);
 			return $result;

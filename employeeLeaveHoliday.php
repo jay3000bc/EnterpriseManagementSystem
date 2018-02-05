@@ -1,4 +1,5 @@
 <?php 
+$title = 'Leave/ Holidays';
 include('include/header.php');
 include_once 'EvaluateDaysManager.php';
 $evaluateDaysManager = new EvaluateDaysManager();

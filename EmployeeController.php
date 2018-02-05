@@ -16,14 +16,14 @@ if (isset($_POST["saveEmployeeDetails"])) {
     $check_email_unique_result = $employeeManager->checkUnique($email, 'email');
     if($check_email_unique_result > 0 ) {
         $_SESSION['ErrorMsg'] = "Email already exist. Please try another.";
-        header('Location:createEmployee.php');
+        header('Location:createEmployee');
         die();
     }
     $phone_no = mysqli_real_escape_string($DBManager->conn, $_POST['phone_no']);
     $check_phone_unique_result = $employeeManager->checkUnique($phone_no, 'phone_no');
     if($check_phone_unique_result > 0 ) {
         $_SESSION['ErrorMsg'] = "Phone number already exist. Please try another.";
-        header('Location:createEmployee.php');
+        header('Location:createEmployee');
         die();
     }
     $name = mysqli_real_escape_string($DBManager->conn, $_POST['name']);
@@ -40,26 +40,26 @@ if (isset($_POST["saveEmployeeDetails"])) {
         // Check if image file is a actual image or fake image
         if ($check == false) {
             $_SESSION['ErrorMsg'] = "File is not an image.";
-            header('Location:createEmployee.php');
+            header('Location:createEmployee');
         }
         // Check if file already exists
         elseif (file_exists($target_file)) {
             //echo "string"; die();
             $_SESSION['ErrorMsg'] = "Sorry, image file already exists.";
-            header('Location:createEmployee.php');
+            header('Location:createEmployee');
             exit();
         } 
          // Check file size
         elseif ($_FILES["photo"]["size"] > 5242880) {
             $_SESSION['ErrorMsg'] = "Sorry, image file is too large. Maximum file size must be less than 5MB.";
-            header('Location:createEmployee.php');
+            header('Location:createEmployee');
             exit();
         }
         // Allow certain file formats
         elseif ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
         && $imageFileType != "gif" ) {
             $_SESSION['ErrorMsg'] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-            header('Location:createEmployee.php');
+            header('Location:createEmployee');
             exit();
         }
         else {
@@ -69,7 +69,7 @@ if (isset($_POST["saveEmployeeDetails"])) {
                 //die();
             } else {
                 $_SESSION['ErrorMsg'] = "Sorry, there was an error uploading your file.";
-                header('Location:createEmployee.php');
+                header('Location:createEmployee');
                 exit();
 
             }
@@ -91,7 +91,7 @@ if (isset($_POST["saveEmployeeDetails"])) {
     $check_pan_unique_result = $employeeManager->checkUnique($pan, 'pan');
     if($check_pan_unique_result > 0 ) {
         $_SESSION['ErrorMsg'] = "PAN already exist..";
-        header('Location:createEmployee.php');
+        header('Location:createEmployee');
         die();
     }
     $passport_no = mysqli_real_escape_string($DBManager->conn, $_POST['passport_no']);
@@ -100,7 +100,7 @@ if (isset($_POST["saveEmployeeDetails"])) {
     $check_bank_account_unique_result = $employeeManager->checkUnique($bank_account, 'bank_account');
     if($check_bank_account_unique_result > 0 ) {
         $_SESSION['ErrorMsg'] = "Bank Account already exist.";
-        header('Location:createEmployee.php');
+        header('Location:createEmployee');
         die();
     }
     $ifsc_code = mysqli_real_escape_string($DBManager->conn, $_POST['ifsc_code']);
@@ -115,11 +115,11 @@ if (isset($_POST["saveEmployeeDetails"])) {
             
         } 
         unset($_SESSION['session_photo_name']);
-        header('Location:viewEmployees.php');
+        header('Location:viewEmployees');
     }
     else {
         $_SESSION['ErrorMsg'] = "Enable to Create Employee";
-         header('Location:createEmployee.php');
+         header('Location:createEmployee');
     }
 }
 // update employee profile  details   
@@ -136,7 +136,7 @@ if(isset($_POST['saveEditEmployeeDetails'])) {
         $check_email_unique_result = $employeeManager->checkUnique($email, 'email');
         if($check_email_unique_result > 0 ) {
             $_SESSION['ErrorMsg'] = "Email already exist. Please try another.";
-            header('Location:editEmployee.php?id='.$id);
+            header('Location:editEmployee?id='.$id);
             die();
         }
     }
@@ -147,7 +147,7 @@ if(isset($_POST['saveEditEmployeeDetails'])) {
         $check_phone_unique_result = $employeeManager->checkUnique($phone_no, 'phone_no');
         if($check_phone_unique_result > 0 ) {
             $_SESSION['ErrorMsg'] = "Phone number already exist. Please try another.";
-            header('Location:editEmployee.php?id='.$id);
+            header('Location:editEmployee?id='.$id);
             die();
         }
     }
@@ -172,26 +172,26 @@ if(isset($_POST['saveEditEmployeeDetails'])) {
         // Check if image file is a actual image or fake image
         if ($check == false) {
             $_SESSION['ErrorMsg'] = "File is not an image.";
-            header('Location:editEmployee.php?id='.$id);
+            header('Location:editEmployee?id='.$id);
         }
         // Check if file already exists
         elseif (file_exists($target_file)) {
             //echo "string"; die();
             $_SESSION['ErrorMsg'] = "Sorry, image file already exists.";
-            header('Location:editEmployee.php?id='.$id);
+            header('Location:editEmployee?id='.$id);
             exit();
         } 
          // Check file size
         elseif ($_FILES["photo"]["size"] > 5242880) {
             $_SESSION['ErrorMsg'] = "Sorry, image file is too large. Maximum file size must be less than 5MB.";
-            header('Location:editEmployee.php?id='.$id);
+            header('Location:editEmployee?id='.$id);
             exit();
         }
         // Allow certain file formats
         elseif ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
         && $imageFileType != "gif" ) {
             $_SESSION['ErrorMsg'] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-            header('Location:editEmployee.php?id='.$id);
+            header('Location:editEmployee?id='.$id);
             exit();
         }
         else {
@@ -201,7 +201,7 @@ if(isset($_POST['saveEditEmployeeDetails'])) {
                 //die();
             } else {
                 $_SESSION['ErrorMsg'] = "Sorry, there was an error uploading your file.";
-                header('Location:editEmployee.php?id='.$id);
+                header('Location:editEmployee?id='.$id);
                 exit();
 
             }
@@ -226,7 +226,7 @@ if(isset($_POST['saveEditEmployeeDetails'])) {
         $check_pan_unique_result = $employeeManager->checkUnique($pan, 'pan');
         if($check_pan_unique_result > 0 ) {
             $_SESSION['ErrorMsg'] = "PAN already exist..";
-            header('Location:editEmployee.php?id='.$id);
+            header('Location:editEmployee?id='.$id);
             die();
         }
     }    
@@ -239,7 +239,7 @@ if(isset($_POST['saveEditEmployeeDetails'])) {
         $check_bank_account_unique_result = $employeeManager->checkUnique($bank_account, 'bank_account');
         if($check_bank_account_unique_result > 0 ) {
             $_SESSION['ErrorMsg'] = "Bank Account already exist.";
-            header('Location:editEmployee.php?id='.$id);
+            header('Location:editEmployee?id='.$id);
             die();
         }
     }
@@ -253,11 +253,11 @@ if(isset($_POST['saveEditEmployeeDetails'])) {
             $resultProfileRequestUpdate = $employeeManager->deleteProfileUpdateRequest($_POST['profile_update_request']);
         }
         $_SESSION['successMsg'] = "employeeEdited";
-        header('Location:viewEmployees.php');
+        header('Location:viewEmployees');
     }
     else {
         $_SESSION['ErrorMsg'] = "Enable to Edit Employee";
-        header('Location:editEmployee.php?id='.$id);
+        header('Location:editEmployee?id='.$id);
         die();
     }
 }
@@ -286,7 +286,7 @@ if(isset($_POST['manageEmployeeIdForm'])) {
     $result = $employeeManager->manageEmployeeId($type, $totalEmployee);
     if($result) {
         $_SESSION['employeeIdTypeSelected'] = "employeeIdTypeSelected";
-        header('Location:createEmployee.php');
+        header('Location:createEmployee');
     }
     else {
         header('Location:manageEmployeeId.php');
@@ -310,7 +310,7 @@ if (isset($_POST["loginForm"])) {
     $email = mysqli_real_escape_string($DBManager->conn, $_POST['email']);
     $password = mysqli_real_escape_string($DBManager->conn, $_POST['password']);
     $encryptpassword = md5($password);
-    $result = $employeeLoginForm->SubmitForm($email, $encryptpassword);
+    $result = $employeeLoginForm->loginRequest($email, $encryptpassword);
 }
 
 // check_already_exist_value

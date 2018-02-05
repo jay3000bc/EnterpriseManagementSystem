@@ -3,12 +3,6 @@ include_once 'function_no_to_words.php';
 include('settings/config.php');
 date_default_timezone_set('Asia/Kolkata');
 $current_date = time();
-// if(isset($_GET['invoice_id'])) {
-// 	$invoice_id = $_GET['invoice_id'];
-// }
-// else {
-// 	header('location: index.php');
-// }
 include_once 'AdminManager.php';
 $adminManager = new AdminManager();
 $companyInfo = $adminManager->getAdminDetails();
@@ -24,7 +18,7 @@ $totalServices = $invoiceManager->getPreviewServices($invoice_id);
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Preview Invoice</title>
 </head>
 <body>
 	<div class="container invoice-box" id="previewInvoiceDetails">

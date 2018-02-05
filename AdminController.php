@@ -15,17 +15,17 @@ if (isset($_POST["loginForm"])) {
         $loaderManager = new LoaderManager();
         $checkSettingComplete = $loaderManager->checkSettingComplete();
         if($checkSettingComplete['status'] == 1 ) {
-            $result = $adminLoginForm->SubmitForm($username, $encryptpassword);
+            $result = $adminLoginForm->loginRequest($username, $encryptpassword);
         } else {
             $_SESSION['completeSetting'] = 'Please complete setting before you login.';
-            header('location:setup.php');
+            header('location:setup');
         }
         
     }
     else {
         include_once 'EmployeeManager.php';
         $employeeLoginForm = new EmployeeManager();   
-        $result = $employeeLoginForm->SubmitForm($username, $encryptpassword);
+        $result = $employeeLoginForm->loginRequest($username, $encryptpassword);
     }
 }
 if (isset($_POST["changePasswordForm"])) {
@@ -47,26 +47,26 @@ if (isset($_POST['changePhotoForm'])) {
         // Check if image file is a actual image or fake image
         if ($check == false) {
             $_SESSION['photoErrorMsg'] = "File is not an image.";
-            header('Location:changePasswordForm.php');
+            header('Location:changePasswordForm');
         }
         // Check if file already exists
         elseif (file_exists($target_file)) {
             //echo "string"; die();
             $_SESSION['photoErrorMsg'] = "Sorry, image file already exists.";
-            header('Location:changePasswordForm.php');
+            header('Location:changePasswordForm');
             exit();
         } 
          // Check file size
         elseif ($_FILES["photo"]["size"] > 5242880) {
             $_SESSION['photoErrorMsg'] = "Sorry, image file is too large. Maximum file size must be less than 5MB.";
-            header('Location:changePasswordForm.php');
+            header('Location:changePasswordForm');
             exit();
         }
         // Allow certain file formats
         elseif ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
         && $imageFileType != "gif" ) {
             $_SESSION['photoErrorMsg'] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-            header('Location:changePasswordForm.php');
+            header('Location:changePasswordForm');
             exit();
         }
         else {
@@ -75,7 +75,7 @@ if (isset($_POST['changePhotoForm'])) {
                 //die();
             } else {
                 $_SESSION['photoErrorMsg'] = "Sorry, there was an error uploading your file.";
-                header('Location:changePasswordForm.php');
+                header('Location:changePasswordForm');
                 exit();
 
             }
@@ -111,26 +111,26 @@ if(isset($_POST['updateCompanyProfile'])) {
         // Check if image file is a actual image or fake image
         if ($check == false) {
             $_SESSION['photoErrorMsg'] = "File is not an image.";
-            header('Location:companyProfile.php');
+            header('Location:companyProfile');
         }
         // Check if file already exists
         elseif (file_exists($target_file)) {
             //echo "string"; die();
             $_SESSION['photoErrorMsg'] = "Sorry, image file already exists.";
-            header('Location:companyProfile.php');
+            header('Location:companyProfile');
             exit();
         } 
          // Check file size
         elseif ($_FILES["photo"]["size"] > 5242880) {
             $_SESSION['photoErrorMsg'] = "Sorry, image file is too large. Maximum file size must be less than 5MB.";
-            header('Location:companyProfile.php');
+            header('Location:companyProfile');
             exit();
         }
         // Allow certain file formats
         elseif ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
         && $imageFileType != "gif" ) {
             $_SESSION['photoErrorMsg'] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-            header('Location:companyProfile.php');
+            header('Location:companyProfile');
             exit();
         }
         else {
@@ -139,7 +139,7 @@ if(isset($_POST['updateCompanyProfile'])) {
                 //die();
             } else {
                 $_SESSION['photoErrorMsg'] = "Sorry, there was an error uploading your file.";
-                header('Location:companyProfile.php');
+                header('Location:companyProfile');
                 exit();
 
             }
@@ -159,26 +159,26 @@ if(isset($_POST['updateCompanyProfile'])) {
         // Check if image file is a actual image or fake image
         if ($check == false) {
             $_SESSION['companyLogoErrorMsg'] = "File is not an image.";
-            header('Location:companyProfile.php');
+            header('Location:companyProfile');
         }
         // Check if file already exists
         elseif (file_exists($target_file)) {
             //echo "string"; die();
             $_SESSION['companyLogoErrorMsg'] = "Sorry, image file already exists.";
-            header('Location:companyProfile.php');
+            header('Location:companyProfile');
             exit();
         } 
          // Check file size
         elseif ($_FILES["company_logo"]["size"] > 5242880) {
             $_SESSION['companyLogoErrorMsg'] = "Sorry, image file is too large. Maximum file size must be less than 5MB.";
-            header('Location:companyProfile.php');
+            header('Location:companyProfile');
             exit();
         }
         // Allow certain file formats
         elseif ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
         && $imageFileType != "gif" ) {
             $_SESSION['companyLogoErrorMsg'] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-            header('Location:companyProfile.php');
+            header('Location:companyProfile');
             exit();
         }
         else {
@@ -187,7 +187,7 @@ if(isset($_POST['updateCompanyProfile'])) {
                 //die();
             } else {
                 $_SESSION['companyLogoErrorMsg'] = "Sorry, there was an error uploading your file.";
-                header('Location:companyProfile.php');
+                header('Location:companyProfile');
                 exit();
 
             }
@@ -207,26 +207,26 @@ if(isset($_POST['updateCompanyProfile'])) {
         // Check if image file is a actual image or fake image
         if ($check == false) {
             $_SESSION['companyLogoErrorMsg'] = "File is not an image.";
-            header('Location:companyProfile.php');
+            header('Location:companyProfile');
         }
         // Check if file already exists
         elseif (file_exists($target_file)) {
             //echo "string"; die();
             $_SESSION['companyLogoErrorMsg'] = "Sorry, image file already exists.";
-            header('Location:companyProfile.php');
+            header('Location:companyProfile');
             exit();
         } 
          // Check file size
         elseif ($_FILES["signature"]["size"] > 5242880) {
             $_SESSION['companyLogoErrorMsg'] = "Sorry, image file is too large. Maximum file size must be less than 5MB.";
-            header('Location:companyProfile.php');
+            header('Location:companyProfile');
             exit();
         }
         // Allow certain file formats
         elseif ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
         && $imageFileType != "gif" ) {
             $_SESSION['companyLogoErrorMsg'] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-            header('Location:companyProfile.php');
+            header('Location:companyProfile');
             exit();
         }
         else {
@@ -235,7 +235,7 @@ if(isset($_POST['updateCompanyProfile'])) {
                 //die();
             } else {
                 $_SESSION['companyLogoErrorMsg'] = "Sorry, there was an error uploading your file.";
-                header('Location:companyProfile.php');
+                header('Location:companyProfile');
                 exit();
 
             }
@@ -287,7 +287,7 @@ if(isset($_POST['updateCompanyProfile'])) {
 
     if($result) {
         $_SESSION['updateCompanyProfileSuccess'] = 'success';
-        header('Location:companyProfile.php');
+        header('Location:companyProfile');
     }
 }
 if (isset($_POST["updateTermsConditions"])) {
@@ -301,14 +301,14 @@ if (isset($_POST["updateTermsConditions"])) {
          // Check file size
         elseif ($_FILES["employee_terms_conditions"]["size"] > 5242880) {
             $_SESSION['photoErrorMsg'] = "Sorry, File is too large. Maximum file size must be less than 5MB.";
-            header('Location:employeeTermsConditions.php');
+            header('Location:employeeTermsConditions');
             exit();
         }
         // Allow certain file formats
         // elseif ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
         // && $imageFileType != "gif" ) {
         //     $_SESSION['photoErrorMsg'] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-        //     header('Location:companyProfile.php');
+        //     header('Location:companyProfile');
         //     exit();
         // }
         else {
@@ -317,7 +317,7 @@ if (isset($_POST["updateTermsConditions"])) {
                 //die();
             } else {
                 $_SESSION['pdfErrorMsg'] = "Sorry, there was an error uploading your file.";
-                header('Location:employeeTermsConditions.php');
+                header('Location:employeeTermsConditions');
                 exit();
 
             }
@@ -327,7 +327,7 @@ if (isset($_POST["updateTermsConditions"])) {
     $result = $adminManager->updateEmployeeTermsConditions($employee_terms_conditions);
     if($result) {
         $_SESSION['updateTermsConditionsSuccess'] = 'success';
-        header('Location:employeeTermsConditions.php');
+        header('Location:employeeTermsConditions');
     }
 
 }

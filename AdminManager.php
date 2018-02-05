@@ -3,7 +3,7 @@ include_once 'DBManager.php';
 class AdminManager {
 
     //function to authenticate admin
-    function SubmitForm($username,$password) {
+    function loginRequest($username,$password) {
         //echo $username; die();
         $db = new DBManager();
         $sql = "SELECT * from ems_admin";
@@ -23,11 +23,11 @@ class AdminManager {
         	$_SESSION['username'] = $dbusername;
             $_SESSION['last_logged_in'] = $db_last_logged_in;
             $_SESSION['photo'] = $photo;
-        	header('Location:adminHome.php');
+        	header('Location:adminHome');
         }
         else {
         	$_SESSION['loginErrorMsg'] = "Incorrect Username or Password.";
-        	 header('Location:index.php');
+        	 header('Location:index');
         }
        
     }
@@ -43,11 +43,11 @@ class AdminManager {
         	$sql = "UPDATE ems_admin set password = '$newPassword'";
         	$result = $db->execute($sql);
         	$_SESSION['changePasswordSuccessMsg'] = "success";
-        	header('Location:changePasswordForm.php');
+        	header('Location:changePasswordForm');
         }
         else {
         	$_SESSION['changePasswordErrorMsg'] = "Your Current Password is incorrect.";
-        	header('Location:changePasswordForm.php');
+        	header('Location:changePasswordForm');
         }
 
     }
@@ -58,7 +58,7 @@ class AdminManager {
         unset($_SESSION['photo']);
         $_SESSION['photo'] = $changePhoto;
         $_SESSION['changePhotoSuccessMsg'] = "success";
-        header('Location:changePasswordForm.php');
+        header('Location:changePasswordForm');
     }
     // get a particular admin
     function getAdminDetails() {

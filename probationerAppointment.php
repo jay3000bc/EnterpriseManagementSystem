@@ -1,4 +1,5 @@
 <?php
+$title = 'Probationer Appointment';
 date_default_timezone_set('Asia/Kolkata');
 $current_date = time(); 
 include('include/header.php');
@@ -10,7 +11,7 @@ $employeeManager = new EmployeeManager();
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h1>Probationer Applointment Letter</h1>
+        <h1>Probationer Appointment Letter</h1>
          <?php include_once('include/notificationBell.php'); ?>
     </section>
 
@@ -111,7 +112,8 @@ $employeeManager = new EmployeeManager();
                                 <div class="form-group">
                                     <a class="btn btn-info preview-btn pull-left">Preview</a>
                                     <input type="submit" class="btn btn-sm btn-success pull-right" name="saveProbationerAppointment" value="Generate Pdf">
-                                    <a style="margin: 0 10px;" class="btn btn-sm btn-warning printMe pull-right" onclick="printMe();">Print</a>
+                                    <input style="margin: 0 10px;" type="submit" class="btn btn-sm btn-warning pull-right" name="saveProbationerAppointment" value="Print">
+                                    <!-- <a style="margin: 0 10px;" class="btn btn-sm btn-warning printMe pull-right" onclick="printMe();">Print</a> -->
                                 </div>
                             </div>
                         </div>
@@ -235,7 +237,9 @@ $employeeManager = new EmployeeManager();
    // print document 
     function printMe() {
         document.getElementById('appointment_details_ifr').contentWindow.print();
-        $('form').submit();
+        //alert('hello');
+        //$('#generatePdf').trigger("click");
+        
     }
 </script>
 <?php 

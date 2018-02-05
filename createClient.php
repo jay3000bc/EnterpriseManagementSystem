@@ -1,4 +1,6 @@
-<?php include('include/header.php');
+<?php 
+$title = 'Create Client';
+include('include/header.php');
 date_default_timezone_set('Asia/Kolkata');
 $date = date('ymdGis');
 include_once 'LoaderManager.php';
@@ -133,7 +135,9 @@ if($manageIdStatus['employee_id'] ==1) {
                                 unset($_SESSION['session_key_project_title']); 
                                 unset($_SESSION['session_key_project_desc']);
                                     }
-                            }    
+                                unset($_SESSION['session_no_of_project']);    
+                            }
+
                                 ?>
                             <div class="row">
                                 <div class="col-md-12">

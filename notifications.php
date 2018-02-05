@@ -1,4 +1,5 @@
 <?php 
+$title = 'Notifications';
 date_default_timezone_set('Asia/Kolkata');
 include('settings/config.php');
 include('include/header.php');
@@ -34,7 +35,7 @@ $totalProfileUpdateRequest = $employeeManager->getProfileUpdateRequest();
                                         $resultRequestProfileDetails = $employeeManager->getRequestProfileEmployeeDetails($employeeManager->request_profile_employee_id[$i]);
                                     ?>
                                     <li class="list-group-item">
-                                    <a href="editEmployee.php?request_id=<?php echo $employeeDetails['employee_id'];?>">
+                                    <a href="editEmployee?request_id=<?php echo $employeeDetails['employee_id'];?>">
                                     <i class="fa fa-user text-aqua"></i> &nbsp;<?php echo $employeeDetails['name']. ' has requested for Profile Update on '. date('d-m-Y', strtotime($resultRequestProfileDetails['created_at'])). ' at '. date('h:i:s A', strtotime($resultRequestProfileDetails['created_at'])); ?>
                                     </a>
                                     </li>

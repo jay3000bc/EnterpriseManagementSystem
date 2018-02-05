@@ -1,21 +1,27 @@
 <?php
 
-	/* database creadientails web */
-	$host = 'localhost'; /* mysql server name default is localhost */
-	$databaseName = ''; /* Database to be used */
-	$databaseUser = ''; /* Database username */
-	$databasePassword = ''; /* Database  password */
+	/* database creadientails web ALEGARA*/
+		$host = 'localhost'; /* mysql server name default is localhost */
+		$databaseName = 'alegra6_mukesh'; /* Database to be used */
+		$databaseUser = 'alegra6_mukesh'; /* Database username */
+		$databasePassword = 'muk797'; /* Database  password */
 	/* end */
+	/* database creadientails web HELIX*/
+	// $host = 'localhost'; /* mysql server name default is localhost */
+	// $databaseName = 'mukesh'; /* Database to be used */
+	// $databaseUser = 'mukesh'; /* Database username */
+	// $databasePassword = 'MKUghy49'; /* Database  password */
+	// /* end */
 	// EMS email address for all out going emails
 
-	$fromEMS = 'adminems@enterhelix.com';
+	$fromEMS = 'adminems@alegralabs.com';
 
 	// working hours a day for the employees
 
 	$WorkingHoursPerDay = 8;
 
 	//subject of email to employee for salary credit form EMS sysytem
-	$sendEmailToEmployee = 'true';
+	$sendEmailToEmployee = true;
 	$payslipSubject = "Salary Credited";
 
 	// list of currencies used in EMS
@@ -27,7 +33,7 @@
 	$invoiceTypes = array("National Invoice", "Export Invoice");
 
 	//subject of email sent to client form EMS system
-	$sendEmailToClient = 'true';
+	$sendEmailToClient = true;
 	$invoiceSubject = "Invoice Details";
 
 	//subject of email sent from EMS for change Password 
@@ -42,5 +48,6 @@
 	$salaryPayCurrency = '&#8377;';
 
 	// target folder name/path name where you will install EMS 
-	$relativeUrl = 'http://www.enterhelix.com/ems/';
+	$absoluteUrl = 'http://www.alegralabs.com/mukesh/EMS-v1.1/';
+	//$absoluteUrl = 'http://www.enterhelix.com/ems/';
 ?>

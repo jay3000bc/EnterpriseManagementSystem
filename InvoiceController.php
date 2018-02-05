@@ -32,6 +32,7 @@ if (isset($_POST["saveInvoice"])) {
 	
 	$admin_bank_account = mysqli_real_escape_string($DBManager->conn, $_POST['admin_bank_account']);
 	$net_amount = mysqli_real_escape_string($DBManager->conn, $_POST['net_amount']);
+
 	foreach ($_POST['desc_of_service'] as $key => $value) {
 		$desc_of_service = mysqli_real_escape_string($DBManager->conn, $_POST['desc_of_service'][$key]);
 		$sac_code = mysqli_real_escape_string($DBManager->conn, $_POST['sac_code'][$key]);
@@ -40,6 +41,15 @@ if (isset($_POST["saveInvoice"])) {
 		$cgst = mysqli_real_escape_string($DBManager->conn, $_POST['cgst'][$key]);
 		$sgst = mysqli_real_escape_string($DBManager->conn, $_POST['sgst'][$key]);
 		$igst = mysqli_real_escape_string($DBManager->conn, $_POST['igst'][$key]);
+		if($cgst == '') {
+			$cgst = 0;
+		}
+		if($sgst == '') {
+			$sgst = 0;
+		}
+		if($igst == '') {
+			$igst = 0;
+		}
 		$result1 = $invoiceManager->saveInvoiceAmount($invoice_id, $desc_of_service, $sac_code, $quantity, $price, $cgst, $sgst, $igst);
 	}
 	$result2 = $invoiceManager->saveInvoice($invoice_id, $client_id, $client_name, $client_email, $client_address, $client_gstin, $client_state, $mode_of_invoice, $reverse_charge, $admin_bank_account, $currency_type, $net_amount, $invoice_date);
@@ -59,12 +69,18 @@ if (isset($_POST["saveInvoice"])) {
 			$current_export_id = mysqli_real_escape_string($DBManager->conn, $_POST['current_export_id']);
 			$updateAutoId = $invoiceManager->updateExportlId($current_export_id);
 		}
-		$pdf=exec('/usr/local/bin/wkhtmltopdf --page-size A4 --print-media-type --include-in-outline  "http://www.enterhelix.com/mukesh/ems/generateInvoice.php?invoice_id='.$invoice_id.'" ../ems/uploads/invoices/'.$invoice_id.'.pdf 2>&1');
+		// GENERATE PDF
+		$generatePdfUrl = $absoluteUrl."generateInvoice.php?invoice_id=".$invoice_id;
 
+		$pdf=exec('/usr/local/bin/wkhtmltopdf --page-size A4 --print-media-type --include-in-outline  "'.$generatePdfUrl.'" uploads/invoices/createdInvoice/'.$invoice_id.'.pdf 2>&1');
+		if(!$pdf) {
+			$_SESSION['ErrorMsgInvoice'] = 'Failed to generate Pdf.';
+			header('location:createInvoice');
+		}
 		// send invoice details to client
-		if($sendEmailToClient == 'true') {
+		if($sendEmailToClient == true) {
 
-			$invoicelink = 'http://www.enterhelix.com/mukesh/ems/uploads/invoices/'.$invoice_id.'.pdf';
+			$invoicelink = $absoluteUrl.'uploads/invoices/'.$invoice_id.'.pdf';
 			include_once 'emails/invoiceEmailToClient.php';
 			mail($client_email, $invoiceSubject, $message, $from);
 		}	
@@ -74,12 +90,12 @@ if (isset($_POST["saveInvoice"])) {
 			header('location:generateInvoice.php?print_invoice='.$invoice_id);
 		} else {
 			$_SESSION['successMsg'] = 'success';
-			header('location:createInvoice.php');
+			header('location:createInvoice');
 		}
 		
 	} else {
 		$_SESSION['errorMsg'] = 'fail';
-		header('location:createInvoice.php');
+		header('location:createInvoice');
 	}
 }
 
@@ -108,6 +124,15 @@ if (isset($_POST["previewInvoice"])) {
 		$cgst = mysqli_real_escape_string($DBManager->conn, $_POST['cgst'][$key]);
 		$sgst = mysqli_real_escape_string($DBManager->conn, $_POST['sgst'][$key]);
 		$igst = mysqli_real_escape_string($DBManager->conn, $_POST['igst'][$key]);
+		if($cgst == '') {
+			$cgst = 0;
+		}
+		if($sgst == '') {
+			$sgst = 0;
+		}
+		if($igst == '') {
+			$igst = 0;
+		}
 		$result1 = $invoiceManager->previewInvoiceAmount($invoice_id, $desc_of_service, $sac_code, $quantity, $price, $cgst, $sgst, $igst);
 	}
 	$result2 = $invoiceManager->previewInvoice($invoice_id, $client_id, $client_name, $client_address, $client_gstin, $client_state, $mode_of_invoice, $reverse_charge, $admin_bank_account, $currency_type, $net_amount, $invoice_date);
@@ -151,19 +176,19 @@ if (isset($_POST["saveReceiveInvoice"])) {
         if (file_exists($target_file)) {
             //echo "string"; die();
             $_SESSION['ErrorMsg'] = "Sorry, file already exists.";
-            header('Location:receiveInvoice.php');
+            header('Location:receiveInvoice');
             exit();
         } 
          // Check file size
         elseif ($_FILES["upload_invoice"]["size"] > 5242880) {
             $_SESSION['ErrorMsg'] = "Sorry, image file is too large. Maximum file size must be less than 5MB.";
-            header('Location:receiveInvoice.php');
+            header('Location:receiveInvoice');
             exit();
         }
         // Allow certain file formats
         elseif ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" && $imageFileType != "pdf" && $imageFileType != "xps" && $imageFileType != "doc" && $imageFileType != "docx" ) {
             $_SESSION['ErrorMsg'] = "Sorry, only JPG, JPEG, PNG, PDF, DOC and DOCX  files are allowed.";
-            header('Location:receiveInvoice.php');
+            header('Location:receiveInvoice');
             exit();
         }
         else {
@@ -173,7 +198,7 @@ if (isset($_POST["saveReceiveInvoice"])) {
                 $_SESSION['session_receive_invoice_upload'] = $upload_invoice;
             } else {
                 $_SESSION['ErrorMsg'] = "Sorry, there was an error uploading your file.";
-                header('Location:receiveInvoice.php');
+                header('Location:receiveInvoice');
                 exit();
 
             }
@@ -193,6 +218,15 @@ if (isset($_POST["saveReceiveInvoice"])) {
 		$cgst = mysqli_real_escape_string($DBManager->conn, $_POST['cgst'][$key]);
 		$sgst = mysqli_real_escape_string($DBManager->conn, $_POST['sgst'][$key]);
 		$igst = mysqli_real_escape_string($DBManager->conn, $_POST['igst'][$key]);
+		if($cgst == '') {
+			$cgst = 0;
+		}
+		if($sgst == '') {
+			$sgst = 0;
+		}
+		if($igst == '') {
+			$igst = 0;
+		}
 		$result1 = $invoiceManager->saveReceiveInvoiceAmount($invoice_id, $desc_of_service, $sac_code, $quantity, $price, $cgst, $sgst, $igst);
 	}
 
@@ -206,10 +240,10 @@ if (isset($_POST["saveReceiveInvoice"])) {
             unset($_SESSION['session_receive_invoice_upload']);
         }
 		$_SESSION['successMsg'] = 'success';
-		header('location:receiveInvoice.php');
+		header('location:receiveInvoice');
 	} else {
 		$_SESSION['errorMsg'] = 'fail';
-		header('location:receiveInvoice.php');
+		header('location:receiveInvoice');
 	}
 }
 if (isset($_POST["status"])) { 
