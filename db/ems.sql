@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS `ems_admin` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+DELETE FROM `ems_admin`;
 INSERT INTO `ems_admin` (`id`, `username`, `photo`, `password`, `company_name`, `company_address`, `state`, `contact_number`, `email`, `crn`, `gstin`, `pan`, `company_logo`, `signature`, `last_logged_in`, `ip`, `created_at`) VALUES
 (1, 'admin', 'defaultuser.png', '4297f44b13955235245b2497399d7a93', 'Tomato Inc.', 'UCO Bank Bldg. (Old).,\r\nEastern Valley Public School (3rd Floor), Adabari Tiniali,\r\nGuwahati - 781012\r\n', 5, '9508123456', 'admin@tomatoinc.com', '', 'GSTIN123', 'PAN123', 'logo.png', '', '1515495317', '110.234.66.65', '2018-01-09 10:55:17');
 
@@ -147,6 +148,7 @@ CREATE TABLE IF NOT EXISTS `ems_employee_auto_id` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
+DELETE FROM `ems_employee_auto_id`;
 INSERT INTO `ems_employee_auto_id` (`id`, `prefix`) VALUES
 (000100, 'TOM-');
 
@@ -166,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `ems_employee_terms_conditions` (
 --
 -- Dumping data for table `employee_terms_conditions`
 --
-
+DELETE FROM `ems_employee_terms_conditions`;
 INSERT INTO `ems_employee_terms_conditions` (`id`, `file_name`, `created_at`) VALUES
 (1, 'EMPLOYEES-AGREMENT-TOMATO.pdf', '2017-12-01 18:26:52');
 
@@ -308,7 +310,7 @@ CREATE TABLE IF NOT EXISTS `ems_invoice_auto_id` (
 --
 -- Dumping data for table `invoice_auto_id`
 --
-
+DELETE FROM `ems_invoice_auto_id`;
 INSERT INTO `ems_invoice_auto_id` (`id`, `digits`, `export_invoice_prefix`, `current_export_id`, `india_based_prefix`, `current_india_based_id`) VALUES
 (000100, 6, 'E-', 000001, 'TOM-', 000001);
 
@@ -351,7 +353,7 @@ CREATE TABLE IF NOT EXISTS `ems_loader` (
 --
 -- Dumping data for table `loader`
 --
-
+DELETE FROM `ems_loader`;
 INSERT INTO `ems_loader` (`id`, `employee_id`, `client_id`, `invoice_id`, `company_profile_update`, `created_at`) VALUES
 (1, 0, 0, 0, 0, '2017-12-13 06:58:04');
 
@@ -370,7 +372,7 @@ CREATE TABLE IF NOT EXISTS `ems_manage_client_id` (
 --
 -- Dumping data for table `manage_client_id`
 --
-
+DELETE FROM `ems_manage_client_id`;
 INSERT INTO `ems_manage_client_id` (`id`, `type`) VALUES
 (1, 0);
 
@@ -389,7 +391,7 @@ CREATE TABLE IF NOT EXISTS `ems_manage_employee_id` (
 --
 -- Dumping data for table `manage_employee_id`
 --
-
+DELETE FROM `ems_manage_employee_id`;
 INSERT INTO `ems_manage_employee_id` (`id`, `type`) VALUES
 (1, 0);
 
@@ -443,7 +445,7 @@ CREATE TABLE IF NOT EXISTS `ems_pay_cut_off` (
 --
 -- Dumping data for table `pay_cut_off`
 --
-
+DELETE FROM `ems_pay_cut_off`;
 INSERT INTO `ems_pay_cut_off` (`id`, `status`, `created_at`) VALUES
 (1, 0, '2017-12-12 08:32:25');
 
@@ -619,7 +621,7 @@ CREATE TABLE IF NOT EXISTS `ems_states` (
 --
 -- Dumping data for table `states`
 --
-
+DELETE FROM `ems_states`;
 INSERT INTO `ems_states` (`id`, `state_name`, `state_gst_code`, `created_at`) VALUES
 (1, 'Andaman and Nicobar Islands', 35, '2017-12-14 11:04:08'),
 (2, 'Andhra Pradesh', 28, '2017-12-14 11:04:08'),
@@ -672,6 +674,7 @@ CREATE TABLE IF NOT EXISTS `ems_weekly_holidays` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+DELETE FROM `ems_weekly_holidays`;
 INSERT INTO `ems_weekly_holidays` (`id`, `day_name`, `created_at`) VALUES
 (1, 'Sun', '2017-12-13 05:54:30'),
 (2, 'Sat', '2017-12-13 05:54:30');
@@ -692,7 +695,7 @@ CREATE TABLE IF NOT EXISTS `ems_setup` (
 --
 -- Dumping data for table `ems_setup`
 --
-
+DELETE FROM `ems_setup`;
 INSERT INTO `ems_setup` (`id`, `status`, `created_at`) VALUES
 (1, 0, '2018-01-13 11:49:32');
 

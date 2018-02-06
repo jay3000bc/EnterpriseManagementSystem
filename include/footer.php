@@ -14,11 +14,8 @@
 <script src="js/bootstrap-formhelpers-countries.en_US.js"></script>
 <!-- daterangepicker -->
 <script src="plugins/moment/min/moment.min.js"></script>
-<script src="plugins/daterangepicker/daterangepicker.js"></script>
 <!-- datepicker -->
 <script src="plugins/datepicker/bootstrap-datepicker.js"></script>
-<!-- Bootstrap WYSIHTML5 -->
-<script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 <!-- sweet alert -->
 <script type="text/javascript" src="plugins/sweetalert/sweetalert.min.js"></script>
 <!-- AdminLTE App -->

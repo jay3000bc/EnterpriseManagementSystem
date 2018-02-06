@@ -5,6 +5,7 @@ include_once 'DBManager.php';
 $DBManager = new DBManager();
 if(!isset($DBManager->mysqlConnectError)) {
 	$current_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
 	// check if given reletive folder given in config is currect or not 
 	if($current_link == $absoluteUrl.'setup') {
         // create all database tables
@@ -16,7 +17,7 @@ if(!isset($DBManager->mysqlConnectError)) {
             foreach($var_array as $value) {
                 $sql = $value.';';
                 if($sql != '' and $sql != ';') {
-                 $result = $DBManager->execute($sql);
+                    $result = $DBManager->execute($sql);
                 }    
             }
         }
@@ -51,7 +52,7 @@ if(!isset($DBManager->mysqlConnectError)) {
         include_once 'LoaderManager.php';
         $loaderManager = new LoaderManager();
         $manageIdStatus = $loaderManager->manageIdStatus();
-        if($manageIdStatus['employee_id'] == 1 && $manageIdStatus['client_id'] == 0 && $manageIdStatus['invoice_id'] == 0) {
+        if(($manageIdStatus['employee_id'] == 1 || $manageIdStatus['employee_id'] == 2) && $manageIdStatus['client_id'] == 0 && $manageIdStatus['invoice_id'] == 0) {
             $step = 2;
         } else {
             header('location:setup?step=3');
@@ -61,10 +62,11 @@ if(!isset($DBManager->mysqlConnectError)) {
         include_once 'LoaderManager.php';
         $loaderManager = new LoaderManager();
         $manageIdStatus = $loaderManager->manageIdStatus();
-        if($manageIdStatus['employee_id'] == 1 && $manageIdStatus['client_id'] == 1 && $manageIdStatus['invoice_id'] == 0) {
+        if(($manageIdStatus['employee_id'] == 1 || $manageIdStatus['employee_id'] == 2) && ($manageIdStatus['client_id'] == 1 || $manageIdStatus['client_id'] == 2) && $manageIdStatus['invoice_id'] == 0) {
             $step = 3;
         } else {
-            header('location:index');
+            $_SESSION['setupSuccess'] = 'success';
+            //header('location:index');
         }
 		
 	}  else {
@@ -188,7 +190,7 @@ if(!isset($DBManager->mysqlConnectError)) {
                                     </div>
                                     <div class="form-group">
                                         <label>Would you like some prefixes for Client Id. Default no prefixes.</label>
-                                        <input placeholder="Example: TOM-" class="form-control" type="text" id="export_invoice_prefix" name="export_invoice_prefix" autocomplete="off">
+                                        <input placeholder="Example: TOMC-" class="form-control" type="text" id="export_invoice_prefix" name="export_invoice_prefix" autocomplete="off">
                                     </div>
                                     
                                     <div class="form-group">
@@ -279,7 +281,7 @@ if(!isset($DBManager->mysqlConnectError)) {
                             <div class="col-md-5"></div>
                         </div>
 						<?php } elseif(isset($error) && $error == 'relativeUrlNotCorrect') { ?>
-						<p class="alert alert-danger errorMsg">Your domain/ reletive folder name defined in config file is incorrect.</p>
+						<p class="alert alert-danger errorMsg">Sorry, you have not set absolute path or it may be incorrect, please confirm it by going to EMS -> Setting -> config file. If the problem continues please visit our <a href="www.alegralabs.com/support" target="_blank"><u>support</u></a> page.</p>
 						<?php } elseif(isset($error) && $error == "Database does not exists") { ?>
 						<p class="alert alert-danger errorMsg">Sorry, You have not created any database for EMS yet. Please create a database for your EMS and run the setup page again. Also check that you have entered your credientials in config file correctly. If the problem continues please visit our <a href="www.alegralabs.com/support" target="_blank"><u>support</u></a> page.  </p>
 						<?php } elseif(isset($success)) { ?>

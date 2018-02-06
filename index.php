@@ -1,7 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 session_start();
 include_once('settings/config.php');
 include_once 'DBManager.php';
@@ -71,7 +68,10 @@ if(isset($DBManager->mysqlConnectError)) {
             <div class="col-md-6 col-md-offset-3 text-center">
                 <?php if(isset($_SESSION['loginErrorMsg'])) { ?>
                 <p class="alert alert-danger error-message"><?php  echo $_SESSION['loginErrorMsg'];?><span style="color:#0000FF;" class="clear-error-msg close">&times;</span></p>
-                <?php } ?>
+                <?php 
+                unset($_SESSION['loginErrorMsg']);
+                }
+                ?>
                 <form class="login-form" method="POST" action="AdminController.php">
                     <h4>Sign In</h4>
                     <?php if(isset($_COOKIE['username']) && isset($_COOKIE['password'])) { ?>
@@ -120,9 +120,19 @@ if(isset($DBManager->mysqlConnectError)) {
     </script>
     <?php
     unset($_SESSION['successMsgSentPasswordResetEmail']);   
-    }
-    unset($_SESSION['loginErrorMsg']);  
+    }  
     ?>
+    <!--  Setup success message -->
+    <?php
+    if(isset($_SESSION['setupSuccess'])) { ?>
+    <script type="text/javascript">
+        swal('Congrats','All your setup has been done succesfully. You can now login using Username as admin and Password as 123123 which is default, you can change it after logging.', 'success');
+    </script>
+    <?php
+    unset($_SESSION['setupSuccess']);   
+    }
+    ?>
+    <!-- End -->
     <!-- jQuery cookie plugin -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <script type="text/javascript">
