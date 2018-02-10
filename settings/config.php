@@ -9,7 +9,7 @@
 
 	// Path of target folder  where you will install EMS 
 
-	$absoluteUrl = 'http://alegralabs.com/mukesh/EMS-v1.2/';
+	$absoluteUrl = 'http://www.alegralabs.com/mukesh/EMS-v1.2/';
 
 	// EMS email address for all out going emails
 

@@ -29,7 +29,7 @@
                 <li class="footer"><a href="notifications">View all</a></li>
             </ul>
         </li>
-        <li><a href="http://www.alegralabs.com/support" target="_blank">Support</a></li>
+        <li><a href="http://www.alegralabs.com/support/ems" target="_blank">Support</a></li>
         <li><!-- <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a> -->
             <?php if(!isset($_COOKIE['skinColor'])) {
                     $cookie_name = "skinColor";

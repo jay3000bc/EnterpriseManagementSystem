@@ -5,7 +5,6 @@ include_once 'DBManager.php';
 $DBManager = new DBManager();
 if(!isset($DBManager->mysqlConnectError)) {
 	$current_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-
 	// check if given reletive folder given in config is currect or not 
 	if($current_link == $absoluteUrl.'setup') {
         // create all database tables
@@ -108,7 +107,7 @@ if(!isset($DBManager->mysqlConnectError)) {
 						<a href="setup?step=1" class="btn btn-primary">Continue</a>
 						<?php } elseif(isset($step) && $step == 1) { ?>
 						<h3>Manage employees</h3>
-						<p class="alert alert-warning border-color-red">The Employee Module, supports creation of employees, payrolls and leave/ holidays.<br>If you don't know what to enter, please visit our <a href="www.alegralabs.com/support" target="_blank"><u>support</u></a> page.</p>
+						<p class="alert alert-warning border-color-red">The Employee Module, supports creation of employees, payrolls and leave/ holidays.<br>If you don't know what to enter, please visit our <a href="https://www.alegralabs.com/support/ems" target="_blank"><u>support</u></a> page.</p>
 						<div class="row">
                             <div class="col-md-7">
                                 <div style="color:#ff0000">Note: You will save it once. You cannot undo any changes later.</div>
@@ -161,7 +160,7 @@ if(!isset($DBManager->mysqlConnectError)) {
                         </div>
 						<?php } elseif(isset($step) && $step == 2) { ?>
 						<h3>Manage Client Id</h3>
-                        <p class="alert alert-warning border-color-red">The Client Module, supports creation of clients and projects.<br>If you don't know what to enter, please visit our <a href="www.alegralabs.com/support" target="_blank"><u>support</u></a> page.</p>
+                        <p class="alert alert-warning border-color-red">The Client Module, supports creation of clients and projects.<br>If you don't know what to enter, please visit our <a href="https://www.alegralabs.com/support/ems" target="_blank"><u>support</u></a> page.</p>
                         <div class="row">
                             <div class="col-md-7">
                                 <p style="color:#ff0000">Note: You will save it once. You cannot undo any changes later.</p>
@@ -214,7 +213,7 @@ if(!isset($DBManager->mysqlConnectError)) {
                         </div>
 						<?php } elseif(isset($step) && $step == 3) { ?>
 						<h3>Manage Invoice Id</h3>
-                        <p class="alert alert-warning border-color-red">The Invoice Module, supports creation of  Client Invoices and  Seller Invoices.<br>If you don't know what to enter, please visit our <a href="www.alegralabs.com/support" target="_blank"><u>support</u></a> page.</p>
+                        <p class="alert alert-warning border-color-red">The Invoice Module, supports creation of  Client Invoices and  Seller Invoices.<br>If you don't know what to enter, please visit our <a href="https://www.alegralabs.com/support/ems" target="_blank"><u>support</u></a> page.</p>
                         <div class="row">
                             <div class="col-md-8">
                                 <p style="color:#ff0000">Note: You will save it once. You cannot undo any changes later.</p>
@@ -281,9 +280,9 @@ if(!isset($DBManager->mysqlConnectError)) {
                             <div class="col-md-5"></div>
                         </div>
 						<?php } elseif(isset($error) && $error == 'relativeUrlNotCorrect') { ?>
-						<p class="alert alert-danger errorMsg">Sorry, you have not set absolute path or it may be incorrect, please confirm it by going to EMS -> Setting -> config file. If the problem continues please visit our <a href="www.alegralabs.com/support" target="_blank"><u>support</u></a> page.</p>
+						<p class="alert alert-danger errorMsg">Sorry, you have not set absolute path or it may be incorrect, please confirm it by going to EMS -> Setting -> config file. If the problem continues please visit our <a href="https://www.alegralabs.com/support/ems" target="_blank"><u>support</u></a> page.</p>
 						<?php } elseif(isset($error) && $error == "Database does not exists") { ?>
-						<p class="alert alert-danger errorMsg">Sorry, You have not created any database for EMS yet. Please create a database for your EMS and run the setup page again. Also check that you have entered your credientials in config file correctly. If the problem continues please visit our <a href="www.alegralabs.com/support" target="_blank"><u>support</u></a> page.  </p>
+						<p class="alert alert-danger errorMsg">Sorry, You have not created any database for EMS yet. Please create a database for your EMS and run the setup page again. Also check that you have entered your credientials in config file correctly. If the problem continues please visit our <a href="https://www.alegralabs.com/support/ems" target="_blank"><u>support</u></a> page.  </p>
 						<?php } elseif(isset($success)) { ?>
                         <p class="alert alert-danger"><?php echo $success;?></p>
                         <?php } elseif(isset($error)) { ?>
