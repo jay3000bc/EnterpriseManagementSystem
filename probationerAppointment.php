@@ -79,7 +79,7 @@ $employeeManager = new EmployeeManager();
                                              if($companyInfo['company_logo'] != '') { ?>
                                              <img src="<?php echo 'uploads/company_profile_images/'.$companyInfo['company_logo'];?>" alt="logo">
                                              <?php } else { ?>
-                                             <img src="images/logo.png" alt="logo">
+                                             <img src="uploads/company_profile_images/logo-black.png" alt="logo">
                                              <?php } ?> 
                                         </div><br>
                                         <h3 style="text-align: center; text-decoration: underline;">Probationer Letter of Appointment</h3><br>

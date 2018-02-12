@@ -31,9 +31,9 @@ else {
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="../plugins/Ionicons/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -41,10 +41,6 @@ else {
   <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
   <!-- Date Picker -->
   <link rel="stylesheet" href="../plugins/datepicker/datepicker3.css">
-  <!-- Daterange picker -->
-  <!--  <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css"> -->
-  <!-- bootstrap wysihtml5 - text editor -->
-  <link rel="stylesheet" href="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
   <!--  dropify -->
   <link href="../plugins/dropify/css/dropify.min.css" rel="stylesheet" />
   <!-- DataTables -->
@@ -55,9 +51,9 @@ else {
   <!-- password strength -->
   <link rel="stylesheet" type="text/css" href="../css/passwordStrength.css">
   <!-- jQuery 2.2.3 -->
-  <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+  <script src="../js/jquery-2.2.3.min.js"></script>
 </head>
-<body class="hold-transition sidebar-mini <?php if(isset($_COOKIE['skinColor'])) echo $_COOKIE['skinColor']; else echo 'skin-blue';?>">
+<body class="hold-transition sidebar-mini <?php echo $companyInfo['theme_color']; ?>">
 <div class="wrapper">
 
   <header class="main-header">
@@ -67,7 +63,7 @@ else {
       <span class="logo-mini"><b>A</b>LB</span>
       <!-- logo for regular state and mobile devices -->
       <?php if($companyInfo['company_logo'] != '') { ?>
-      <img style="width: 60%;" src="<?php echo '../uploads/company_profile_images/'.$companyInfo['company_logo'];?>" alt="company-logo">
+      <img style="<?php echo $dasboardLogoSize;?>" src="<?php echo '../uploads/company_profile_images/'.$companyInfo['company_logo'];?>" alt="company-logo">
       <?php } elseif ($companyInfo['company_name'] != '') { ?> 
       <span class="logo-lg"><b><?php echo $companyInfo['company_name'];?></b></span>
       <?php } else { ?>

@@ -13,12 +13,9 @@
 <script src="../bootstrap/js/bootstrap.min.js"></script>
 
 <!-- daterangepicker -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
-<script src="../plugins/daterangepicker/daterangepicker.js"></script>
+<script src="../plugins/moment/min/moment.min.js"></script>
 <!-- datepicker -->
 <script src="../plugins/datepicker/bootstrap-datepicker.js"></script>
-<!-- Bootstrap WYSIHTML5 -->
-<script src="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 <!-- sweet alert -->
 <script type="text/javascript" src="../plugins/sweetalert/sweetalert.min.js"></script>
 <!-- AdminLTE App -->
@@ -27,8 +24,6 @@
 <script src="../js/passwordStrength.js" type="text/javascript"></script>
 <script src="../js/jquery.validate.js" type="text/javascript"></script>
 <script src="../js/formValidate.js" type="text/javascript"></script>
-<!-- tinymce -->
-<script src='../plugins/tinymce/tinymce.min.js'></script>
 <!--  dropify -->
 <script src="../plugins/dropify/js/dropify.min.js" charset="utf-8"></script>
 <!-- jQuery cookie plugin -->

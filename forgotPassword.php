@@ -6,6 +6,21 @@ $companyInfo = $adminManager->getAdminDetails();
 if(isset($_SESSION['username'])) {
     header('Location:adminHome');
 }
+if($companyInfo['theme_color'] == 'skin-blue') { 
+    $theme_color = 'blue-skin forgot-password-link'; 
+} 
+if($companyInfo['theme_color'] == 'skin-yellow') { 
+    $theme_color = 'yellow-skin forgot-password-link'; 
+}
+if($companyInfo['theme_color'] == 'skin-purple') { 
+    $theme_color = 'purple-skin forgot-password-link'; 
+} 
+if($companyInfo['theme_color'] == 'skin-green') { 
+    $theme_color = 'green-skin forgot-password-link'; 
+} 
+if($companyInfo['theme_color'] == 'skin-black') { 
+    $theme_color = 'black-skin'; 
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,28 +45,28 @@ if(isset($_SESSION['username'])) {
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-md-6 col-md-offset-3 header-image">
-                <?php if($companyInfo['company_logo'] != '') { ?>
-                <img src="<?php echo 'uploads/company_profile_images/'.$companyInfo['company_logo'];?>" alt="logo">
-                <?php } else { ?>
-                <img src="images/logo.png" alt="logo">
-                <?php } ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3 text-center">
-                <?php if(isset($_SESSION['loginErrorMsg'])) { ?>
-                <p class="alert alert-danger"><?php  echo $_SESSION['loginErrorMsg'];?></p>
-                <?php } ?>
-                <form id="forgotPassword" class="login-form" method="POST" action="ForgotPasswordController.php">
-                    <h4>Forgot Password</h4>
-                    <div class="form-group">
-                        <input type="email" class="form-control" name="email" placeholder="Enter your email" required autofocus>
-                    </div>
-                    <div class="form-group">
-                        <input class="btn btn-success btn-block" type="submit" value="Send Password Reset Link" name="forgotPassword">
-                     </div>
-                </form>
+            <div class="centered-aligned">
+                <div class="col-md-6 col-md-offset-3 text-center">
+                    <?php if(isset($_SESSION['loginErrorMsg'])) { ?>
+                    <p class="alert alert-danger"><?php  echo $_SESSION['loginErrorMsg'];?></p>
+                    <?php } ?>
+                    <form id="forgotPassword" class="login-form <?php echo $theme_color;?>" method="POST" action="ForgotPasswordController.php">
+                        <div class="header-image">
+                            <?php if($companyInfo['company_logo'] != '') { ?>
+                            <img src="<?php echo 'uploads/company_profile_images/'.$companyInfo['company_logo'];?>" alt="logo">
+                            <?php } else { ?>
+                            <img src="uploads/company_profile_images/logo-black.png" alt="logo">
+                            <?php } ?>
+                        </div>
+                        <h4>Forgot Password</h4>
+                        <div class="form-group">
+                            <input type="email" class="form-control" name="email" placeholder="Enter your email" required autofocus>
+                        </div>
+                        <div class="form-group">
+                            <input class="btn btn-success btn-block" type="submit" value="Send Password Reset Link" name="forgotPassword">
+                         </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

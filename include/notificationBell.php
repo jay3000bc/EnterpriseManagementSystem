@@ -31,19 +31,21 @@
         </li>
         <li><a href="http://www.alegralabs.com/support/ems" target="_blank">Support</a></li>
         <li><!-- <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a> -->
-            <?php if(!isset($_COOKIE['skinColor'])) {
-                    $cookie_name = "skinColor";
-                    $cookie_value = "skin-blue";
-                    setcookie($cookie_name, $cookie_value, time() + (86400 * 90), "/"); // 86400 = 1 day
-                    $_COOKIE['skinColor'] = "skin-blue";
-                }?>
+            <?php 
+                // if(!isset($_COOKIE['skinColor'])) {
+                //     $cookie_name = "skinColor";
+                //     $cookie_value = "skin-yellow";
+                //     setcookie($cookie_name, $cookie_value, time() + (86400 * 90), "/"); // 86400 = 1 day
+                //     $_COOKIE['skinColor'] = "skin-yellow";
+                //}
+                ?>
             <select id="changeSkin" class="form-control">
                 <option>Select Skin</option>
-                <option value="skin-blue">Blue</option>
-                <option value="skin-yellow">Yellow</option>
-                <option value="skin-black">Black</option>
-                <option value="skin-purple">Purple</option>
-                <option value="skin-green">Green</option>
+                <option <?php if($companyInfo['theme_color'] == 'skin-blue') echo 'selected'; ?> value="skin-blue">Blue</option>
+                <option <?php if($companyInfo['theme_color'] == 'skin-yellow') echo 'selected'; ?> value="skin-yellow">Yellow</option>
+                <option <?php if($companyInfo['theme_color'] == 'skin-black') echo 'selected'; ?> value="skin-black">Black</option>
+                <option <?php if($companyInfo['theme_color'] == 'skin-purple') echo 'selected'; ?> value="skin-purple">Purple</option>
+                <option <?php if($companyInfo['theme_color'] == 'skin-green') echo 'selected'; ?> value="skin-green">Green</option>
                 <!-- <option value="skin-blue-light">Light Blue</option>
                 <option value="skin-black-light">Black Light</option> -->
             </select>

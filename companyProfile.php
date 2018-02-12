@@ -84,7 +84,7 @@ $bankDetails= $adminManager->getBankDetails();
                                         <input type="file" data-allowed-file-extensions="png jpg jpeg" name="photo" data-default-file="<?php echo 'uploads/company_profile_images/'.$companyInfo['photo'];?>" class="dropify" data-height="100" style="height: 100% !important;">
                                     </div>
                                     <div class="form-group">
-                                        <label for="company_logo">Comapny Logo </label> <span style="color:#0000FF">[ Please upload an image of only JPG, GIF, PNG format and maximum size of 500 kb. For better resolution use 200 x 40 px image. ]</span>
+                                        <label for="company_logo">Comapny Logo </label> <span style="color:#0000FF">[ Please upload an image of only JPG, GIF, PNG format and maximum size of 500 kb. For better resolution use 250 x 70 px image. ]</span>
                                         <input type="file" data-allowed-file-extensions="png jpg jpeg" name="company_logo" data-default-file="<?php echo 'uploads/company_profile_images/'.$companyInfo['company_logo'];?>" class="dropify" data-height="100" style="height: 100% !important;">
                                     </div>
                                 </div>
@@ -113,7 +113,7 @@ $bankDetails= $adminManager->getBankDetails();
                                         <label for="sac">SAC (Service accounting code) <span class="mandatory">*</span></label>
                                         <p style="color: #0000FF; float:right;"><a style="color:#0000FF;" href="https://cleartax.in/s/sac-codes-gst-rates-for-services" target="_blank">Find SAC Code</a></p>
                                         <input class="form-control" id="sac_id" type="hidden" name="sac_id[]">
-                                         <input class="form-control"  id="sac_code" placeholder="Enter SAC code" type="text" name="sac_clone[]" autocomplete="off" required><br>
+                                         <input class="form-control"  id="sac_code" placeholder="Enter SAC code" type="text" name="sac_clone[]" autocomplete="off" required>
                                         
                                     </div>
                                 </div>
@@ -126,8 +126,13 @@ $bankDetails= $adminManager->getBankDetails();
                                 <div class="col-md-6">    
                                     <div class="form-group">
                                         <label for="sac">SAC (Service accounting code) <span class="mandatory">*</span></label>
+                                        <?php
+                                        if( $i == 0 ) { ?>
+                                            <p style="color: #0000FF; float:right;"><a style="color:#0000FF;" href="https://cleartax.in/s/sac-codes-gst-rates-for-services" target="_blank">Find SAC Code</a></p>
+                                        <?php }
+                                        ?>
                                         <input class="form-control" id="sac_id" value="<?php echo $adminManager->sac_id[$i]; ?>" type="hidden" name="sac_id[]">
-                                         <input class="form-control" onkeyup="checkSAC('<?php echo 'sac_code'.$i;?>')"  id="sac_code<?php echo $i;?>" value="<?php echo $adminManager->sac[$i]; ?>" placeholder="Enter SAC code" type="text" name="sac[]" autocomplete="off" required><br>
+                                         <input class="form-control" onkeyup="checkSAC('<?php echo 'sac_code'.$i;?>')"  id="sac_code<?php echo $i;?>" value="<?php echo $adminManager->sac[$i]; ?>" placeholder="Enter SAC code" type="text" name="sac[]" autocomplete="off" required>
                                         
                                     </div>
                                 </div>
@@ -146,7 +151,7 @@ $bankDetails= $adminManager->getBankDetails();
                             <div class="row">    
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <a id="add-more" class="btn btn-success">Add More SAC code</a>
+                                        <a id="add-more" class="btn btn-success">Add more SAC code</a>
                                     </div>
                                 </div>
                             </div>
@@ -220,7 +225,7 @@ $bankDetails= $adminManager->getBankDetails();
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <a id="add-more-bank" class="btn btn-success">Add More Bank</a>
+                                    <a id="add-more-bank" class="btn btn-success">Add more Banks</a>
                                 </div>
                             </div>
                             <input type="hidden" name="oldPhoto" value="<?php echo $companyInfo['photo'];?>">
@@ -322,7 +327,7 @@ unset($_SESSION['updateCompanyProfileSuccess']);
 
     var div_id =1;
     $('#add-more').click(function() {
-        $('.clone_sac_code_div').append('<div class="col-md-6" data-id="'+div_id+'"><div class="form-group"><input name="sac_clone[]" class="form-control sac_code '+div_id+'" id="sac'+div_id+'" onkeyup="checkSACClone('+div_id+')" placeholder="Enter SAC code" type="text" autocomplete="off" required></div><div class="form-group"><a class="remove-clone-div btn btn-warning" onclick="removeCloneDiv('+div_id+');">Remove</a><br></div></div>');
+        $('.clone_sac_code_div').append('<div class="col-md-6" data-id="'+div_id+'"><div class="form-group"><label for="sac'+div_id+'">SAC (Service accounting code) <span class="mandatory">*</span></label><p style="color: #0000FF; float:right;"><a style="color:#0000FF;" href="https://cleartax.in/s/sac-codes-gst-rates-for-services" target="_blank">Find SAC Code</a></p><input name="sac_clone[]" class="form-control sac_code '+div_id+'" id="sac'+div_id+'" onkeyup="checkSACClone('+div_id+')" placeholder="Enter SAC code" type="text" autocomplete="off" required></div><div class="form-group"><a class="remove-clone-div btn btn-warning" onclick="removeCloneDiv('+div_id+');">Remove</a><br></div></div>');
         div_id++;
     });
     function removeCloneDiv(div_id) {

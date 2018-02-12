@@ -29,6 +29,11 @@ $month = date('m', strtotime("-1 month"));
 $year = date('Y', strtotime("-1 month"));
 $available_calender_days = $evaluateDaysManager->calculateAvailableCalenderDays($month, $year);
 $resultgetCutOffStatus = $evaluateDaysManager->getCutOffStatus();
+
+// Company Details
+include_once 'AdminManager.php';
+$adminManager = new AdminManager();
+$companyInfo = $adminManager->getAdminDetails();
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,7 +46,11 @@ $resultgetCutOffStatus = $evaluateDaysManager->getCutOffStatus();
 	<div class="container payroll-box">
 		<div class="row">
 			<div class="col-md-12">
-				<img src="images/logo.png" style="width: 30%;" class="img-responsive generate-payroll-logo"><br>
+				<?php if($companyInfo['company_logo'] != '') { ?>
+                <img src="<?php echo 'uploads/company_profile_images/'.$companyInfo['company_logo'];?>" alt="logo">
+                <?php } else { ?>
+                <img src="uploads/company_profile_images/logo-black.png" alt="logo">
+                <?php } ?><br>
 			</div>
 			<div class="col-md-12">
 				<h4>Payslip for the Month of <?php echo date("F Y",strtotime("-1 month"));?><br> Financial year 2017 - 2018</h4><br>

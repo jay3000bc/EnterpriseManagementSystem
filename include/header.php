@@ -60,7 +60,7 @@ else {
   
 
 </head>
-<body class="hold-transition sidebar-mini <?php if(isset($_COOKIE['skinColor'])) echo $_COOKIE['skinColor']; else echo 'skin-blue';?>">
+<body class="hold-transition sidebar-mini <?php echo $companyInfo['theme_color']; ?>">
 <div class="wrapper">
 
   <header class="main-header">
@@ -70,7 +70,7 @@ else {
       <span class="logo-mini"><b>A</b>LB</span>
       <!-- logo for regular state and mobile devices -->
       <?php if($companyInfo['company_logo'] != '') { ?>
-      <img style="width: 60%;" src="<?php echo 'uploads/company_profile_images/'.$companyInfo['company_logo'];?>" alt="company-logo">
+      <img style="<?php echo $dasboardLogoSize;?>" src="<?php echo 'uploads/company_profile_images/'.$companyInfo['company_logo'];?>" alt="company-logo">
       <?php } elseif ($companyInfo['company_name'] != '') { ?> 
       <span class="logo-lg"><b><?php echo $companyInfo['company_name'];?></b></span>
       <?php } else { ?>

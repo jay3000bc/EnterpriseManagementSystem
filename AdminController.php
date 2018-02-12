@@ -359,5 +359,14 @@ if(isset($_POST['rssLink'])) {
 if(isset($_POST['forgotPassword'])) {
     $adminManager = new AdminManager();
     $email = mysqli_real_escape_string($DBManager->conn, $_POST['email']);
-    $accountDetails = $AdminManager->getAccountDetails($email);
+    $accountDetails = $adminManager->getAccountDetails($email);
+}
+
+// change theme color
+// forgotPassword 
+if(isset($_POST['skinColor'])) {
+    //echo $_POST['skinColor'];
+    $adminManager = new AdminManager();
+    $skinColor = mysqli_real_escape_string($DBManager->conn, $_POST['skinColor']);
+    $colorChangeResult = $adminManager->updateThemeColor($skinColor);
 }

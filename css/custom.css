@@ -4,15 +4,18 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-top: 80px;
-	margin-bottom: 40px;
+}
+.centered-aligned {
+	display: flex;
+	align-items: center;
+	height: 100vh;
 }
 .login-form {
 	background: #f2f2f2;
 	padding: 40px;
 	padding-top: 20px;
 	padding-bottom: 50px;
-	border-radius: 20px;
+	border-radius: 10px;
 	font-family: 'Open Sans', sans-serif;
 }
 .login-form h4 {
@@ -381,3 +384,14 @@ form .mandatory {
 	height: 100vh;
 }
 /* 404 error page styling end*/
+
+/* change  rss-feed header color */
+.blue-skin { background-color: #3c8dbc; color: #fff; }
+.yellow-skin { background-color: #f39c12; color: #fff; }
+.purple-skin { background-color: #545096; color: #fff;}
+.green-skin { background-color: #00a65a; color: #fff; }
+.black-skin { background-color: #fff; }
+
+.forgot-password-link .forgotPassword {
+	color: #fff !important;
+}

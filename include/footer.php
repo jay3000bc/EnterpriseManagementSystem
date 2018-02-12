@@ -68,16 +68,44 @@
 <script type="text/javascript">
   $(document).ready(function (){
     $("#changeSkin").change(function () {
+
         var skinColor = $(this).val();
+        if(skinColor == 'skin-blue') { 
+           var theme_color = 'blue-skin'; 
+        } 
+        if(skinColor == 'skin-yellow') { 
+           var theme_color = 'yellow-skin'; 
+        }
+        if(skinColor == 'skin-purple') { 
+           var theme_color = 'purple-skin'; 
+        } 
+        if(skinColor == 'skin-green') { 
+           var theme_color = 'green-skin'; 
+        } 
+        if(skinColor == 'skin-black') { 
+           var theme_color = 'black-skin'; 
+        }
+        $(".panel-heading").removeClass().addClass("panel-heading "+theme_color+"");
+        $.ajax({
+            url: "AdminController.php",
+            type: "post",
+            cache: false,
+            data: {"skinColor": skinColor},
+            success: function(result) {
+                if (result) {
+                    //alert('success');
+                }
+            }
+        });
         $("body").removeClass().addClass("hold-transition "+skinColor+" sidebar-mini");
-        $.cookie('skinColor', skinColor);
+        //$.cookie('skinColor', skinColor);
     });
   });
 </script>
 <?php if(isset($_COOKIE['skinColor'])) { ?>
 <script type="text/javascript">
-      var cookieSkinColor = '<?php echo $_COOKIE['skinColor']; ?>';
-     $("#changeSkin").val(cookieSkinColor);
+     //  var cookieSkinColor = '<?php //echo $_COOKIE['skinColor']; ?>';
+     // $("#changeSkin").val(cookieSkinColor);
 </script>
 <?php } ?>
 <!-- End -->

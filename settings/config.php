@@ -60,5 +60,9 @@
 
 	$salaryPayCurrency = '&#8377;';
 
-	
+	// Set dashboard logo size
+
+	$dasboardLogoSize = 'width:70%;';
+
+
 ?>

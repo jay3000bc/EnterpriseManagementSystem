@@ -19,7 +19,22 @@ if(isset($DBManager->mysqlConnectError)) {
     } else {
         $error = 'tablesDoesNotExist';
     }
-}    
+} 
+if($companyInfo['theme_color'] == 'skin-blue') { 
+    $theme_color = 'blue-skin forgot-password-link'; 
+} 
+if($companyInfo['theme_color'] == 'skin-yellow') { 
+    $theme_color = 'yellow-skin forgot-password-link'; 
+}
+if($companyInfo['theme_color'] == 'skin-purple') { 
+    $theme_color = 'purple-skin forgot-password-link'; 
+} 
+if($companyInfo['theme_color'] == 'skin-green') { 
+    $theme_color = 'green-skin forgot-password-link'; 
+} 
+if($companyInfo['theme_color'] == 'skin-black') { 
+    $theme_color = 'black-skin'; 
+}   
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,9 +53,9 @@ if(isset($DBManager->mysqlConnectError)) {
     <!-- CUSTOM CSS -->
     
     <link rel="stylesheet" type="text/css" href="css/custom.css">
-
+    <link rel="stylesheet" type="text/css" href="dist/css/skins/_all-skins.min.css">
     <!-- jQuery 2.2.3 -->
-    <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="js/jquery-2.2.3.min.js"></script>
   </head>
 <body>
     <div class="container">
@@ -56,23 +71,22 @@ if(isset($DBManager->mysqlConnectError)) {
             </div>
         <?php } else { ?>
         <div class="row">
-            <div class="col-md-6 col-md-offset-3 header-image">
-                <?php if($companyInfo['company_logo'] != '') { ?>
-                <img src="<?php echo 'uploads/company_profile_images/'.$companyInfo['company_logo'];?>" alt="logo">
-                <?php } else { ?>
-                <img src="images/logo.png" alt="logo">
-                <?php } ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3 text-center">
+            <div class="centered-aligned">
+                <div class="col-md-6 col-md-offset-3 text-center">
                 <?php if(isset($_SESSION['loginErrorMsg'])) { ?>
                 <p class="alert alert-danger error-message"><?php  echo $_SESSION['loginErrorMsg'];?><span style="color:#0000FF;" class="clear-error-msg close">&times;</span></p>
                 <?php 
                 unset($_SESSION['loginErrorMsg']);
                 }
                 ?>
-                <form class="login-form" method="POST" action="AdminController.php">
+                <form class="login-form <?php echo $theme_color;?>" method="POST" action="AdminController.php">
+                    <div class="header-image">
+                        <?php if($companyInfo['company_logo'] != '') { ?>
+                        <img src="<?php echo 'uploads/company_profile_images/'.$companyInfo['company_logo'];?>" alt="logo">
+                        <?php } else { ?>
+                        <img src="uploads/company_profile_images/logo-black.png" alt="logo">
+                        <?php } ?>
+                    </div>
                     <h4>Sign In</h4>
                     <?php if(isset($_COOKIE['username']) && isset($_COOKIE['password'])) { ?>
                     <div class="form-group">
@@ -100,13 +114,14 @@ if(isset($DBManager->mysqlConnectError)) {
                     </div>
                     <?php } ?>
                     <div class="form-group text-left">
-                        <a href="forgotPassword">Forgot Password ?</a>
+                        <a class="forgotPassword" href="forgotPassword">Forgot Password ?</a>
                     </div>
                     <div class="form-group">
                         <input class="btn btn-success pull-left" type="submit" value="Submit" name="loginForm">
                         <button class="btn btn-danger pull-right" type="reset">Reset</button>
                      </div>
                 </form>
+            </div>
             </div>
         </div>
         <?php } ?>

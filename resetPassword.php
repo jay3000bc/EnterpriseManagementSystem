@@ -32,6 +32,21 @@ elseif(isset($_GET['token'])) {
 } else {
     header('Location:index');
 }
+if($companyInfo['theme_color'] == 'skin-blue') { 
+    $theme_color = 'blue-skin forgot-password-link'; 
+} 
+if($companyInfo['theme_color'] == 'skin-yellow') { 
+    $theme_color = 'yellow-skin forgot-password-link'; 
+}
+if($companyInfo['theme_color'] == 'skin-purple') { 
+    $theme_color = 'purple-skin forgot-password-link'; 
+} 
+if($companyInfo['theme_color'] == 'skin-green') { 
+    $theme_color = 'green-skin forgot-password-link'; 
+} 
+if($companyInfo['theme_color'] == 'skin-black') { 
+    $theme_color = 'black-skin'; 
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,32 +72,32 @@ elseif(isset($_GET['token'])) {
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-md-6 col-md-offset-3 header-image">
-                <?php if($companyInfo['company_logo'] != '') { ?>
-                <img src="<?php echo 'uploads/company_profile_images/'.$companyInfo['company_logo'];?>" alt="logo">
-                <?php } else { ?>
-                <img src="images/logo.png" alt="logo">
-                <?php } ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3 text-center">
-                <?php if(isset($_SESSION['loginErrorMsg'])) { ?>
-                <p class="alert alert-danger"><?php  echo $_SESSION['loginErrorMsg'];?></p>
-                <?php } ?>
-                <form id="changePasswordForm" class="login-form" method="POST" action="ForgotPasswordController.php">
-                    <h4>Reset Password</h4>
-                    <div class="form-group">
-                        <input data-toggle="popover" title="Password Strength" data-content="Enter Password..." class="form-control" id="password" name="newPassword" id="password" type="password" class="form-control" name="newPassword" placeholder="Enter new password" required autofocus>
-                    </div>
-                    <div class="form-group">
-                        <input id="confirmPassword" type="password" class="form-control" name="confirmPassword" placeholder="Re-enter new password" required>
-                    </div>
-                    <input type="hidden" name="email" value="<?php echo $resultResetPassword['email'];?>">
-                    <div class="form-group">
-                        <input class="btn btn-success btn-block" type="submit" value="Submit" name="saveResetPassword">
-                     </div>
-                </form>
+            <div class="centered-aligned">
+                <div class="col-md-6 col-md-offset-3 text-center">
+                    <?php if(isset($_SESSION['loginErrorMsg'])) { ?>
+                    <p class="alert alert-danger"><?php  echo $_SESSION['loginErrorMsg'];?></p>
+                    <?php } ?>
+                    <form id="changePasswordForm" class="login-form <?php echo $theme_color;?>" method="POST" action="ForgotPasswordController.php">
+                        <div class="header-image">
+                            <?php if($companyInfo['company_logo'] != '') { ?>
+                            <img src="<?php echo 'uploads/company_profile_images/'.$companyInfo['company_logo'];?>" alt="logo">
+                            <?php } else { ?>
+                            <img src="uploads/company_profile_images/logo-black.png" alt="logo">
+                            <?php } ?>
+                        </div>
+                        <h4>Reset Password</h4>
+                        <div class="form-group">
+                            <input data-toggle="popover" title="Password Strength" data-content="Enter Password..." class="form-control" id="password" name="newPassword" id="password" type="password" class="form-control" name="newPassword" placeholder="Enter new password" required autofocus>
+                        </div>
+                        <div class="form-group">
+                            <input id="confirmPassword" type="password" class="form-control" name="confirmPassword" placeholder="Re-enter new password" required>
+                        </div>
+                        <input type="hidden" name="email" value="<?php echo $resultResetPassword['email'];?>">
+                        <div class="form-group">
+                            <input class="btn btn-success btn-block" type="submit" value="Submit" name="saveResetPassword">
+                         </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

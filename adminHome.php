@@ -3,6 +3,21 @@ $title = 'Home';
 include_once('include/header.php');
 // rss feeds
 include_once('include/rssfeeds.php');
+if($companyInfo['theme_color'] == 'skin-blue') { 
+    $theme_color = 'blue-skin'; 
+} 
+if($companyInfo['theme_color'] == 'skin-yellow') { 
+    $theme_color = 'yellow-skin'; 
+}
+if($companyInfo['theme_color'] == 'skin-purple') { 
+    $theme_color = 'purple-skin'; 
+} 
+if($companyInfo['theme_color'] == 'skin-green') { 
+    $theme_color = 'green-skin'; 
+} 
+if($companyInfo['theme_color'] == 'skin-black') { 
+    $theme_color = 'black-skin'; 
+}  
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -49,8 +64,8 @@ include_once('include/rssfeeds.php');
         <div class="row">
             <?php if(isset($_COOKIE['outlook']) && $_COOKIE['outlook'] == 1) { ?>
             <div class="col-md-4 feeds-box outlook">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
+                <div class="panel">
+                    <div class="panel-heading <?php echo $theme_color;?>">
                         <?php echo $feedOutlookHeading;?>
                     </div>
                     <div class="panel-body  panel-height">
@@ -61,8 +76,8 @@ include_once('include/rssfeeds.php');
             <?php } ?>
             <?php if(isset($_COOKIE['assam']) && $_COOKIE['assam'] == 1) { ?>
             <div class="col-md-4 feeds-box assam">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
+                <div class="panel">
+                    <div class="panel-heading <?php echo $theme_color;?>">
                         <?php echo $feedAssamHeading;?>
                     </div>
                     <div class="panel-body  panel-height">
@@ -73,8 +88,8 @@ include_once('include/rssfeeds.php');
             <?php } ?>
             <?php if(isset($_COOKIE['technology']) && $_COOKIE['technology'] == 1) { ?>
             <div class="col-md-4 feeds-box technology">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
+                <div class="panel">
+                    <div class="panel-heading <?php echo $theme_color;?>">
                         <?php echo $feedTechnologyHeading;?>
                     </div>
                     <div class="panel-body  panel-height">
@@ -85,8 +100,8 @@ include_once('include/rssfeeds.php');
             <?php } ?>
             <?php if(isset($_COOKIE['sports']) && $_COOKIE['sports'] == 1) { ?>
             <div class="col-md-4 feeds-box sports">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
+                <div class="panel">
+                    <div class="panel-heading <?php echo $theme_color;?>">
                         <?php echo $feedSportsHeading;?>
                     </div>
                     <div class="panel-body  panel-height">
@@ -97,8 +112,8 @@ include_once('include/rssfeeds.php');
             <?php } ?>
             <?php if(isset($_COOKIE['politics']) && $_COOKIE['politics'] == 1) { ?>
             <div class="col-md-4 feeds-box politics">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
+                <div class="panel">
+                    <div class="panel-heading <?php echo $theme_color;?>">
                         <?php echo $feedPolityHeading;?>
                     </div>
                     <div class="panel-body  panel-height">
@@ -109,8 +124,8 @@ include_once('include/rssfeeds.php');
             <?php } ?>
             <?php if(isset($_COOKIE['ndtv']) && $_COOKIE['ndtv'] == 1) { ?>
             <div class="col-md-4 feeds-box ndtv">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
+                <div class="panel">
+                    <div class="panel-heading <?php echo $theme_color;?>">
                         <?php echo $feedNDTVHeading;?>
                     </div>
                     <div class="panel-body  panel-height">
@@ -121,8 +136,8 @@ include_once('include/rssfeeds.php');
             <?php } ?> 
             <?php if(isset($_COOKIE['world']) && $_COOKIE['world'] == 1) { ?>
             <div class="col-md-4 feeds-box world">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
+                <div class="panel">
+                    <div class="panel-heading <?php echo $theme_color;?>">
                         <?php echo $feedWorldHeading;?>
                     </div>
                     <div class="panel-body  panel-height">

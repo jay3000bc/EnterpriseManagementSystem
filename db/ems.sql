@@ -26,13 +26,14 @@ CREATE TABLE IF NOT EXISTS `ems_admin` (
   `signature` varchar(100) NOT NULL,
   `last_logged_in` varchar(100) NOT NULL,
   `ip` varchar(100) NOT NULL,
+  `theme_color` varchar(50) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 DELETE FROM `ems_admin`;
-INSERT INTO `ems_admin` (`id`, `username`, `photo`, `password`, `company_name`, `company_address`, `state`, `contact_number`, `email`, `crn`, `gstin`, `pan`, `company_logo`, `signature`, `last_logged_in`, `ip`, `created_at`) VALUES
-(1, 'admin', 'defaultuser.png', '4297f44b13955235245b2497399d7a93', 'Tomato Inc.', 'UCO Bank Bldg. (Old).,\r\nEastern Valley Public School (3rd Floor), Adabari Tiniali,\r\nGuwahati - 781012\r\n', 5, '9508123456', 'admin@tomatoinc.com', '', 'GSTIN123', 'PAN123', 'logo.png', '', '1515495317', '110.234.66.65', '2018-01-09 10:55:17');
+INSERT INTO `ems_admin` (`id`, `username`, `photo`, `password`, `company_name`, `company_address`, `state`, `contact_number`, `email`, `crn`, `gstin`, `pan`, `company_logo`, `signature`, `last_logged_in`, `ip`, `theme_color`,`created_at`) VALUES
+(1, 'admin', 'defaultuser.png', '4297f44b13955235245b2497399d7a93', 'Tomato Inc.', 'Delhi', 11, '9508123456', 'admin@tomatoinc.com', '', 'GSTIN123', 'PAN123', 'logo-black.png', '', '1515495317', '110.234.66.65', 'skin-yellow', '2018-01-09 10:55:17');
 
 -- --------------------------------------------------------
 

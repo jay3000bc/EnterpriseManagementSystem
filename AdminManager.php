@@ -205,5 +205,13 @@ class AdminManager {
         $total = $db->getNumRow($sql);
         return $total;
     }
+
+    // change theme color
+    public function updateThemeColor($themeColor) {
+        $db = new DBManager();
+        $sql = "UPDATE ems_admin set theme_color = '$themeColor'";
+        $result = $db->execute($sql);
+        return $result; 
+    }
 }
 ?>

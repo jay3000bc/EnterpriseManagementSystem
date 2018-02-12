@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 session_start();
 include_once('settings/config.php');
 date_default_timezone_set('Asia/Kolkata');
@@ -7,7 +10,6 @@ include_once 'DBManager.php';
 $DBManager = new DBManager();
 include_once 'AppointmentManager.php';
 $appointmentManager = new AppointmentManager();
-include_once 'validate.php';
 if (isset($_POST["saveProbationerAppointment"])) {
   
     $employee_id = mysqli_real_escape_string($DBManager->conn, $_POST['employee_id']);
@@ -32,6 +34,10 @@ if (isset($_POST["saveProbationerAppointment"])) {
 		$generatePdfUrl = $absoluteUrl.'generatePrabationerAppointment.php?employee_id='.$employee_id;
 
 		$pdf=exec('/usr/local/bin/wkhtmltopdf --page-size A4 --print-media-type --include-in-outline '.$generatePdfUrl.' '.$target_file.' 2>&1');
+		if( !$pdf ) {
+			$_SESSION['probationer_error'] = 'Failed to generate appointment pdf.';
+			header('location:probationerAppointment');
+		}
 		$_SESSION['probationer_success'] = 'success';
 		if($_POST["saveProbationerAppointment"] == 'Print') {
 			header('Location:generatePrabationerAppointment.php?print_appointment='.$employee_id);
@@ -63,6 +69,11 @@ if (isset($_POST["savePermanentAppointment"])) {
 	if($result) {
 		$generatePdfUrl = $absoluteUrl.'generatePermanentAppointment?employee_id='.$employee_id;
 		$pdf=exec('/usr/local/bin/wkhtmltopdf --page-size A4 --print-media-type --include-in-outline '.$generatePdfUrl.' '.$target_file.' 2>&1');
+		if(!$pdf) {
+			$_SESSION['permanent_error'] = 'Failed to generate appointment pdf.';
+			header('location:permanentAppointment');
+			die();
+		}
 		$_SESSION['permanent_success'] = 'success';
 		if($_POST["savePermanentAppointment"] == 'Print') {
 			header('Location:generatePermanentAppointment.php?print_appointment='.$employee_id);
@@ -120,6 +131,11 @@ if (isset($_POST["saveExperienceCertificate"])) {
 	if($result) {
 		$generatePdfUrl = $absoluteUrl.'generateExperienceCertificate?employee_id='.$employee_id;
 		$pdf=exec('/usr/local/bin/wkhtmltopdf --page-size A4 --print-media-type --include-in-outline '.$generatePdfUrl.' '.$target_file.' 2>&1');
+		if(!$pdf) {
+			$_SESSION['experience_certificate_error'] = 'Failed to generate Experience Certificate pdf.';
+			header('location:experienceCertificate');
+			die();
+		}
 		$_SESSION['experience_certificate_success'] = 'success';
 		if($_POST["saveExperienceCertificate"] == 'Print') {
 			header('Location:generateExperienceCertificate.php?print_experience='.$employee_id);

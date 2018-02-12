@@ -29,13 +29,13 @@ $employeeManager = new EmployeeManager();
                     <div class="box-body">
                         <div class="row">
                             <?php 
-                                if(isset($_SESSION['permanent_error'])) {
+                                if(isset($_SESSION['experience_certificate_error'])) {
                             ?>
                                 <div class="col-md-12">
-                                    <p class="alert alert-danger"><?php echo $_SESSION['permanent_error'];?></p>
+                                    <p class="alert alert-danger"><?php echo $_SESSION['experience_certificate_error'];?></p>
                                 </div>
                             <?php
-                                unset($_SESSION['permanent_error']);  
+                                unset($_SESSION['experience_certificate_error']);  
                                 }
                             ?>
                             <p class="col-md-12"><label>Note: &nbsp;<span class="mandatory"> * </span></label> &nbsp;fields are mandatory.</p>
@@ -78,7 +78,7 @@ $employeeManager = new EmployeeManager();
                                              <?php if($companyInfo['company_logo'] != '') { ?>
                                              <img  src="<?php echo 'uploads/company_profile_images/'.$companyInfo['company_logo'];?>" alt="logo">
                                              <?php } else { ?>
-                                             <img  src="images/logo.png" alt="logo">
+                                             <img  src="uploads/company_profile_images/logo-black.png" alt="logo">
                                              <?php } ?> 
                                         </div><br>
                                         <p><b>Date: <?php echo date("d/m/Y",$current_date);?></b></p>

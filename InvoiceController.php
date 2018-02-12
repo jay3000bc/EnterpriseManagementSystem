@@ -80,7 +80,7 @@ if (isset($_POST["saveInvoice"])) {
 		// send invoice details to client
 		if($sendEmailToClient == true) {
 
-			$invoicelink = $absoluteUrl.'uploads/invoices/'.$invoice_id.'.pdf';
+			$invoicelink = $absoluteUrl.'uploads/invoices/createdInvoice/'.$invoice_id.'.pdf';
 			include_once 'emails/invoiceEmailToClient.php';
 			mail($client_email, $invoiceSubject, $message, $from);
 		}	
