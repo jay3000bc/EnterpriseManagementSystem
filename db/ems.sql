@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `ems_admin` (
   `signature` varchar(100) NOT NULL,
   `last_logged_in` varchar(100) NOT NULL,
   `ip` varchar(100) NOT NULL,
-  `theme_color` varchar(50) NOT NULL,
+  `theme_color` varchar(50) NOT NULL DEFAULT 'skin-yellow',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
