@@ -7,7 +7,8 @@
 		$databasePassword = 'mARk%^us'; /* Database  password */
 	/* end */
 
-	// Path of target folder  where you will install EMS 
+	// Path of target folder  where you will install EMS. (say) if your site is http://www.example.com
+	// and you install EMS inside a folder called "ems". Than $absoluteUrl will be http://www.example.com/ems 
 
 	$absoluteUrl = 'http://www.alegralabs.com/ems/';
 
