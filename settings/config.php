@@ -2,19 +2,19 @@
 
 	/* database credientails */
 		$host = 'localhost'; /* mysql server name default is localhost */
-		$databaseName = 'alegra6_ems'; /* Database to be used */
-		$databaseUser = 'alegra6_ems'; /* Database username */
-		$databasePassword = 'mARk%^us'; /* Database  password */
+		$databaseName = ''; /* Database to be used */
+		$databaseUser = ''; /* Database username */
+		$databasePassword = ''; /* Database  password */
 	/* end */
 
 	// Path of target folder  where you will install EMS. (say) if your site is http://www.example.com
 	// and you install EMS inside a folder called "ems". Than $absoluteUrl will be http://www.example.com/ems 
 
-	$absoluteUrl = 'http://www.alegralabs.com/ems/';
+	$absoluteUrl = 'http://www.tomatoinc.com/ems/';
 
 	// EMS email address for all out going emails
 
-	$fromEMS = 'admin@alegralabs.com';
+	$fromEMS = 'admin@tomatoinc.com';
 
 	// working hours a day for the employees default is 8, you can change it according to your company
 
@@ -63,7 +63,7 @@
 
 	// Set dashboard logo size
 
-	$dasboardLogoSize = 'width:100%;';
+	$dasboardLogoSize = 'width:70%;';
 
 
 ?>
