@@ -132,7 +132,7 @@ if(isset($_POST['invoice_type'])) {
                                                 if(isset($_POST['invoice_type']) and ($_POST['invoice_type'] ==1)) { ?>
                                                 <a target="_blank" href="uploads/invoices/receivedInvoice/<?php echo $invoiceManager->upload_invoice[$i];?>"><u>View</u></a>
                                                 <?php } else { ?>
-                                                <a target="_blank" href="uploads/invoices/<?php echo $invoiceManager->invoice_id[$i];?>.pdf"><u>View</u></a>
+                                                <a target="_blank" href="uploads/invoices/createdInvoice/<?php echo $invoiceManager->invoice_id[$i];?>.pdf"><u>View</u></a>
                                                 <?php } ?>
                                             </td>
                                             <td>

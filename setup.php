@@ -7,6 +7,10 @@ if(!isset($DBManager->mysqlConnectError)) {
 	$current_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 	// check if given reletive folder given in config is currect or not 
 	if($current_link == $absoluteUrl.'setup') {
+        
+        // overite htaccess file
+        include_once('functionMakeHtaccessDynamic.php');
+
         // create all database tables
         $file = 'db/ems.sql';
 
@@ -280,9 +284,9 @@ if(!isset($DBManager->mysqlConnectError)) {
                             <div class="col-md-5"></div>
                         </div>
 						<?php } elseif(isset($error) && $error == 'relativeUrlNotCorrect') { ?>
-						<p class="alert alert-danger errorMsg">Sorry, you have not set absolute path or it may be incorrect, please confirm it by going to EMS -> Setting -> config file. If the problem continues please visit our <a href="https://www.alegralabs.com/support/ems" target="_blank"><u>support</u></a> page.</p>
+						<p class="alert alert-danger errorMsg">Sorry, you have not set the absolute path or it may be incorrect, please confirm it by going to EMS -> settings -> config.php file. If the problem continues please visit our <a href="https://www.alegralabs.com/support/ems" target="_blank"><u>support</u></a> page.</p>
 						<?php } elseif(isset($error) && $error == "Database does not exists") { ?>
-						<p class="alert alert-danger errorMsg">Sorry, You have not created any database for EMS yet. Please create a database for your EMS and run the setup page again. Also check that you have entered your credientials in config file correctly. If the problem continues please visit our <a href="https://www.alegralabs.com/support/ems" target="_blank"><u>support</u></a> page.  </p>
+						<p class="alert alert-danger errorMsg">Sorry, You have not created any database for EMS yet. Please create a database for your EMS and run the setup page again. Also check that you have entered your credientials in config.php file correctly. If the problem continues please visit our <a href="https://www.alegralabs.com/support/ems" target="_blank"><u>support</u></a> page.  </p>
 						<?php } elseif(isset($success)) { ?>
                         <p class="alert alert-danger"><?php echo $success;?></p>
                         <?php } elseif(isset($error)) { ?>

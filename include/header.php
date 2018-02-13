@@ -155,7 +155,7 @@ else {
             <span>Clients</span>
           </a>
           <ul class="treeview-menu">
-            <li class="<?php if($current_link == $absoluteUrl.'createClient') echo 'active'; ?>"><a href="createClient"><i class="fa fa-circle"></i>Create Clients</a></li>
+            <li class="<?php if($current_link == $absoluteUrl.'createClient') echo 'active'; ?>"><a href="createClient"><i class="fa fa-circle"></i>Create Client</a></li>
             <li class="<?php if($current_link == $absoluteUrl.'viewClients' || $current_link == $absoluteUrl.'viewClientProjects.php' || $current_link == $absoluteUrl.'viewClientDetails' || $current_link == $absoluteUrl.'editClient') echo 'active'; ?>"><a href="viewClients"><i class="fa fa-circle"></i>View Clients</a></li>
             <li class="<?php if($current_link == $absoluteUrl.'viewProjects' || $current_link == $absoluteUrl.'viewSingleProjectDetails') echo 'active'; ?>"><a href="viewProjects"><i class="fa fa-circle"></i>View Projects</a></li>
           </ul>

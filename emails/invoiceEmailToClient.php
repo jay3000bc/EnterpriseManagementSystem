@@ -8,8 +8,9 @@ $from .= 'From: '.$fromEMS."\r\n".
 // end header
 $message = '<html><body>';
 $message .= '<p>Dear '.$client_name.',</p>';
-$message .= '<p>Please find your attachment invoice # '.$invoice_id.'.</p>';
+$message .= '<p>Invoice # '.$invoice_id.'.</p>';
 $message .= '<p>Invoice Date: '.$invoice_date.'.</p>';
+$message .= '<p>Please click the link below to download or view the invoice: '.$invoice_date.'.</p>';
 $message .='<a href="'.$invoicelink.'">Invoice</a>';
 $message .= '<p>Thanks<br>'.$companyInfo['company_name'].'</p>';
 $message .= '</body></html>';

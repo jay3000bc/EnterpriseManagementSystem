@@ -2,18 +2,18 @@
 
 	/* database credientails */
 		$host = 'localhost'; /* mysql server name default is localhost */
-		$databaseName = 'alegra6_mukesh'; /* Database to be used */
-		$databaseUser = 'alegra6_mukesh'; /* Database username */
-		$databasePassword = 'muk797'; /* Database  password */
+		$databaseName = ''; /* Database to be used */
+		$databaseUser = ''; /* Database username */
+		$databasePassword = ''; /* Database  password */
 	/* end */
 
 	// Path of target folder  where you will install EMS 
 
-	$absoluteUrl = 'http://www.alegralabs.com/mukesh/EMS-v1.2/';
+	$absoluteUrl = 'http://www.tomato.inc';
 
 	// EMS email address for all out going emails
 
-	$fromEMS = 'adminems@alegralabs.com';
+	$fromEMS = 'adminems@tomato.inc';
 
 	// working hours a day for the employees default is 8, you can change it according to your company
 
