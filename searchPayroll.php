@@ -55,6 +55,7 @@ $allPayrolls = $payrollManager->listPayroll();
                                     <th>Payroll</th>
                                     <th>Status</th>
                                     <th>Created on</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -78,6 +79,9 @@ $allPayrolls = $payrollManager->listPayroll();
                                         <?php } ?>
                                     </td>
                                     <td><?php echo $payrollManager->created_at[$i]; ?></td>
+                                    <td>
+                                        <a title="Delete" class="delete-btn btn btn-sm btn-danger"><i class="fa fa-trash-o"></i></a>
+                                    <input type="hidden" name="deletePayrollId" value="<?php echo $payrollManager->id[$i]; ?>"></td>
                                 </tr>
                                 <?php } ?>
                             </tbody>
@@ -95,9 +99,43 @@ $allPayrolls = $payrollManager->listPayroll();
 </div>
 <!-- /.content-wrapper -->
 <?php include('include/footer.php');?>
-<!-- Date Range Picker -->
+
+
+
 <script type="text/javascript">
-    //Date picker
+    // delete payroll
+    $('.delete-btn').click(function() {
+        var payroll_id_input = $(this).next('input');
+        var deletePayrollId = payroll_id_input.val();
+        swal({
+          title: "Are you sure?",
+          text: "Your will not be able to recover the Pyroll !",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonClass: "btn-danger",
+          confirmButtonText: "Yes, delete it!",
+          closeOnConfirm: false
+        },
+        function(){
+            $.ajax({
+                url: "PayrollController.php",
+                type: "post",
+                cache: false,
+                data: {"deletePayrollId": deletePayrollId},
+                success: function(result) {
+                    if (result==1) {
+                        payroll_id_input.parent().parent().remove();
+                        swal("Deleted!", "Payroll has been deleted successfully.", "success"); 
+                    }
+                    else {
+                        swal("Something Went Wrong!!!");
+                    }
+                }
+            });
+        });
+    });
+
+    //filter payroll by date
     var start = moment().subtract(29, 'days').format('YYYY/MM/DD');
     var end = moment().format('YYYY/MM/DD');
     //alert(end);

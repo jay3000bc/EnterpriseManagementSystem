@@ -137,7 +137,7 @@ if (isset($_POST["savePayroll"])) {
 
 			$pdf=exec('/usr/local/bin/wkhtmltopdf --page-size A4 --print-media-type --include-in-outline '.$generatePdfUrl.' '.$target_file.' 2>&1');
 			if(!$pdf) {
-				$_SESSION['payroll_error'] = 'Failed to generate Pdf.';
+				$_SESSION['payroll_error'] = 'Failed to generate payroll pdf. Its seems you have not installed WKHTMLTOPDF on server or on local machine also enable exec function of php if it is in disbaled list.';
 				header('location:payroll');
 				die();
 			}
@@ -268,5 +268,18 @@ if(isset($_POST['check_payroll_generated_id'])) {
 	if($result) {
 		echo $result;
 	}
+}
+
+// delete payroll
+if(isset($_POST['deletePayrollId'])) {
+    $deletePayrollId = mysqli_real_escape_string($DBManager->conn, $_POST['deletePayrollId']);
+    $payrollDetails = $payrollManager->getAPayroll($deletePayrollId);
+    $created_at = date("dmY", strtotime($payrollDetails['created_at']));
+
+    $pdf_name = $payrollDetails['employee_id'].$created_at.'.pdf';
+    $target_dir = "uploads/payroll_pdf/";
+    $target_file = $target_dir . $pdf_name;
+    unlink( $target_file );
+    echo $result = $payrollManager->deletePayroll($deletePayrollId);
 }
 ?>

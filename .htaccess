@@ -1,1 +1,57 @@
 Options +Multiviews
+RewriteEngine On
+RewriteBase /
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{SCRIPT_FILENAME} !-f
+RewriteRule ^index$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/index.php$1 [L]
+RewriteRule ^logout$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/logout.php$1 [L]
+RewriteRule ^help$ help.php$1 [L]
+RewriteRule ^adminHome$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/adminHome.php$1 [L]
+RewriteRule ^forgotPassword$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/forgotPassword.php$1 [L]
+RewriteRule ^resetPassword/([A-Z0-9]+)$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/resetPassword.php?token=$1 [L]
+## Employee
+RewriteRule ^createEmployee$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/createEmployee.php$1 [L]
+RewriteRule ^viewEmployees$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/viewEmployees.php$1 [L]
+##RewriteRule ^viewEmployeeDetails/(.*)$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/viewEmployeeDetails.php?employee_id=$1 [L]
+##RewriteRule ^editEmployee/(.*)$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/editEmployee.php?employee_id=$1 [L]
+RewriteRule ^probationerAppointment$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/probationerAppointment.php$1 [L]
+RewriteRule ^permanentAppointment$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/permanentAppointment.php$1 [L]
+RewriteRule ^experienceCertificate$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/experienceCertificate.php$1 [L]
+RewriteRule ^employeeTermsConditions$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/employeeTermsConditions.php$1 [L]
+RewriteRule ^payroll$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/payroll.php$1 [L]
+RewriteRule ^searchPayroll$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/searchPayroll.php$1 [L]
+
+## Client
+RewriteRule ^createClient$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/createClient.php$1 [L]
+RewriteRule ^viewClients$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/viewClients.php$1 [L]
+RewriteRule ^viewProjects$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/viewProjects.php$1 [L]
+##RewriteRule ^viewClientDetails/(.*)$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/viewClientDetails.php?client_id=$1 [L]
+##RewriteRule ^editClient/(.*)$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/editClient.php?client_id=$1 [L]
+##RewriteRule ^viewSingleProjectDetails/(.*)$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/viewSingleProjectDetails.php?project_id=$1 [L]
+
+## Invoice
+RewriteRule ^createInvoice$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/createInvoice.php$1 [L]
+RewriteRule ^receiveInvoice$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/receiveInvoice.php$1 [L]
+RewriteRule ^viewInvoices$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/viewInvoices.php$1 [L]
+ 
+## GST
+RewriteRule ^currentGST$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/currentGST.php$1 [L]
+RewriteRule ^searchGST$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/searchGST.php$1 [L]
+##RewriteRule ^viewGST/(.*)$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/viewGST.php?period=$1 [L]
+
+## Settings
+RewriteRule ^companyProfile$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/companyProfile.php$1 [L]
+RewriteRule ^changePasswordForm$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/changePasswordForm.php$1 [L]
+RewriteRule ^employeeLeaveHoliday$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/employeeLeaveHoliday.php$1 [L]
+RewriteRule ^notifications$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/notifications.php$1 [L]
+
+## Employee Part
+RewriteRule ^home$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/employee/home.php$1 [L]
+RewriteRule ^probationerAppointment$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/employee/probationerAppointment.php$1 [L]
+RewriteRule ^permanentAppointment$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/employee/permanentAppointment.php$1 [L]
+RewriteRule ^experienceCertificate$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/employee/experienceCertificate.php$1 [L]
+RewriteRule ^employeeTermsConditions$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/employee/employeeTermsConditions.php$1 [L]
+RewriteRule ^payroll$ http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/employee/payroll.php$1 [L]
+
+## 404 error page
+ErrorDocument 404 http://www.alegralabs.com/mukesh/EnterpriseManagementSystem/404Error.php

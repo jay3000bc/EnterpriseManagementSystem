@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `ems_admin` (
 
 DELETE FROM `ems_admin`;
 INSERT INTO `ems_admin` (`id`, `username`, `photo`, `password`, `company_name`, `company_address`, `state`, `contact_number`, `email`, `crn`, `gstin`, `pan`, `company_logo`, `signature`, `last_logged_in`, `ip`, `theme_color`,`created_at`) VALUES
-(1, 'admin', 'defaultuser.png', '4297f44b13955235245b2497399d7a93', 'Tomato Inc.', 'Delhi', 11, '9508123456', 'admin@tomatoinc.com', '', 'GSTIN123', 'PAN123', 'logo-black.png', '', '1515495317', '110.234.66.65', 'skin-yellow', '2018-01-09 10:55:17');
+(1, 'admin', 'defaultuser.png', 'e295f0521ee081252e05e3aa4e771048', 'Tomato Inc.', 'Delhi', 11, '9508123456', 'admin@tomatoinc.com', '', 'GSTIN123', 'PAN123', 'logo-black.png', '', '1515495317', '110.234.66.65', 'skin-yellow', '2018-01-09 10:55:17');
 
 -- --------------------------------------------------------
 

@@ -58,10 +58,11 @@ class PayrollManager {
     // list all payroll
     function listPayroll() {
         $db = new DBManager();
-        $sql = "SELECT ems_payroll.employee_id, ems_employees.name, ems_payroll.pdf_name, ems_payroll.net_pay, ems_payroll.status, ems_payroll.created_at  from ems_payroll, ems_employees where ems_payroll.employee_id = ems_employees.employee_id order by  ems_payroll.created_at DESC";
+        $sql = "SELECT ems_payroll.id, ems_payroll.employee_id, ems_employees.name, ems_payroll.pdf_name, ems_payroll.net_pay, ems_payroll.status, ems_payroll.created_at  from ems_payroll, ems_employees where ems_payroll.employee_id = ems_employees.employee_id order by  ems_payroll.created_at DESC";
         $data = $db->getAllRecords($sql);
         $total = $db->getNumRow($sql);
         while ($row = $db->getNextRow()) {
+            $this->id[] = $row['id'];
             $this->employee_id[] = $row['employee_id'];
             $this->name[] = $row['name'];
             $this->pdf_name[] = $row['pdf_name'];
@@ -105,5 +106,23 @@ class PayrollManager {
         $data = $db->getAllRecords($sql);
         $total = $db->getNumRow($sql);
         return $total;
+    }
+    // delete payroll
+    public function deletePayroll($id) {
+        $db = new DBManager();
+        $sql = "DELETE from ems_payroll where id = '$id'";
+        $result = $db->execute($sql);
+        if($result) {
+            return 1; 
+        }
+    }
+
+    // get a payroll details
+    public function getAPayroll($id) {
+        $db = new DBManager();
+        $sql = "SELECT * from ems_payroll where id=$id";
+        $payrollDetails = $db->getARecord($sql);
+        return $payrollDetails;
+
     }
 }

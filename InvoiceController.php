@@ -74,7 +74,7 @@ if (isset($_POST["saveInvoice"])) {
 
 		$pdf=exec('/usr/local/bin/wkhtmltopdf --page-size A4 --print-media-type --include-in-outline  "'.$generatePdfUrl.'" uploads/invoices/createdInvoice/'.$invoice_id.'.pdf 2>&1');
 		if(!$pdf) {
-			$_SESSION['ErrorMsgInvoice'] = 'Failed to generate Pdf.';
+			$_SESSION['ErrorMsgInvoice'] = 'Failed to generate Invoice pdf. Its seems you have not installed WKHTMLTOPDF on server or on local machine also enable exec function of php if it is in disbaled list.';
 			header('location:createInvoice');
 		}
 		// send invoice details to client

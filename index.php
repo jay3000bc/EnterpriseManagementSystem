@@ -1,6 +1,15 @@
 <?php
 session_start();
 include_once('settings/config.php');
+$current_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+//echo $current_link;
+if($current_link == $absoluteUrl) {
+
+} elseif($current_link == $absoluteUrl.'index') {
+
+} else {
+    $error =  "IncorrectAbsoluteUrl";
+}   
 include_once 'DBManager.php';
 $DBManager = new DBManager();
 if(isset($DBManager->mysqlConnectError)) { 
@@ -13,8 +22,7 @@ if(isset($DBManager->mysqlConnectError)) {
         include_once 'AdminManager.php';
         $adminManager = new AdminManager();
         $companyInfo = $adminManager->getAdminDetails();
-        if(isset($_SESSION['username'])) 
-        {
+        if(isset($_SESSION['username'])) {
             header('Location:adminHome');
         }
     } else {
@@ -60,16 +68,18 @@ if($companyInfo['theme_color'] == 'skin-black') {
   </head>
 <body>
     <div class="container">
-        <?php if(isset($error) && $error =='mysqlError') { ?>
-            <div class="jumbotron div-centered">
-                <h4>Welcome To EMS</h4>
-                <p class="alert alert-danger">You have not configured your config file under setting folder. Please open the config file in any of your editor and give the necessary database credientials and full url where you want to install your EMS and then refresh the site.</p>
-            </div>
-        <?php } elseif(isset($error) && $error =='tablesDoesNotExist') { ?>
-            <div class="jumbotron div-centered">
-                <h3>Welcome To EMS</h3>
+        <?php if(isset($error)) { ?>
+        <div class="jumbotron div-centered">
+            <h3>Welcome To EMS</h3>
+            <?php if($error == 'mysqlError') { ?>
+            
+                <p class="alert alert-danger errorMsg">Error Message: You have not created any database for EMS yet. Please create a database for your EMS. Also check that you have entered your database credientials in config.php file correctly. If the problem continues please visit our <a href="https://www.alegralabs.com/support/ems" target="_blank"><u>support</u></a> page.  </p>
+            <?php } if($error == 'IncorrectAbsoluteUrl') { ?>
+                <p class="alert alert-danger errorMsg">Error Message: You have not set the absolute path or it may be incorrect, please confirm it by going to EMS -> settings -> config.php file. If the problem continues please visit our <a href="https://www.alegralabs.com/support/ems" target="_blank"><u>support</u></a> page.</p>
+            <?php } if($error == 'tablesDoesNotExist') { ?>
                 <p class="alert alert-danger">You have not installed your tables yet. <a href="setup">Click here for table installation</a></p>
-            </div>
+            <?php } ?>    
+        </div>
         <?php } else { ?>
         <div class="row">
             <div class="centered-aligned">
@@ -142,7 +152,7 @@ if($companyInfo['theme_color'] == 'skin-black') {
     <?php
     if(isset($_SESSION['setupSuccess'])) { ?>
     <script type="text/javascript">
-        swal('Congrats','All your setup has been done succesfully. You can now login using Username as admin and Password as 123123 which is default, you can change it after logging.', 'success');
+        swal('Congrats','All your setup has been done succesfully. You can now login using Username as admin and Password as eastindia which is default, you can change it after logging.', 'success');
     </script>
     <?php
     unset($_SESSION['setupSuccess']);   

@@ -1,4 +1,5 @@
 <?php
+// mail header
 $paysilipHeaders  = 'MIME-Version: 1.0' . "\r\n";
 $paysilipHeaders .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
@@ -12,7 +13,7 @@ $paysilipMessage .= '<p>Dear '.$name.',</p>';
 
 $paysilipMessage .= '<p>Salary for the month of '.$lastMonth.' has been credited (will be credited) to your Bank A/c # ' .$bankAccount.'</p>';
 $paysilipMessage .='<p>Click the link below for the Payslip.</p>';
-$paysilipMessage .= $pdf_link;
+$paysilipMessage .= '<a href="'.$pdf_link.'">View Paysilip</a>';
 $paysilipMessage .= '<p>Thanks<br>'.$companyInfo['company_name'].'</p>';
 $paysilipMessage .= '</body></html>';
 ?>

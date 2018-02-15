@@ -35,7 +35,7 @@ if (isset($_POST["saveProbationerAppointment"])) {
 
 		$pdf=exec('/usr/local/bin/wkhtmltopdf --page-size A4 --print-media-type --include-in-outline '.$generatePdfUrl.' '.$target_file.' 2>&1');
 		if( !$pdf ) {
-			$_SESSION['probationer_error'] = 'Failed to generate appointment pdf.';
+			$_SESSION['probationer_error'] = 'Failed to generate appointment pdf. Its seems you have not installed WKHTMLTOPDF on server or on local machine also enable exec function of php if it is in disbaled list.';
 			header('location:probationerAppointment');
 		}
 		$_SESSION['probationer_success'] = 'success';
@@ -70,7 +70,7 @@ if (isset($_POST["savePermanentAppointment"])) {
 		$generatePdfUrl = $absoluteUrl.'generatePermanentAppointment?employee_id='.$employee_id;
 		$pdf=exec('/usr/local/bin/wkhtmltopdf --page-size A4 --print-media-type --include-in-outline '.$generatePdfUrl.' '.$target_file.' 2>&1');
 		if(!$pdf) {
-			$_SESSION['permanent_error'] = 'Failed to generate appointment pdf.';
+			$_SESSION['permanent_error'] = 'Failed to generate appointment pdf. Its seems you have not installed WKHTMLTOPDF on server or on local machine also enable exec function of php if it is in disbaled list.';
 			header('location:permanentAppointment');
 			die();
 		}
@@ -132,7 +132,7 @@ if (isset($_POST["saveExperienceCertificate"])) {
 		$generatePdfUrl = $absoluteUrl.'generateExperienceCertificate?employee_id='.$employee_id;
 		$pdf=exec('/usr/local/bin/wkhtmltopdf --page-size A4 --print-media-type --include-in-outline '.$generatePdfUrl.' '.$target_file.' 2>&1');
 		if(!$pdf) {
-			$_SESSION['experience_certificate_error'] = 'Failed to generate Experience Certificate pdf.';
+			$_SESSION['experience_certificate_error'] = 'Failed to generate Experience Certificate pdf. Its seems you have not installed WKHTMLTOPDF on server or on local machine also enable exec function of php if it is in disbaled list.';
 			header('location:experienceCertificate');
 			die();
 		}
