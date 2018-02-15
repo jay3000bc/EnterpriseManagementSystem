@@ -13,7 +13,8 @@ if(isset($DBManager->mysqlConnectError)) {
         include_once 'AdminManager.php';
         $adminManager = new AdminManager();
         $companyInfo = $adminManager->getAdminDetails();
-        if(isset($_SESSION['username'])) {
+        if(isset($_SESSION['username'])) 
+        {
             header('Location:adminHome');
         }
     } else {
