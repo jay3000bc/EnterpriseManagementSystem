@@ -1,0 +1,5 @@
+{
+    "require": {
+        "ticketpark/htmlphpexcel": "^0.4.1"
+    }
+}
