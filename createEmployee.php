@@ -108,11 +108,11 @@ if($manageIdStatus['employee_id'] ==1) {
                                     </div>
                                     <div class="form-group">
                                         <label for="bankAccount">Bank Account <span class="mandatory">*</span></label>
-                                        <input name="bank_account" value="<?php if(isset($_SESSION['session_bank_account'])) echo htmlspecialchars($_SESSION['session_bank_account']); unset($_SESSION['session_bank_account']); ?>" class="form-control remove-space" id="bankAccount" placeholder="Enter Passport No." type="text" autocomplete="off" required>
+                                        <input name="bank_account" value="<?php if(isset($_SESSION['session_bank_account'])) echo htmlspecialchars($_SESSION['session_bank_account']); unset($_SESSION['session_bank_account']); ?>" class="form-control remove-space" id="bankAccount" placeholder="Enter Bank Account No." type="text" autocomplete="off" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="ifscCode">IFSC Code <span class="mandatory">*</span></label>
-                                        <input name="ifsc_code" value="<?php if(isset($_SESSION['session_ifsc_code'])) echo htmlspecialchars($_SESSION['session_ifsc_code']); unset($_SESSION['session_ifsc_code']); ?>" class="form-control remove-space" id="ifscCode" placeholder="Enter Passport No." type="text" autocomplete="off" required>
+                                        <input name="ifsc_code" value="<?php if(isset($_SESSION['session_ifsc_code'])) echo htmlspecialchars($_SESSION['session_ifsc_code']); unset($_SESSION['session_ifsc_code']); ?>" class="form-control remove-space" id="ifscCode" placeholder="Enter IFSC Code." type="text" autocomplete="off" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -169,7 +169,7 @@ if($manageIdStatus['employee_id'] ==1) {
                                     </div>
                                     <div class="form-group">
                                         <label for="drivingLicense">Driving License</label>
-                                        <input name="driving_license_no" value="<?php if(isset($_SESSION['session_driving_license_no'])) echo htmlspecialchars($_SESSION['session_driving_license_no']); unset($_SESSION['session_driving_license_no']); ?>" class="form-control remove-space" id="drivingLicense" placeholder="Enter Passport No." type="text" autocomplete="off">
+                                        <input name="driving_license_no" value="<?php if(isset($_SESSION['session_driving_license_no'])) echo htmlspecialchars($_SESSION['session_driving_license_no']); unset($_SESSION['session_driving_license_no']); ?>" class="form-control remove-space" id="drivingLicense" placeholder="Enter Driving License No." type="text" autocomplete="off">
                                     </div>
                                     <div class="form-group">
                                         <label for="passportNo">Passport No</label>

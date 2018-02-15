@@ -122,11 +122,11 @@ if (isset($_GET['request_id'])) {
                                     </div>
                                     <div class="form-group">
                                         <label for="bankAccount">Bank Account <span class="mandatory">*</span></label>
-                                        <input value="<?php echo $result['bank_account'];?>" name="bank_account" class="form-control" id="bankAccount" placeholder="Enter Passport No." type="text" autocomplete="off" required>
+                                        <input value="<?php echo $result['bank_account'];?>" name="bank_account" class="form-control" id="bankAccount" placeholder="Enter Bank Account No." type="text" autocomplete="off" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="ifscCode">IFSC Code <span class="mandatory">*</span></label>
-                                        <input value="<?php echo $result['ifsc_code'];?>" name="ifsc_code" class="form-control" id="ifscCode" placeholder="Enter Passport No." type="text" autocomplete="off" required>
+                                        <input value="<?php echo $result['ifsc_code'];?>" name="ifsc_code" class="form-control" id="ifscCode" placeholder="Enter IFSC Code." type="text" autocomplete="off" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -180,7 +180,7 @@ if (isset($_GET['request_id'])) {
                                     </div>
                                     <div class="form-group">
                                         <label for="drivingLicense">Driving License</label>
-                                        <input value="<?php echo $result['driving_license_no'];?>" name="driving_license_no" class="form-control" id="drivingLicense" placeholder="Enter Passport No." type="text" autocomplete="off">
+                                        <input value="<?php echo $result['driving_license_no'];?>" name="driving_license_no" class="form-control" id="drivingLicense" placeholder="Enter Driving License No." type="text" autocomplete="off">
                                     </div>
                                     <div class="form-group">
                                         <label for="passportNo">Passport No</label>
@@ -313,17 +313,17 @@ if (isset($_GET['request_id'])) {
                                     <div class="form-group">
                                         <label for="bankAccount">Bank Account <span class="mandatory">*</span></label>
                                         <?php if($resultRequestProfileDetails['bank_account'] !='') { ?>
-                                        <input value="<?php echo $resultRequestProfileDetails['bank_account'];?>" name="bank_account" class="form-control input-high-light" id="bankAccount" placeholder="Enter Passport No." type="text" autocomplete="off" required>
+                                        <input value="<?php echo $resultRequestProfileDetails['bank_account'];?>" name="bank_account" class="form-control input-high-light" id="bankAccount" placeholder="Enter Bank Account No." type="text" autocomplete="off" required>
                                         <?php } else { ?>
-                                        <input value="<?php echo $result['bank_account'];?>" name="bank_account" class="form-control" id="bankAccount" placeholder="Enter Passport No." type="text" autocomplete="off" required>
+                                        <input value="<?php echo $result['bank_account'];?>" name="bank_account" class="form-control" id="bankAccount" placeholder="Enter Bank Account No." type="text" autocomplete="off" required>
                                         <?php } ?>
                                     </div>
                                     <div class="form-group">
                                         <label for="ifscCode">IFSC Code <span class="mandatory">*</span></label>
                                         <?php if($resultRequestProfileDetails['ifsc_code'] !='') { ?>
-                                        <input value="<?php echo $resultRequestProfileDetails['ifsc_code'];?>" name="ifsc_code" class="form-control input-high-light" id="ifscCode" placeholder="Enter Passport No." type="text" autocomplete="off" required>
+                                        <input value="<?php echo $resultRequestProfileDetails['ifsc_code'];?>" name="ifsc_code" class="form-control input-high-light" id="ifscCode" placeholder="Enter IFSC Code." type="text" autocomplete="off" required>
                                         <?php } else { ?>
-                                        <input value="<?php echo $result['ifsc_code'];?>" name="ifsc_code" class="form-control" id="ifscCode" placeholder="Enter Passport No." type="text" autocomplete="off" required>
+                                        <input value="<?php echo $result['ifsc_code'];?>" name="ifsc_code" class="form-control" id="ifscCode" placeholder="Enter IFSC Code." type="text" autocomplete="off" required>
                                         <?php } ?>
                                     </div>
                                 </div>
@@ -405,9 +405,9 @@ if (isset($_GET['request_id'])) {
                                     <div class="form-group">
                                         <label for="drivingLicense">Driving License</label>
                                         <?php if($resultRequestProfileDetails['driving_license_no'] !='') { ?>
-                                        <input value="<?php echo $resultRequestProfileDetails['driving_license_no'];?>" name="driving_license_no" class="form-control input-high-light" id="drivingLicense" placeholder="Enter Passport No." type="text" autocomplete="off">
+                                        <input value="<?php echo $resultRequestProfileDetails['driving_license_no'];?>" name="driving_license_no" class="form-control input-high-light" id="drivingLicense" placeholder="Enter Driving License No." type="text" autocomplete="off">
                                         <?php } else { ?>
-                                        <input value="<?php echo $result['driving_license_no'];?>" name="driving_license_no" class="form-control" id="drivingLicense" placeholder="Enter Passport No." type="text" autocomplete="off">
+                                        <input value="<?php echo $result['driving_license_no'];?>" name="driving_license_no" class="form-control" id="drivingLicense" placeholder="Enter Driving License No." type="text" autocomplete="off">
                                         <?php } ?>
                                     </div>
                                     <div class="form-group">
