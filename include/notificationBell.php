@@ -29,16 +29,8 @@
                 <li class="footer"><a href="notifications">View all</a></li>
             </ul>
         </li>
-        <li><a href="http://www.alegralabs.com/support/ems" target="_blank">Support</a></li>
-        <li><!-- <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a> -->
-            <?php 
-                // if(!isset($_COOKIE['skinColor'])) {
-                //     $cookie_name = "skinColor";
-                //     $cookie_value = "skin-yellow";
-                //     setcookie($cookie_name, $cookie_value, time() + (86400 * 90), "/"); // 86400 = 1 day
-                //     $_COOKIE['skinColor'] = "skin-yellow";
-                //}
-                ?>
+        <li><a href="https://www.alegralabs.com/support/ems" target="_blank">Support</a></li>
+        <li>
             <select id="changeSkin" class="form-control">
                 <option>Select Skin</option>
                 <option <?php if($companyInfo['theme_color'] == 'skin-blue') echo 'selected'; ?> value="skin-blue">Blue</option>

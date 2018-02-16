@@ -73,7 +73,7 @@ if(isset($_COOKIE['outlook']) && $_COOKIE['outlook'] == 1) {
 }
 // NDTV Top Stories
 if(isset($_COOKIE['ndtv']) && $_COOKIE['ndtv'] == 1) {
-    $rssNDTV = simplexml_load_file('http://feeds.feedburner.com/ndtvnews-top-stories');
+    $rssNDTV = simplexml_load_file('https://feeds.feedburner.com/ndtvnews-top-stories');
     $feedNDTVHeading = $rssNDTV->channel->title;
     foreach ($rssNDTV->channel->item as $item) {
         $feedNDTVDesc .= '<h5><a href="'. $item->link .'" target="_blank">' . $item->title . "</a></h5>";
@@ -82,7 +82,7 @@ if(isset($_COOKIE['ndtv']) && $_COOKIE['ndtv'] == 1) {
 }
 // World
 if(isset($_COOKIE['world']) && $_COOKIE['world'] == 1) {
-    $rssWorld = simplexml_load_file('http://www.hindustantimes.com/rss/world/rssfeed.xml');
+    $rssWorld = simplexml_load_file('https://www.hindustantimes.com/rss/world/rssfeed.xml');
     $feedWorldHeading = $rssWorld->channel->title;
     foreach ($rssWorld->channel->item as $item) {
         $feedWorldDesc .= '<h5><a href="'. $item->link .'" target="_blank">' . $item->title . "</a></h5>";
@@ -91,7 +91,7 @@ if(isset($_COOKIE['world']) && $_COOKIE['world'] == 1) {
 }
 // Technology
 if(isset($_COOKIE['technology']) && $_COOKIE['technology'] == 1) {
-    $rssTechnology = simplexml_load_file('http://feeds.feedburner.com/TechCrunch/');
+    $rssTechnology = simplexml_load_file('https://feeds.feedburner.com/TechCrunch/');
     $feedTechnologyHeading = $rssTechnology->channel->title;
     foreach ($rssTechnology->channel->item as $item) {
         $feedTechnologyDesc .= '<h5><a href="'. $item->link .'" target="_blank">' . $item->title . "</a></h5>";
