@@ -22,7 +22,7 @@
 <script src="dist/js/app.min.js"></script>
 <!-- tinymce -->
 <!-- <script src='plugins/tinymce/tinymce.min.js'></script> -->
-<script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+<script src="//cloud.tinymce.com/stable/tinymce.min.js"></script>
 <!--  dropify -->
 <script src="plugins/dropify/js/dropify.min.js" charset="utf-8"></script>
 <script type="text/javascript">
@@ -60,7 +60,7 @@
 <!-- jquery form validation -->
 <script src="js/formValidate.js" type="text/javascript"></script>
 <!-- jQuery cookie plugin -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <!-- End -->
 <!-- password strength check -->
 <script src="js/passwordStrength.js" type="text/javascript"></script>
@@ -98,14 +98,7 @@
             }
         });
         $("body").removeClass().addClass("hold-transition "+skinColor+" sidebar-mini");
-        //$.cookie('skinColor', skinColor);
     });
   });
 </script>
-<?php if(isset($_COOKIE['skinColor'])) { ?>
-<script type="text/javascript">
-     //  var cookieSkinColor = '<?php //echo $_COOKIE['skinColor']; ?>';
-     // $("#changeSkin").val(cookieSkinColor);
-</script>
-<?php } ?>
 <!-- End -->

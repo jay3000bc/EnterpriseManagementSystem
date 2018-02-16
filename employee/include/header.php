@@ -52,6 +52,8 @@ else {
   <link rel="stylesheet" type="text/css" href="../css/passwordStrength.css">
   <!-- jQuery 2.2.3 -->
   <script src="../js/jquery-2.2.3.min.js"></script>
+  <!-- jQuery ui 2.2.3 -->
+  <script src="../js/jquery-ui.min.js"></script>
 </head>
 <body class="hold-transition sidebar-mini <?php echo $companyInfo['theme_color']; ?>">
 <div class="wrapper">

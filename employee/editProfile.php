@@ -305,11 +305,11 @@ if(isset($_POST['requestProfileChanges'])) {
                                     </div>
                                     <div class="form-group">
                                         <label for="bankAccount">Bank Account <span class="mandatory">*</span></label>
-                                        <input value="<?php echo $result['bank_account'];?>" name="bank_account" class="form-control" id="bankAccount" placeholder="Enter Passport No." type="text" autocomplete="off" required>
+                                        <input value="<?php echo $result['bank_account'];?>" name="bank_account" class="form-control" id="bankAccount" placeholder="Enter Bank Account No." type="text" autocomplete="off" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="ifscCode">IFSC Code <span class="mandatory">*</span></label>
-                                        <input value="<?php echo $result['ifsc_code'];?>" name="ifsc_code" class="form-control" id="ifscCode" placeholder="Enter Passport No." type="text" autocomplete="off" required>
+                                        <input value="<?php echo $result['ifsc_code'];?>" name="ifsc_code" class="form-control" id="ifscCode" placeholder="Enter IFSC Code" type="text" autocomplete="off" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -353,7 +353,7 @@ if(isset($_POST['requestProfileChanges'])) {
                                     </div>
                                     <div class="form-group">
                                         <label for="drivingLicense">Driving License</label>
-                                        <input value="<?php echo $result['driving_license_no'];?>" name="driving_license_no" class="form-control" id="drivingLicense" placeholder="Enter Passport No." type="text" autocomplete="off">
+                                        <input value="<?php echo $result['driving_license_no'];?>" name="driving_license_no" class="form-control" id="drivingLicense" placeholder="Enter Driving License No." type="text" autocomplete="off">
                                     </div>
                                     <div class="form-group">
                                         <label for="passportNo">Passport No</label>

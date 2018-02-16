@@ -3,8 +3,6 @@
 </footer>
 </div>
 <!-- /.wrapper -->
-<!-- jQuery UI 1.11.4 -->
-<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button);
@@ -27,7 +25,7 @@
 <!--  dropify -->
 <script src="../plugins/dropify/js/dropify.min.js" charset="utf-8"></script>
 <!-- jQuery cookie plugin -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <!-- end -->
 <script type="text/javascript">
     // initialize dropify
@@ -61,10 +59,7 @@
     $("#changeSkin").change(function () {
         var skinColor = $(this).val();
         $("body").removeClass().addClass("hold-transition "+skinColor+" sidebar-mini");
-        //$('.wrapper, .main-sidebar, .left-side').css('background-color','#f9fafc');
-        //$('.wrapper, .main-sidebar, .left-side').css('color','#000');
-        //$('.skin-black-light .wrapper, .skin-black-light .main-sidebar, .skin-black-light .left-side').css('color','#f9fafc');
-      $.cookie('skinColor', skinColor);
+        $.cookie('skinColor', skinColor);
     });
   });
 </script>
@@ -72,6 +67,5 @@
 <script type="text/javascript">
       var cookieSkinColor = '<?php echo $_COOKIE['skinColor']; ?>';
      $("#changeSkin").val(cookieSkinColor);
-     // $("body").removeClass().addClass("hold-transition "+cookieSkinColor+" sidebar-mini");
 </script>
 <?php } ?>
