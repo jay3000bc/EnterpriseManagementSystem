@@ -25,7 +25,12 @@ if (isset($_POST["saveInvoice"])) {
 	$client_name = mysqli_real_escape_string($DBManager->conn, $_POST['client_name']);
 	$client_address = mysqli_real_escape_string($DBManager->conn, $_POST['client_address']);
 	$client_gstin = mysqli_real_escape_string($DBManager->conn, $_POST['client_gstin']);
-	$client_state = mysqli_real_escape_string($DBManager->conn, $_POST['client_state']);
+	if(isset($_POST['client_state']) && ($_POST['client_state'] != '')) {
+		$client_state = mysqli_real_escape_string($DBManager->conn, $_POST['client_state']);
+	} else {
+		$client_state = 50;
+	}
+	
 	$mode_of_invoice = mysqli_real_escape_string($DBManager->conn, $_POST['mode_of_invoice']);
 	$invoice_date = mysqli_real_escape_string($DBManager->conn, $_POST['invoice_date']);
 	$reverse_charge = mysqli_real_escape_string($DBManager->conn, $_POST['reverse_charge']);
@@ -72,7 +77,7 @@ if (isset($_POST["saveInvoice"])) {
 		// GENERATE PDF
 		$generatePdfUrl = $absoluteUrl."generateInvoice.php?invoice_id=".$invoice_id;
 
-		$pdf=exec('/usr/local/bin/wkhtmltopdf --page-size A4 --print-media-type --include-in-outline  "'.$generatePdfUrl.'" uploads/invoices/createdInvoice/'.$invoice_id.'.pdf 2>&1');
+		$pdf=exec('/usr/local/bin/wkhtmltopdf --page-size A4 --print-media-type --include-in-outline --encoding UTF-8 "'.$generatePdfUrl.'" uploads/invoices/createdInvoice/'.$invoice_id.'.pdf 2>&1');
 		if(!$pdf) {
 			$_SESSION['ErrorMsgInvoice'] = 'Failed to generate Invoice pdf. Its seems you have not installed WKHTMLTOPDF on server or on local machine also enable exec function of php if it is in disbaled list.';
 			header('location:createInvoice');
@@ -109,7 +114,11 @@ if (isset($_POST["previewInvoice"])) {
 	$client_name = mysqli_real_escape_string($DBManager->conn, $_POST['client_name']);
 	$client_address = mysqli_real_escape_string($DBManager->conn, $_POST['client_address']);
 	$client_gstin = mysqli_real_escape_string($DBManager->conn, $_POST['client_gstin']);
-	$client_state = mysqli_real_escape_string($DBManager->conn, $_POST['client_state']);
+	if(isset($_POST['client_state']) && ($_POST['client_state'] != '')) {
+		$client_state = mysqli_real_escape_string($DBManager->conn, $_POST['client_state']);
+	} else {
+		$client_state = 50;
+	}
 	$mode_of_invoice = mysqli_real_escape_string($DBManager->conn, $_POST['mode_of_invoice']);
 	$invoice_date = mysqli_real_escape_string($DBManager->conn, $_POST['invoice_date']);
 	$reverse_charge = mysqli_real_escape_string($DBManager->conn, $_POST['reverse_charge']);
