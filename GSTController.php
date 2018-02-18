@@ -14,7 +14,11 @@ if (isset($_POST["generateGST"])) {
     	$_SESSION['GSTMessage'] = 'success';
     	// GENERATE PDF
 		$generatePdfUrl = $absoluteUrl.'generateGST.php?period='.$period;
-		$pdf=exec('/usr/local/bin/wkhtmltopdf --page-size A4 --print-media-type --include-in-outline '.$generatePdfUrl.' uploads/GST/'.$period.'.pdf 2>&1');
+		$pdf=exec('/usr/local/bin/wkhtmltopdf --page-size A4 --print-media-type --include-in-outline --encoding UTF-8 '.$generatePdfUrl.' uploads/GST/'.$period.'.pdf 2>&1');
+		if(!$pdf) {
+			$_SESSION['ErrorMsgGST'] = 'Failed to generate Invoice pdf. Its seems you have not installed WKHTMLTOPDF on server or on local machine also enable exec function of php if it is in disbaled list.';
+			header('viewGST?period='.$period);
+		}
 		//generate xl file
         include_once 'generateGSTXL.php';
         

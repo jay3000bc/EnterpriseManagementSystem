@@ -38,7 +38,17 @@ $resultGSTPeriod = $GSTManager->getAllGSTPeriod();
                         <h3 class="box-title"><b>SALE DETAILS</b></h3>
                     </div>
                     <div class="box-body">
-                        <div class="row">  
+                        <div class="row"> 
+                            <?php 
+                                if(isset($_SESSION['ErrorMsgGST'])) {
+                            ?>
+                                <div class="col-md-12 error-message">
+                                    <p class="alert alert-danger"><?php echo $_SESSION['ErrorMsgGST'];?><span style="color:#fff;" class="clear-error-msg close">&times;</span></p>
+                                </div>
+                            <?php
+                                unset($_SESSION['ErrorMsgGST']);  
+                                }
+                            ?> 
                             <div class="col-md-12">
                                 <table id="display_gst_table" class="table table-bordered table-striped">
                                     <thead>
