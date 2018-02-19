@@ -29,6 +29,8 @@ $invoiceDetails = $invoiceManager->getInvoiceDetails($invoice_id);
 	<title>Generating Invoice</title>
 	<link rel="stylesheet" href="bootstrap/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/custom.css">
+	<!-- Font Awesome -->
+  	<link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
 </head>
 <body>
 	<div class="container invoice-box">
@@ -141,9 +143,16 @@ $invoiceDetails = $invoiceManager->getInvoiceDetails($invoice_id);
 							<td colspan="8">Total</td>
 							<td><?php foreach ($currencies as $key => $currency) {
 								if($key == $invoiceDetails['currency_type']) {
-									$currency_type = $currency;
+									if($key == 'rupee') {
+										$currency_type = '<i class="fa fa-inr" aria-hidden="true"></i>';
+									} else {
+										$currency_type = $currency;
+									}
+									
 								}
-							} echo $currency_type.'&nbsp;'. sprintf('%0.2f', $netAmount); ?></td>
+							} echo $currency_type.'&nbsp;'. sprintf('%0.2f', $netAmount); ?>
+								
+							</td>
 						</tr>
 						<tr>
 							<td colspan="4">Total invoice amount in words</td>

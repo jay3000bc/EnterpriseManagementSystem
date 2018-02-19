@@ -25,6 +25,11 @@ $output .= '<tr>
                 foreach ($currencies as $key => $currency) {
                     if($key == $GSTManager->currency_type[$i]) {
                         $currency_type = $currency;
+                        if($key == 'rupee') {
+                            $currency_type = 'Rs.';
+                        } else {
+                            $currency_type = $currency;
+                        }
                     } 
                 }
                 $totalAmountBeforeTax = 0;
@@ -78,7 +83,11 @@ $output .= '<tr>
             for($i=0; $i< $resultPurchase; $i++) {
                 foreach ($currencies as $key => $currency) {
                     if($key == $GSTManager->currency_type[$i]) {
-                        $currency_type = $currency;
+                        if($key == 'rupee') {
+                            $currency_type = 'Rs.';
+                        } else {
+                            $currency_type = $currency;
+                        }
                     } 
                 }
                 $totalAmountBeforeTax = 0;

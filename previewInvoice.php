@@ -18,7 +18,10 @@ $totalServices = $invoiceManager->getPreviewServices($invoice_id);
 <!DOCTYPE html>
 <html>
 <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Preview Invoice</title>
+	<!-- Font Awesome -->
+  	<link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
 </head>
 <body>
 	<div class="container invoice-box" id="previewInvoiceDetails">
@@ -124,28 +127,37 @@ $totalServices = $invoiceManager->getPreviewServices($invoice_id);
 						<td><?php echo $invoiceManager->sgst[$i]; ?></td>
 						<td><?php echo $invoiceManager->cgst[$i]; ?></td>
 						<td><?php echo $invoiceManager->igst[$i]; ?></td>
-						<td><?php echo $amount; ?></td>
+						<td><?php echo sprintf('%0.2f', $amount); ?></td>
 					</tr>
 					<?php } ?>
 					<tr>
 						<td colspan="8">Total</td>
-						<td><?php echo $netAmount; ?></td>
+						<td><?php foreach ($currencies as $key => $currency) {
+								if($key == $invoiceDetails['currency_type']) {
+									if($key == 'rupee') {
+										$currency_type = '<i class="fa fa-inr" aria-hidden="true"></i>';
+									} else {
+										$currency_type = $currency;
+									}
+									
+								}
+							} echo $currency_type.'&nbsp;'. sprintf('%0.2f', $netAmount); ?></td>
 					</tr>
 					<tr>
-						<td colspan="3">Total invoice amount in words</td>
-						<td colspan="3">Total amount before Tax</td>
-						<td colspan="3"><?php echo $totalAmountBeforeTax; ?></td>
+						<td colspan="4">Total invoice amount in words</td>
+						<td colspan="4">Total amount before Tax</td>
+						<td colspan="1"><?php echo sprintf('%0.2f', $totalAmountBeforeTax); ?></td>
 					</tr>
 					<tr>
-						<td colspan="3" rowspan="3"><?php echo ucwords(no_to_words($netAmount)); if($netAmount != 0) echo 'only'; ?></td>
+						<td colspan="4" rowspan="3"><?php echo ucwords(no_to_words($netAmount)); if($netAmount != 0) echo 'only'; ?></td>
 					</tr>
 					<tr>
-						<td colspan="3">Total Tax Amount</td>
-						<td colspan="3"><?php echo $netAmount - $totalAmountBeforeTax; ?></td>
+						<td colspan="4">Total Tax Amount <?php echo '('.$totalTax.'%)'; ?></td>
+						<td colspan="1"><?php $totalTaxAmount = $netAmount - $totalAmountBeforeTax; echo sprintf('%0.2f', $totalTaxAmount); ?></td>
 					</tr>
 					<tr>
-						<td colspan="3">Total Amount after Tax</td>
-						<td colspan="3"><?php echo $netAmount; ?></td>
+						<td colspan="4">Total Amount after Tax</td>
+						<td colspan="1"><?php echo $currency_type.'&nbsp;'.sprintf('%0.2f', $netAmount); ?></td>
 					</tr>
 				</tbody>
 			</table><hr>

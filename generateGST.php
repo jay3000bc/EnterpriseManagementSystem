@@ -20,6 +20,8 @@ $resultPurchase = $GSTManager->getPurchaseDetailsbyPeriod($period);
 	<title>Generating GST</title>
 	<link rel="stylesheet" href="bootstrap/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/custom.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
 </head>
 <body>
 	<div class="container-fluid gst_box">
@@ -61,7 +63,11 @@ $resultPurchase = $GSTManager->getPurchaseDetailsbyPeriod($period);
                             <?php 
                             foreach ($currencies as $key => $currency) {
                                 if($key == $GSTManager->currency_type[$i]) {
-                                    $currency_type = $currency;
+                                    if($key == 'rupee') {
+                                        $currency_type = '<i class="fa fa-inr" aria-hidden="true"></i>';
+                                    } else {
+                                        $currency_type = $currency;
+                                    }
                                 } 
                             } ?>
                             <td>
@@ -124,7 +130,11 @@ $resultPurchase = $GSTManager->getPurchaseDetailsbyPeriod($period);
                             <?php 
                             foreach ($currencies as $key => $currency) {
                                 if($key == $GSTManager->receive_currency_type[$i]) {
-                                    $currency_type = $currency;
+                                    if($key == 'rupee') {
+                                        $currency_type = '<i class="fa fa-inr" aria-hidden="true"></i>';
+                                    } else {
+                                        $currency_type = $currency;
+                                    }
                                 } 
                             } ?>
                             <td>
