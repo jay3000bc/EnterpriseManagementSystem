@@ -30,7 +30,7 @@
 
 	// list of currencies used in EMS
 
-	$currencies = array("rupee"=>"Rs.", "dollar"=>"&#36;", "pound"=>"&#163;", "euro"=>"&#8364;");
+	$currencies = array("rupee"=>"&#8377;", "dollar"=>"&#36;", "pound"=>"&#163;", "euro"=>"&#8364;");
 
 	//invoice type selectbox options
 	
