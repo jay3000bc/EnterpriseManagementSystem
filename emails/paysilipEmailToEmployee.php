@@ -11,7 +11,7 @@ $paysilipMessage = '<html><body>';
 
 $paysilipMessage .= '<p>Dear '.$name.',</p>';
 
-$paysilipMessage .= '<p>Salary for the month of '.$lastMonth.' has been credited (will be credited) to your Bank A/c # ' .$bankAccount.'</p>';
+$paysilipMessage .= '<p>Salary for the month of '.$lastMonth.' has been credited to your Bank A/c # ' .$bankAccount.'</p>';
 $paysilipMessage .='<p>Click the link below for the Payslip.</p>';
 $paysilipMessage .= '<a href="'.$pdf_link.'">View Paysilip</a>';
 $paysilipMessage .= '<p>Thanks<br>'.$companyInfo['company_name'].'</p>';
