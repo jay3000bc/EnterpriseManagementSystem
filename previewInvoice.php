@@ -21,7 +21,6 @@ $totalServices = $invoiceManager->getPreviewServices($invoice_id);
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Preview Invoice</title>
 	<!-- Font Awesome -->
-	
   	<link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
 </head>
 <body>

@@ -29,6 +29,7 @@ $invoiceDetails = $invoiceManager->getInvoiceDetails($invoice_id);
 	<title>Generating Invoice</title>
 	<link rel="stylesheet" href="bootstrap/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/custom.css">
+	
 	<!-- Font Awesome -->
   	<link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
 </head>

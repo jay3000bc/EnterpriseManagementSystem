@@ -118,7 +118,8 @@ $output .= '<tr>
                ';
                $count++;
             }
-}                
+}
+                
 $output .= '</table>'; 
 require_once('vendor/autoload.php');
 $htmlPhpExcel = new \Ticketpark\HtmlPhpExcel\HtmlPhpExcel($output);

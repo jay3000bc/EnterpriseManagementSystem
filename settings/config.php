@@ -65,5 +65,4 @@
 
 	$dasboardLogoSize = 'width:70%;';
 
-
 ?>

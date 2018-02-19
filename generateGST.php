@@ -21,6 +21,7 @@ $resultPurchase = $GSTManager->getPurchaseDetailsbyPeriod($period);
 	<link rel="stylesheet" href="bootstrap/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/custom.css">
     <!-- Font Awesome -->
+    
     <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
 </head>
 <body>
