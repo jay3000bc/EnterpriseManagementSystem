@@ -47,7 +47,8 @@ class LoaderManager {
 		  `currency_type` varchar(50) NOT NULL,
 		  `net_amount` int(11) NOT NULL,
 		  `invoice_date` varchar(50) NOT NULL,
-		  `status` int(11) DEFAULT NULL COMMENT '0-Unpaid, 1-Paid, 2-Partially Paid',
+		  `status` int(11) DEFAULT NULL COMMENT '0-Unpaid, 1-Paid',
+		  `invoice_paid_date` date DEFAULT NULL,
   		  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 		  PRIMARY KEY (`id`)
 		) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=$starting_no";

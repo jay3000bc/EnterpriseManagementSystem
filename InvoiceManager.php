@@ -208,9 +208,24 @@ class InvoiceManager {
         }
         return $arrayNameList;
     }
-    public function changeStatus($invoice_id, $status) {
+    public function changeStatus($invoice_id, $status, $invoice_type) {
         $db = new DBManager();
-        $sql = "UPDATE ems_invoices set status='$status' where invoice_id='$invoice_id'";
+        $currentDate = date("Y-m-d");
+        if($invoice_type == 0) {
+            if($status == 1) {
+               $sql = "UPDATE ems_invoices set status='$status', invoice_paid_date = '$currentDate'  where invoice_id='$invoice_id'"; 
+            } else {
+                $sql = "UPDATE ems_invoices set status='$status', invoice_paid_date = NULL where invoice_id='$invoice_id'";
+            }
+        } else {
+            if($status == 1) {
+               $sql = "UPDATE ems_receive_invoice set status='$status', invoice_paid_date = '$currentDate'  where invoice_id='$invoice_id'"; 
+            } else {
+                $sql = "UPDATE ems_receive_invoice set status='$status', invoice_paid_date = NULL where invoice_id='$invoice_id'";
+            }
+        }
+        
+        
         $result = $db->execute($sql);
         return $result;
     }

@@ -624,7 +624,7 @@ unset($_SESSION['errorMsg']);
                     if(result==1) {
                         field.val('');
                         field.focus();
-                        swal("oops", "Given Invoice No already exist.Please try another.", "error");
+                        swal("oops", "Invoice No. already exist.Please try another.", "error");
                     }
                     
                 }

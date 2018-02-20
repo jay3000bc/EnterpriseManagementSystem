@@ -29,7 +29,7 @@ $resultGSTPeriod = $GSTManager->getAllGSTPeriod();
             <div class="col-md-12">
                 <!-- general form elements -->
                 <div class="box box-primary">
-                <?php if($resultSale != '' || $resultSale != '') { ?>
+                <?php if($resultSale != '' || $resultPurchase != '') { ?>
                     <?php if($resultSale != '') { ?>
                     <div class="box-header with-border">
                       <h3 class="box-title"><b>SALE DETAILS</b></h3>
@@ -45,6 +45,7 @@ $resultGSTPeriod = $GSTManager->getAllGSTPeriod();
                                             <th>GSTIN</th>
                                             <th>Bill No.</th>
                                             <th>Bill Date</th>
+                                            <th>Bill Paid Date</th>
                                             <th>Item</th>
                                             <th>GST Rate</th>
                                             <th>HSN/ SAC Code</th>
@@ -65,6 +66,7 @@ $resultGSTPeriod = $GSTManager->getAllGSTPeriod();
                                             <td><?php echo $GSTManager->gstin[$i];?></td>
                                             <td><?php echo $GSTManager->invoice_id[$i];?></td>
                                             <td><?php echo $GSTManager->invoice_date[$i];?></td>
+                                            <td><?php echo date("d/m/Y", strtotime($GSTManager->invoice_paid_date[$i]));?></td>
                                             <td><?php echo $GSTManager->desc_of_service[$i];?></td>
                                             <td></td>
                                             <td><?php echo $GSTManager->sac_code[$i];?></td>
@@ -118,6 +120,7 @@ $resultGSTPeriod = $GSTManager->getAllGSTPeriod();
                                             <th>GSTIN</th>
                                             <th>Bill No.</th>
                                             <th>Bill Date</th>
+                                            <th>Bill Paid Date.</th>
                                             <th>Item</th>
                                             <th>GST Rate</th>
                                             <th>HSN/ SAC Code</th>
@@ -138,6 +141,7 @@ $resultGSTPeriod = $GSTManager->getAllGSTPeriod();
                                             <td><?php echo $GSTManager->receive_gstin[$i];?></td>
                                             <td><?php echo $GSTManager->receive_invoice_id[$i];?></td>
                                             <td><?php echo $GSTManager->receive_invoice_date[$i];?></td>
+                                            <td><?php echo date("d/m/Y", strtotime($GSTManager->receive_invoice_paid_date[$i]));?></td>
                                             <td><?php echo $GSTManager->receive_desc_of_service[$i];?></td>
                                             <td></td>
                                             <td><?php echo $GSTManager->receive_sac_code[$i];?></td>

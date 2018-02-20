@@ -139,7 +139,6 @@ if(isset($_POST['invoice_type'])) {
                                                 <select class="form-control status" name="status">
                                                     <option <?php if($invoiceManager->status[$i] == 0) echo 'selected';?> value="0">Unpaid</option>
                                                     <option <?php if($invoiceManager->status[$i] == 1) echo 'selected';?> value="1">Paid</option>
-                                                    <option <?php if($invoiceManager->status[$i] == 2) echo 'selected';?> value="2">Partially paid</option>
                                                 </select>
                                                 <input type="hidden" name="id" value="<?php echo $invoiceManager->invoice_id[$i];?>">
                                             </td>
@@ -161,8 +160,8 @@ if(isset($_POST['invoice_type'])) {
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-<?php include('include/footer.php');?>
-<!-- Date Range Picker -->
+<?php include('include/footer.php');
+if(isset($_POST['invoice_type'])) { ?>
 <script type="text/javascript">
 
     // change sataus
@@ -170,11 +169,12 @@ if(isset($_POST['invoice_type'])) {
         var select_box = $(this);
         var status = $(this).val();
         var invoice_id = $(this).next('input').val();
+        var invoice_type = '<?php echo $_POST['invoice_type'];?>';
         $.ajax({
             url: "InvoiceController.php",
             type: "post",
             cache: false,
-            data: {"invoice_id": invoice_id, "status": status},
+            data: { "invoice_id": invoice_id, "status": status, "invoice_type": invoice_type },
             success: function(result) {
                 if (result=='success') {
                     if(status == 0) {
@@ -193,6 +193,48 @@ if(isset($_POST['invoice_type'])) {
             }
         });
     });
+
+</script>
+<?php 
+} else { ?>
+    <script type="text/javascript">
+
+    // change sataus
+    $('.status').change(function() {
+        var select_box = $(this);
+        var status = $(this).val();
+        var invoice_id = $(this).next('input').val();
+        var invoice_type = 0;
+        $.ajax({
+            url: "InvoiceController.php",
+            type: "post",
+            cache: false,
+            data: { "invoice_id": invoice_id, "status": status, "invoice_type": invoice_type },
+            success: function(result) {
+                if (result=='success') {
+                    if(status == 0) {
+                        
+                    }
+                    else if(status == 1) {
+                        
+                    }
+                    else {
+                        
+                    }
+                }
+                else {
+                    swal("Something Went Wrong!!!");
+                }
+            }
+        });
+    });
+
+</script>
+<?php
+} 
+?>
+
+<script>
     //Date picker
     var start = moment().subtract(29, 'days').format('DD/MM/YYYY');
     var end = moment().format('DD/MM/YYYY');

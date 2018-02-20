@@ -11,6 +11,7 @@ $output .= '<tr>
                 <th>GSTIN</th>
                 <th>Bill No.</th>
                 <th>Bill Date</th>
+                <th>Bill Paid Date</th>
                 <th>Item</th>
                 <th>GST Rate</th>
                 <th>HSN/ SAC Code</th>
@@ -49,6 +50,7 @@ $output .= '<tr>
                     <td>'.$GSTManager->gstin[$i].'</td>  
                     <td>'.$GSTManager->invoice_id[$i].'</td>  
                     <td>'.$GSTManager->invoice_date[$i].'</td>
+                    <td>' . date("d/m/Y", strtotime($GSTManager->invoice_paid_date[$i])).'</td>
                     <td>'.$GSTManager->desc_of_service[$i].'</td>
                     <td>'.$gstRate.'</td>
                     <td>'.$GSTManager->sac_code[$i].'</td>
@@ -70,6 +72,7 @@ $output .= '<tr>
                 <th>GSTIN</th>
                 <th>Bill No.</th>
                 <th>Bill Date</th>
+                <th>Paid Bill Date</th>
                 <th>Item</th>
                 <th>GST Rate</th>
                 <th>HSN/ SAC Code</th>
@@ -106,6 +109,7 @@ $output .= '<tr>
                     <td>'.$GSTManager->receive_gstin[$i].'</td>  
                     <td>'.$GSTManager->receive_invoice_id[$i].'</td>  
                     <td>'.$GSTManager->receive_invoice_date[$i].'</td>
+                    <td>' . date("d/m/Y", strtotime($GSTManager->receive_invoice_paid_date[$i])).'</td>
                     <td>'.$GSTManager->receive_desc_of_service[$i].'</td>
                     <td>'.$gstRate.'</td>
                     <td>'.$GSTManager->receive_sac_code[$i].'</td>

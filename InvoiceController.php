@@ -258,7 +258,8 @@ if (isset($_POST["saveReceiveInvoice"])) {
 if (isset($_POST["status"])) { 
 	$invoice_id = mysqli_real_escape_string($DBManager->conn, $_POST['invoice_id']);
 	$status = mysqli_real_escape_string($DBManager->conn, $_POST['status']);
-	$result = $invoiceManager->changeStatus($invoice_id, $status);
+	$invoice_type = mysqli_real_escape_string($DBManager->conn, $_POST['invoice_type']);
+	$result = $invoiceManager->changeStatus($invoice_id, $status, $invoice_type);
 	if($result) {
 		echo "success";
 	} else {

@@ -223,7 +223,8 @@ CREATE TABLE IF NOT EXISTS `ems_invoices` (
   `currency_type` varchar(50) NOT NULL,
   `net_amount` int(11) NOT NULL,
   `invoice_date` varchar(50) NOT NULL,
-  `status` int(11) DEFAULT NULL COMMENT '0-Unpaid, 1-Paid, 2-Partially Paid',
+  `status` int(11) DEFAULT NULL COMMENT '0-Unpaid, 1-Paid',
+  `invoice_paid_date` date DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -585,7 +586,8 @@ CREATE TABLE IF NOT EXISTS `ems_receive_invoice` (
   `invoice_amount` decimal(10,2) NOT NULL,
   `gstin` varchar(100) NOT NULL,
   `upload_invoice` varchar(100) NOT NULL,
-  `status` int(11) DEFAULT NULL COMMENT '0-Unpaid, 1-Paid, 2-Partially Paid',
+  `status` int(11) DEFAULT NULL COMMENT '0-Unpaid, 1-Paid',
+  `invoice_paid_date` date DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -700,4 +702,4 @@ DELETE FROM `ems_setup`;
 INSERT INTO `ems_setup` (`id`, `status`, `created_at`) VALUES
 (1, 0, '2018-01-13 11:49:32');
 
-ALTER TABLE `ems_receive_invoice` CHANGE `status` `status` INT(11) NULL DEFAULT '0' COMMENT '0-Unpaid, 1-Paid, 2-Partially Paid';
+ALTER TABLE `ems_receive_invoice` CHANGE `status` `status` INT(11) NULL DEFAULT '0' COMMENT '0-Unpaid, 1-Paid';
