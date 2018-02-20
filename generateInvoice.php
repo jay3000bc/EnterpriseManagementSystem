@@ -21,6 +21,16 @@ $companyInfo = $adminManager->getAdminDetails();
 include_once 'InvoiceManager.php';
 $invoiceManager = new InvoiceManager();
 $invoiceDetails = $invoiceManager->getInvoiceDetails($invoice_id);
+foreach ($currencies as $key => $currency) {
+	if($key == $invoiceDetails['currency_type']) {
+		if($key == 'rupee') {
+			$currency_type = '<i class="fa fa-inr" aria-hidden="true"></i>';
+		} else {
+			$currency_type = $currency;
+		}
+		
+	}
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -111,7 +121,7 @@ $invoiceDetails = $invoiceManager->getInvoiceDetails($invoice_id);
 							<th>SGST (%)</th>
 							<th>CGST (%)</th>
 							<th>IGST (%)</th>
-							<th>Amount</th>
+							<th>Amount ( <?php echo $currency_type; ?> )</th>
 						</tr>
 
 					</thead>
@@ -142,16 +152,7 @@ $invoiceDetails = $invoiceManager->getInvoiceDetails($invoice_id);
 						<?php } ?>
 						<tr>
 							<td colspan="8">Total</td>
-							<td><?php foreach ($currencies as $key => $currency) {
-								if($key == $invoiceDetails['currency_type']) {
-									if($key == 'rupee') {
-										$currency_type = '<i class="fa fa-inr" aria-hidden="true"></i>';
-									} else {
-										$currency_type = $currency;
-									}
-									
-								}
-							} echo $currency_type.'&nbsp;'. sprintf('%0.2f', $netAmount); ?>
+							<td><?php  echo sprintf('%0.2f', $netAmount); ?>
 								
 							</td>
 						</tr>
@@ -169,7 +170,7 @@ $invoiceDetails = $invoiceManager->getInvoiceDetails($invoice_id);
 						</tr>
 						<tr>
 							<td colspan="4">Total Amount after Tax</td>
-							<td colspan="1"><?php echo $currency_type.'&nbsp;'.sprintf('%0.2f', $netAmount); ?></td>
+							<td colspan="1"><?php echo sprintf('%0.2f', $netAmount); ?></td>
 						</tr>
 					</tbody>
 				</table><hr>
