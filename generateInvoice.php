@@ -53,7 +53,7 @@ foreach ($currencies as $key => $currency) {
 				<h3><?php echo $companyInfo['company_name']; ?></h3>
 			<?php } ?>
 			</div>
-			<div class="col-md-12 text-center invoice-company-address" style="margin-left:15%; margin-right: 15%;">
+			<div class="col-md-12 text-center invoice-company-address">
 				<h4><?php echo $companyInfo['company_address']; ?></h4>
 				<h4>Cell: <?php echo $companyInfo['contact_number']; ?></h4>
 				<h4>GSTIN: <?php echo $companyInfo['gstin']; ?></h4>
@@ -113,15 +113,15 @@ foreach ($currencies as $key => $currency) {
 					<thead>
 						
 						<tr>
-							<th>SL NO.</th>
-							<th>Services Description</th>
-							<th>HSN/ SAC Code</th>
-							<th>Qnty.</th>
-							<th>Price</th>
-							<th>SGST (%)</th>
-							<th>CGST (%)</th>
-							<th>IGST (%)</th>
-							<th>Amount ( <?php echo $currency_type; ?> )</th>
+							<th class="text-center">SL NO.</th>
+							<th class="text-center">Services Description</th>
+							<th class="text-center">HSN/ SAC Code</th>
+							<th class="text-center">Qnty.</th>
+							<th class="text-center">Price</th>
+							<th class="text-center">SGST <br>( % )</th>
+							<th class="text-center">CGST <br>( % )</th>
+							<th class="text-center">IGST <br>( % )</th>
+							<th class="text-center">Amount <br><?php echo '( '.$currency_type.' )'; ?> </th>
 						</tr>
 
 					</thead>
@@ -139,38 +139,38 @@ foreach ($currencies as $key => $currency) {
 							$totalAmountBeforeTax = $totalAmountBeforeTax + $invoiceManager->quantity[$i] * $invoiceManager->price[$i];
 							?>
 						<tr>
-							<td><?php echo $i+1; ?></td>
-							<td><?php echo $invoiceManager->desc_of_service[$i]; ?></td>
-							<td><?php echo $invoiceManager->sac_code[$i]; ?></td>
-							<td><?php echo $invoiceManager->quantity[$i]; ?></td>
-							<td><?php echo $invoiceManager->price[$i]; ?></td>
-							<td><?php echo $invoiceManager->sgst[$i]; ?></td>
-							<td><?php echo $invoiceManager->cgst[$i]; ?></td>
-							<td><?php echo $invoiceManager->igst[$i]; ?></td>
-							<td><?php echo sprintf('%0.2f', $amount); ?></td>
+							<td class="text-center"><?php echo $i+1; ?></td>
+							<td class="text-center"><?php echo $invoiceManager->desc_of_service[$i]; ?></td>
+							<td class="text-center"><?php echo $invoiceManager->sac_code[$i]; ?></td>
+							<td class="text-center"><?php echo $invoiceManager->quantity[$i]; ?></td>
+							<td class="text-center"><?php echo $invoiceManager->price[$i]; ?></td>
+							<td class="text-center"><?php echo $invoiceManager->sgst[$i]; ?></td>
+							<td class="text-center"><?php echo $invoiceManager->cgst[$i]; ?></td>
+							<td class="text-center"><?php echo $invoiceManager->igst[$i]; ?></td>
+							<td class="text-center"><?php echo sprintf('%0.2f', $amount); ?></td>
 						</tr>
 						<?php } ?>
 						<tr>
 							<td colspan="8">Total</td>
-							<td><?php  echo sprintf('%0.2f', $netAmount); ?>
+							<td class="text-center"><?php  echo sprintf('%0.2f', $netAmount); ?>
 								
 							</td>
 						</tr>
 						<tr>
 							<td colspan="4">Total invoice amount in words</td>
 							<td colspan="4">Total amount before Tax</td>
-							<td colspan="1"><?php echo sprintf('%0.2f', $totalAmountBeforeTax); ?></td>
+							<td class="text-center" colspan="1"><?php echo sprintf('%0.2f', $totalAmountBeforeTax); ?></td>
 						</tr>
 						<tr>
 							<td colspan="4" rowspan="3"><?php echo ucwords(no_to_words($netAmount)); if($netAmount != 0) echo 'only'; ?></td>
 						</tr>
 						<tr>
-							<td colspan="4">Total Tax Amount <?php echo '('.$totalTax.'%)'; ?></td>
-							<td colspan="1"><?php $totalTaxAmount = $netAmount - $totalAmountBeforeTax; echo sprintf('%0.2f', $totalTaxAmount); ?></td>
+							<td colspan="4">Total Tax Amount <?php echo '( '.$totalTax.'% )'; ?></td>
+							<td class="text-center" colspan="1"><?php $totalTaxAmount = $netAmount - $totalAmountBeforeTax; echo sprintf('%0.2f', $totalTaxAmount); ?></td>
 						</tr>
 						<tr>
 							<td colspan="4">Total Amount after Tax</td>
-							<td colspan="1"><?php echo sprintf('%0.2f', $netAmount); ?></td>
+							<td class="text-center" colspan="1"><?php echo sprintf('%0.2f', $netAmount); ?></td>
 						</tr>
 					</tbody>
 				</table><hr>
