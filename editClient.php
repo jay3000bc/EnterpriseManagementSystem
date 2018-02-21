@@ -93,7 +93,7 @@ else {
                                             <label for="name">State <span class="mandatory">*</span></label>
                                             <select id="state" class="form-control" name="state" required>   
                                                 <?php for ($i=0; $i < $totalStates ; $i++) { ?>
-                                                <option value="<?php echo $adminManager->state_name[$i]; ?>" <?php if ($clientDetails['state']== $i+1) { echo "selected"; } ?>><?php echo $adminManager->state_name[$i]; ?> (<?php echo $adminManager->state_gst_code[$i]; ?>)</option>
+                                                <option value="<?php echo $adminManager->state_id[$i]; ?>" <?php if ($clientDetails['state']== $i+1) { echo "selected"; } ?>><?php echo $adminManager->state_name[$i]; ?> (<?php echo $adminManager->state_gst_code[$i]; ?>)</option>
                                                 <?php } ?>
                                             </select>
                                         </div>
