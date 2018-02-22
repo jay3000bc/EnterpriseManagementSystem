@@ -22,7 +22,14 @@
 <script src="dist/js/app.min.js"></script>
 <!-- tinymce -->
 <!-- <script src='plugins/tinymce/tinymce.min.js'></script> -->
-<script src="//cloud.tinymce.com/stable/tinymce.min.js"></script>
+<?php
+  $currentPageLoad = basename($_SERVER['PHP_SELF'],".php");
+  if( $currentPageLoad == 'probationerAppointment' || $currentPageLoad == 'permanentAppointment' || $currentPageLoad == 'experienceCertificate') { ?>
+    <script src="//cloud.tinymce.com/stable/tinymce.min.js"></script>
+  <?php  
+  }
+?>
+
 <!--  dropify -->
 <script src="plugins/dropify/js/dropify.min.js" charset="utf-8"></script>
 <script type="text/javascript">

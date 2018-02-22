@@ -126,7 +126,7 @@ if(isset($_POST['invoice_type'])) {
                                                     $currency_type = $currency;
                                                 } 
                                             } ?>
-                                            <td><?php echo $currency_type.' '.$invoiceManager->invoice_amount[$i];?></td>
+                                            <td><?php echo $currency_type.' '. sprintf('%0.2f', $invoiceManager->invoice_amount[$i]);?></td>
                                             <td>
                                                 <?php 
                                                 if(isset($_POST['invoice_type']) and ($_POST['invoice_type'] ==1)) { ?>

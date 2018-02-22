@@ -59,7 +59,7 @@ foreach ($currencies as $key => $currency) {
 				<h4>GSTIN: <?php echo $companyInfo['gstin']; ?></h4>
 			</div>
 			<div class="col-md-12">
-				<table class="table table-bordered">
+				<table class="table table-bordered" style="width: 100%;">
 					<thead>
 						<tr>
 							<th colspan="2">Tax Invoice</th>
@@ -71,8 +71,8 @@ foreach ($currencies as $key => $currency) {
 					</thead>
 					<tbody>
 						<tr>
-							<td>Invoice No.: <?php echo $invoiceDetails['invoice_id']; ?></td>
-							<td>Name: <?php echo $invoiceDetails['name']; ?></td>
+							<td style="width: 50%;">Invoice No.: <?php echo $invoiceDetails['invoice_id']; ?></td>
+							<td style="width: 50%;">Name: <?php echo $invoiceDetails['name']; ?></td>
 						</tr>
 						<tr>
 							<td>Invoice Date: <?php echo $invoiceDetails['invoice_date']; ?></td>
@@ -109,7 +109,7 @@ foreach ($currencies as $key => $currency) {
 						</tr>
 					</tbody>
 				</table><hr>
-				<table class="table table-bordered">
+				<table class="table table-bordered" style="width: 100%;">
 					<thead>
 						
 						<tr>

@@ -72,6 +72,7 @@ if($manageIdStatus['employee_id'] ==1) {
                                     
                                     <div class="form-group">
                                         <label for="photo">Photo</label>
+                                        <span style="color:#0000FF">[ Please upload a passport size photo of only JPG, GIF, PNG format and maximum size of 500 kb. For better resolution use 160 x 160 px image. ]</span>
                                         <input type="file" data-allowed-file-extensions="png jpg jpeg" data-default-file="<?php if(isset($_SESSION['session_client_photo_name'])) { echo 'uploads/'.$_SESSION['session_client_photo_name']; unset($_SESSION['session_client_photo_name']); } else { echo 'uploads/defaultuser.png'; } ?>" name="photo" class="dropify" data-height="100" style="height: 100% !important;">
                                     </div>
                                 </div>
@@ -186,8 +187,13 @@ if($manageIdStatus['employee_id'] ==1) {
      }
      $('#country').change( function() {
         if($(this).val() == 'India') {
+            $('#state').removeAttr('disabled');
+            $('#gstin').removeAttr('disabled');
             $('#hide_div_state').css('display','block');
+
          } else {
+            $('#state').attr('disabled', 'disabled');
+            $('#gstin').attr('disabled', 'disabled');
             $('#hide_div_state').css('display','none');
          }
      });

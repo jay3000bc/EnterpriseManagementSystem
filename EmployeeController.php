@@ -1,5 +1,7 @@
 <?php
 session_start();
+date_default_timezone_set('Asia/Kolkata');
+$microtime = microtime(true);
 include_once 'DBManager.php';
 $DBManager = new DBManager();
 include_once 'EmployeeManager.php';
@@ -34,8 +36,9 @@ if (isset($_POST["saveEmployeeDetails"])) {
     /*image upload*/
     if($_FILES["photo"]['name'][0] != '') {
         $target_dir = "uploads/employee/images/";
-        $target_file = $target_dir . basename($_FILES["photo"]["name"]);
+        $target_file = $target_dir .$microtime. basename($_FILES["photo"]["name"]);
         $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+        $imageFileType = strtolower($imageFileType);
         $check = getimagesize($_FILES["photo"]["tmp_name"]);
         // Check if image file is a actual image or fake image
         if ($check == false) {
@@ -56,15 +59,14 @@ if (isset($_POST["saveEmployeeDetails"])) {
             exit();
         }
         // Allow certain file formats
-        elseif ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-        && $imageFileType != "gif" ) {
+        elseif ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" &&  $imageFileType != "gif" ) {
             $_SESSION['ErrorMsg'] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
             header('Location:createEmployee');
             exit();
         }
         else {
             if (move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file)) {
-                $photo = basename($_FILES["photo"]["name"]);
+                $photo = $microtime . basename($_FILES["photo"]["name"]);
                 $_SESSION['session_photo_name'] = $photo;
                 //die();
             } else {
@@ -163,11 +165,10 @@ if(isset($_POST['saveEditEmployeeDetails'])) {
     $oldPhoto = mysqli_real_escape_string($DBManager->conn, $_POST['oldPhoto']);
     /*image upload*/
     if($_FILES["photo"]['name'][0] != '') {
-        //echo "string";die();
         $target_dir = "uploads/employee/images/";
-        $target_file = $target_dir . basename($_FILES["photo"]["name"]);
-        //echo $target_file; die();
+        $target_file = $target_dir . $microtime . basename($_FILES["photo"]["name"]);
         $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+        $imageFileType = strtolower($imageFileType);
         $check = getimagesize($_FILES["photo"]["tmp_name"]);
         // Check if image file is a actual image or fake image
         if ($check == false) {
@@ -188,8 +189,7 @@ if(isset($_POST['saveEditEmployeeDetails'])) {
             exit();
         }
         // Allow certain file formats
-        elseif ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-        && $imageFileType != "gif" ) {
+        elseif ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" &&  $imageFileType != "gif" ) {
             $_SESSION['ErrorMsg'] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
             header('Location:editEmployee?id='.$id);
             exit();
@@ -197,8 +197,7 @@ if(isset($_POST['saveEditEmployeeDetails'])) {
         else {
             if (move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file)) {
                 unlink( 'uploads/employee/images/'.$oldPhoto );
-                $photo = basename($_FILES["photo"]["name"]);
-                //die();
+                $photo = $microtime . basename($_FILES["photo"]["name"]);
             } else {
                 $_SESSION['ErrorMsg'] = "Sorry, there was an error uploading your file.";
                 header('Location:editEmployee?id='.$id);

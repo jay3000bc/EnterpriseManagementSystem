@@ -552,12 +552,17 @@ unset($_SESSION['errorMsg']);
     // end
 
     // populate invoice id based on invoice type
+    
     $('#invoice_type').change(function(){
         if($(this).val() == 1) {
             $('#invoice_no').val('<?php echo $generate_export_invoice_id;?>');
+            $('#state').attr('disabled', 'disabled');
+            $('#client_gstin').attr('disabled', 'disabled');
             $('#hide_div_state').css('display','none');
         } else {
             $('#invoice_no').val('<?php echo $generate_india__based_invoice_id;?>');
+            $('#state').removeAttr('disabled');
+            $('#client_gstin').removeAttr('disabled');
             $('#hide_div_state').css('display','block');
         }
         $('#invoice_no').removeClass('error');

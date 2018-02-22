@@ -80,7 +80,7 @@ $bankDetails= $adminManager->getBankDetails();
                                         <input class="form-control" id="pan" value="<?php echo $companyInfo['pan'];?>" placeholder="Enter PAN" type="pan" name="pan" autocomplete="off" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="photo">Admin Photo </label> <span style="color:#0000FF">[ Please upload an image of only JPG, GIF, PNG format and maximum size of 500 kb. ]</span>
+                                        <label for="photo">Admin Photo </label> <span style="color:#0000FF">[ Please upload an image of only JPG, GIF, PNG format and maximum size of 500 kb. For better resolution use 160 x 160 px image. ]</span>
                                         <input type="file" data-allowed-file-extensions="png jpg jpeg" name="photo" data-default-file="<?php echo 'uploads/company_profile_images/'.$companyInfo['photo'];?>" class="dropify" data-height="100" style="height: 100% !important;">
                                     </div>
                                     <div class="form-group">

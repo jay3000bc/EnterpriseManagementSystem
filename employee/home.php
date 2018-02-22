@@ -1,9 +1,10 @@
 <?php 
 $title = 'Home';
-include('../employee/include/header.php');
-$totalProfileUpdateRequest = $employeeManager->getProfileUpdateRequest();
 // rss feeds
 include_once('../include/rssfeeds.php');
+include_once('../employee/include/header.php');
+$totalProfileUpdateRequest = $employeeManager->getProfileUpdateRequest();
+
 
 if($companyInfo['theme_color'] == 'skin-blue') { 
     $theme_color = 'blue-skin'; 

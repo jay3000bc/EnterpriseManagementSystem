@@ -1,8 +1,8 @@
 <?php 
 $title = 'Home';
-include_once('include/header.php');
 // rss feeds
 include_once('include/rssfeeds.php');
+include_once('include/header.php');
 if($companyInfo['theme_color'] == 'skin-blue') { 
     $theme_color = 'blue-skin'; 
 } 

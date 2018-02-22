@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 include('settings/config.php');
 session_start();
 date_default_timezone_set('Asia/Kolkata');
@@ -150,14 +153,14 @@ else {
             <li  class="<?php if($current_link == $absoluteUrl.'searchPayroll') echo 'active'; ?>"><a href="searchPayroll"><i class="fa fa-circle"></i>Search Payroll</a></li>
           </ul>
         </li>
-        <li class="treeview <?php if($current_link == $absoluteUrl.'createClient' || $current_link == $absoluteUrl.'viewClients' || $current_link == $absoluteUrl.'viewClientProjects.php' || $current_link == $absoluteUrl.'viewClientDetails' || $current_link == $absoluteUrl.'editClient' || $current_link == $absoluteUrl.'viewProjects' || $current_link == $absoluteUrl.'viewSingleProjectDetails' ) echo 'active'; ?>">
+        <li class="treeview <?php if($current_link == $absoluteUrl.'createClient' || $current_link == $absoluteUrl.'viewClients' || $current_link == $absoluteUrl.'viewClientProjects' || $current_link == $absoluteUrl.'viewClientDetails' || $current_link == $absoluteUrl.'editClient' || $current_link == $absoluteUrl.'viewProjects' || $current_link == $absoluteUrl.'viewSingleProjectDetails' ) echo 'active'; ?>">
           <a href="#">
             <i class="fa fa-users" aria-hidden="true"></i>
             <span>Clients</span>
           </a>
           <ul class="treeview-menu">
             <li class="<?php if($current_link == $absoluteUrl.'createClient') echo 'active'; ?>"><a href="createClient"><i class="fa fa-circle"></i>Create Client</a></li>
-            <li class="<?php if($current_link == $absoluteUrl.'viewClients' || $current_link == $absoluteUrl.'viewClientProjects.php' || $current_link == $absoluteUrl.'viewClientDetails' || $current_link == $absoluteUrl.'editClient') echo 'active'; ?>"><a href="viewClients"><i class="fa fa-circle"></i>View Clients</a></li>
+            <li class="<?php if($current_link == $absoluteUrl.'viewClients' || $current_link == $absoluteUrl.'viewClientProjects' || $current_link == $absoluteUrl.'viewClientDetails' || $current_link == $absoluteUrl.'editClient') echo 'active'; ?>"><a href="viewClients"><i class="fa fa-circle"></i>View Clients</a></li>
             <li class="<?php if($current_link == $absoluteUrl.'viewProjects' || $current_link == $absoluteUrl.'viewSingleProjectDetails') echo 'active'; ?>"><a href="viewProjects"><i class="fa fa-circle"></i>View Projects</a></li>
           </ul>
         </li>

@@ -57,6 +57,7 @@ if(isset($_POST['requestProfileChanges'])) {
         $target_dir = "../uploads/employee/images/";
         $target_file = $target_dir . $microtime . basename($_FILES["photo"]["name"]);
         $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+        $imageFileType = strtolower($imageFileType);
         $check = getimagesize($_FILES["photo"]["tmp_name"]);
         // Check if image file is a actual image or fake image
         if ($check == false) {
@@ -275,6 +276,7 @@ if(isset($_POST['requestProfileChanges'])) {
                                     </div>
                                     <div class="form-group">
                                         <label for="photo">Photo</label>
+                                        <span style="color:#0000FF">[ Please upload a passport size photo of only JPG, GIF, PNG format and maximum size of 500 kb. For better resolution use 160 x 160 px image. ]</span>
                                         <input type="file" name="photo" class="dropify" data-height="100" data-allowed-file-extensions="png jpg jpeg" data-default-file="<?php echo '../uploads/employee/images/'.$result['photo'];?>" style="height: 100% !important;">
                                         <input type="hidden" name="oldPhoto" value="<?php echo $result['photo'];?>">
                                     </div>

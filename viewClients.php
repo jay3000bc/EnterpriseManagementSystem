@@ -117,7 +117,7 @@ unset($_SESSION['successMsg']);
 $('.delete-btn').click(function() {
     var input_element = $(this).next('input');
     var name = $(this).prev('input').val();
-    var client_id = input_element.val();
+    var delete_client_by_client_id = input_element.val();
     swal({
       title: "Are you sure?",
       text: "You want to delete the Client <b>"+name+"</b>. All projects associated with this client will also be deleted.",
@@ -133,7 +133,7 @@ $('.delete-btn').click(function() {
             url: "ClientController.php",
             type: "post",
             cache: false,
-            data: {"client_id": client_id},
+            data: {"delete_client_by_client_id": delete_client_by_client_id},
             success: function(result) {
                 if (result==1) {
                     input_element.parent().parent().remove();

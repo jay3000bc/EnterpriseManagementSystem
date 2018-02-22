@@ -50,6 +50,13 @@ class InvoiceManager {
     	return $result;
 
     }
+    //deleteAllPreviewServices
+    public function deleteAllPreviewServices() {
+        $db = new DBManager();
+        $sql = "DELETE from ems_invoice_amount_preview";
+        $result = $db->execute($sql);
+        return $result;
+    }
     // preview Invoice
     public function previewInvoice($invoice_id, $client_id, $client_name, $client_address, $client_gstin, $client_state, $mode_of_invoice, $reverse_charge, $bank_account, $currency_type, $net_amount, $invoice_date) {
         $db = new DBManager();
@@ -64,8 +71,6 @@ class InvoiceManager {
     }
     public function previewInvoiceAmount($invoice_id, $desc_of_service, $sac_code, $quantity, $price, $cgst, $sgst, $igst) {
         $db = new DBManager();
-        $sql = "DELETE from ems_invoice_amount_preview";
-        $result = $db->execute($sql);
         $sql = "INSERT into ems_invoice_amount_preview(invoice_id, desc_of_service, sac_code, quantity, price, cgst, sgst, igst) values ('$invoice_id', '$desc_of_service', '$sac_code', '$quantity', '$price', '$cgst', '$sgst', '$igst')";
         //echo $sql;
         //die();

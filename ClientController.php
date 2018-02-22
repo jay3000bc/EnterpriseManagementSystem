@@ -42,15 +42,13 @@ if(isset($_POST['saveClientDetails'])) {
         $gstin = mysqli_real_escape_string($DBManager->conn, $_POST['gstin']);
     }
     $created_at = date("d/m/Y",$current_date);
-    // echo $_FILES["photo"]['name'];
-    // die();
+
     /*image upload*/
     if($_FILES["photo"]['name'] != '') {
-        //echo "string";die();
         $target_dir = "uploads/client_image/";
         $target_file = $target_dir . $microtime . basename($_FILES["photo"]["name"]);
-        //echo $target_file; die();
         $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+        $imageFileType = strtolower($imageFileType);
         $check = getimagesize($_FILES["photo"]["tmp_name"]);
         // Check if image file is a actual image or fake image
         if ($check == false) {
@@ -141,11 +139,10 @@ if(isset($_POST['editClientDetails'])) {
     $oldPhoto = mysqli_real_escape_string($DBManager->conn, $_POST['oldPhoto']);
     /*image upload*/
     if($_FILES["photo"]['name'][0] != '') {
-        //echo "string";die();
         $target_dir = "uploads/client_image/";
-        $target_file = $target_dir . basename($_FILES["photo"]["name"]);
-        //echo $target_file; die();
+        $target_file = $target_dir . $microtime . basename($_FILES["photo"]["name"]);
         $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+        $imageFileType = strtolower($imageFileType);
         $check = getimagesize($_FILES["photo"]["tmp_name"]);
         // Check if image file is a actual image or fake image
         if ($check == false) {
@@ -172,8 +169,7 @@ if(isset($_POST['editClientDetails'])) {
         }
         else {
             if (move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file)) {
-                $photo = basename($_FILES["photo"]["name"]);
-                //die();
+                $photo = $microtime . basename($_FILES["photo"]["name"]);
             } else {
                 $_SESSION['ErrorMsg'] = "Sorry, there was an error uploading your file.";
                 header('Location:editClient?client_id='.$client_id);
@@ -196,6 +192,7 @@ if(isset($_POST['editClientDetails'])) {
         }
     }
     $created_at = date("d/m/Y",$current_date);
+    
     if(isset($_POST['project_title_clone'])) {
         foreach ($_POST['project_title_clone'] as $key => $value) {
            $project_title = mysqli_real_escape_string($DBManager->conn, $_POST['project_title_clone'][$key]);
@@ -224,16 +221,16 @@ if(isset($_POST['project_status'])) {
     die();
 }
 // delete project
-if(isset($_POST['project_id'])) {
-    $project_id = mysqli_real_escape_string($DBManager->conn, $_POST['project_id']);
-    echo $result = $clientManager->deleteProject($project_id);
+if(isset($_POST['delete_project_by_project_id'])) {
+    $delete_project_by_project_id = mysqli_real_escape_string($DBManager->conn, $_POST['delete_project_by_project_id']);
+    echo $result = $clientManager->deleteProject($delete_project_by_project_id);
     die();
 }
 // delete client
-if(isset($_POST['client_id'])) {
-    $client_id = mysqli_real_escape_string($DBManager->conn, $_POST['client_id']);
+if(isset($_POST['delete_client_by_client_id'])) {
+    $delete_client_by_client_id = mysqli_real_escape_string($DBManager->conn, $_POST['delete_client_by_client_id']);
     //$result = $clientManager->deleteProject($project_id);
-    echo $result = $clientManager->deleteClient($client_id);
+    echo $result = $clientManager->deleteClient($delete_client_by_client_id);
     die();
 }
 // check_already_exist_client

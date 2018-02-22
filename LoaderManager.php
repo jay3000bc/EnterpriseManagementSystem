@@ -40,7 +40,7 @@ class LoaderManager {
 		  `email` varchar(100) NOT NULL,
 		  `address` text NOT NULL,
 		  `gstin` varchar(100) NOT NULL,
-		  `state` int(11) NOT NULL,
+		  `state` varchar(11) DEFAULT NULL,
 		  `invoice_mode` int(2) NOT NULL COMMENT '0-online, 1-manual',
 		  `reverse_charge` int(2) NOT NULL COMMENT '0-No, 1-Yes',
 		  `bank_id` int(11) NOT NULL,

@@ -57,7 +57,7 @@ $companyInfo = $adminManager->getAdminDetails();
 			</div>
 			<div class="col-md-12">
 				<h4><label>Private &amp; Confidential</label></h4>
-				<table class="table table-bordered">
+				<table class="table table-bordered" style="width: 100%;">
 					<thead>
 						<tr class="table-heading" style="background: #7cc576 !important;">
 							<th colspan="2" class="text-center">Associate Information</th>
@@ -68,8 +68,8 @@ $companyInfo = $adminManager->getAdminDetails();
 							<td colspan="2">Name of Employee: <?php echo $result['name'];?></td>
 						</tr>
 						<tr>
-							<td>Associate Id: <?php echo str_pad($result['employee_id'], 4, '0', STR_PAD_LEFT);?></td>
-							<td>Location: <?php echo $result['current_address'];?></td>
+							<td style="width: 50%;">Associate Id: <?php echo str_pad($result['employee_id'], 4, '0', STR_PAD_LEFT);?></td>
+							<td style="width: 50%;">Location: <?php echo $result['current_address'];?></td>
 						</tr>
 						<tr>
 							<td>Designation: <?php echo $result['designation'];?></td>
@@ -104,11 +104,11 @@ $companyInfo = $adminManager->getAdminDetails();
 						</tr>
 					</tbody>
 				</table>
-				<table class="table table-bordered">
+				<table class="table table-bordered" style="width: 100%;">
 					<thead>
 						<tr class="table-heading" style="background: #7cc576 !important;">
-							<th><span class="amount-name">Earnings </span><span class="amount-value">Amount in Rs</span></th>
-							<th><span class="amount-name">Deductions </span><span class="amount-value">Amount in Rs</span></th>
+							<th style="width: 50%;"><span class="amount-name">Earnings </span><span class="amount-value">Amount in Rs</span></th>
+							<th style="width: 50%;"><span class="amount-name">Deductions </span><span class="amount-value">Amount in Rs</span></th>
 						</tr>
 					</thead>
 					<tbody>

@@ -36,59 +36,7 @@ if (isset($_POST["changePasswordForm"])) {
     $encryptNewPassword = md5($newPassword);
  	$result = $changePasswordForm->ChangePassword($encryptCurrentPassword, $encryptNewPassword);
 }
-if (isset($_POST['changePhotoForm'])) {
-	$changePhotoForm = new AdminManager();
-	if($_FILES["photo"]['name'][0] != '') {
-		$target_dir = "uploads/";
-        $target_file = $target_dir . basename($_FILES["photo"]["name"]);
-        //echo $target_file; die();
-        $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-        $check = getimagesize($_FILES["photo"]["tmp_name"]);
-        // Check if image file is a actual image or fake image
-        if ($check == false) {
-            $_SESSION['photoErrorMsg'] = "File is not an image.";
-            header('Location:changePasswordForm');
-        }
-        // Check if file already exists
-        elseif (file_exists($target_file)) {
-            //echo "string"; die();
-            $_SESSION['photoErrorMsg'] = "Sorry, image file already exists.";
-            header('Location:changePasswordForm');
-            exit();
-        } 
-         // Check file size
-        elseif ($_FILES["photo"]["size"] > 5242880) {
-            $_SESSION['photoErrorMsg'] = "Sorry, image file is too large. Maximum file size must be less than 5MB.";
-            header('Location:changePasswordForm');
-            exit();
-        }
-        // Allow certain file formats
-        elseif ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-        && $imageFileType != "gif" ) {
-            $_SESSION['photoErrorMsg'] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-            header('Location:changePasswordForm');
-            exit();
-        }
-        else {
-            if (move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file)) {
-                $photo = basename($_FILES["photo"]["name"]);
-                //die();
-            } else {
-                $_SESSION['photoErrorMsg'] = "Sorry, there was an error uploading your file.";
-                header('Location:changePasswordForm');
-                exit();
-
-            }
-        }
-	}
- 	$result = $changePhotoForm->ChangePhoto($photo);
-}
-if(isset($_POST['db_id'])) {
-    $db_id = mysqli_real_escape_string($DBManager->conn, $_POST['db_id']);
-    $db_photo = mysqli_real_escape_string($DBManager->conn, $_POST['photo']);
-    $adminManager = new AdminManager();
-    echo $result = $adminManager->deletePhoto($db_id, $db_photo);
-}
+// update company and admin profile
 if(isset($_POST['updateCompanyProfile'])) {
     $company_name = mysqli_real_escape_string($DBManager->conn, $_POST['company_name']);
     $company_address = mysqli_real_escape_string($DBManager->conn, $_POST['company_address']);
@@ -105,8 +53,8 @@ if(isset($_POST['updateCompanyProfile'])) {
     if($_FILES["photo"]['name'][0] != '') {
         $target_dir = "uploads/company_profile_images/";
         $target_file = $target_dir .$microtime. basename($_FILES["photo"]["name"]);
-        //echo $target_file; die();
         $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+        $imageFileType = strtolower($imageFileType);
         $check = getimagesize($_FILES["photo"]["tmp_name"]);
         // Check if image file is a actual image or fake image
         if ($check == false) {
@@ -153,8 +101,8 @@ if(isset($_POST['updateCompanyProfile'])) {
     if($_FILES["company_logo"]['name'][0] != '') {
         $target_dir = "uploads/company_profile_images/";
         $target_file = $target_dir .$microtime. basename($_FILES["company_logo"]["name"]);
-        //echo $target_file; die();
         $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+        $imageFileType = strtolower($imageFileType);
         $check = getimagesize($_FILES["company_logo"]["tmp_name"]);
         // Check if image file is a actual image or fake image
         if ($check == false) {
@@ -201,8 +149,8 @@ if(isset($_POST['updateCompanyProfile'])) {
     if($_FILES["signature"]['name'][0] != '') {
         $target_dir = "uploads/company_profile_images/";
         $target_file = $target_dir .$microtime. basename($_FILES["signature"]["name"]);
-        //echo $target_file; die();
         $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+        $imageFileType = strtolower($imageFileType);
         $check = getimagesize($_FILES["signature"]["tmp_name"]);
         // Check if image file is a actual image or fake image
         if ($check == false) {
@@ -304,17 +252,9 @@ if (isset($_POST["updateTermsConditions"])) {
             header('Location:employeeTermsConditions');
             exit();
         }
-        // Allow certain file formats
-        // elseif ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-        // && $imageFileType != "gif" ) {
-        //     $_SESSION['photoErrorMsg'] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-        //     header('Location:companyProfile');
-        //     exit();
-        // }
         else {
             if (move_uploaded_file($_FILES["employee_terms_conditions"]["tmp_name"], $target_file)) {
                 $employee_terms_conditions = basename($_FILES["employee_terms_conditions"]["name"]);
-                //die();
             } else {
                 $_SESSION['pdfErrorMsg'] = "Sorry, there was an error uploading your file.";
                 header('Location:employeeTermsConditions');
@@ -349,12 +289,7 @@ if(isset($_POST['sac_code_value'])) {
     $sac_code_value = mysqli_real_escape_string($DBManager->conn, $_POST['sac_code_value']);
     echo $result = $adminManager->chechSACDublicate($sac_code_value);
 }
-// add rss feeds
-if(isset($_POST['rssLink'])) {
-    $adminManager = new AdminManager();
-    $rssLink = mysqli_real_escape_string($DBManager->conn, $_POST['rssLink']);
-    echo $result = $adminManager->saveRssLink($rssLink);
-}
+
 // forgotPassword 
 if(isset($_POST['forgotPassword'])) {
     $adminManager = new AdminManager();
@@ -363,7 +298,6 @@ if(isset($_POST['forgotPassword'])) {
 }
 
 // change theme color
-// forgotPassword 
 if(isset($_POST['skinColor'])) {
     //echo $_POST['skinColor'];
     $adminManager = new AdminManager();

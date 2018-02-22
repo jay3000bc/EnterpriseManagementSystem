@@ -74,7 +74,7 @@ else {
                                         </div>
                                     </div>
                                 </div>
-                            </div><br>
+                        </div><br>
                         
                     </div>
                     <?php } else { ?>
@@ -99,7 +99,7 @@ else {
 $('.delete-btn').click(function() {
     var delete_project_div = $(this).data("delete_id");
     var input_element = $(this).next('input');
-    var project_id = input_element.val();
+    var delete_project_by_project_id = input_element.val();
     swal({
       title: "Are you sure?",
       text: "Your will not be able to recover the Project Details !!!",
@@ -114,11 +114,11 @@ $('.delete-btn').click(function() {
             url: "ClientController.php",
             type: "post",
             cache: false,
-            data: {"project_id": project_id},
+            data: {"delete_project_by_project_id": delete_project_by_project_id},
             success: function(result) {
                 if (result==1) {
                     $('#'+delete_project_div).remove();
-                    $('.box-body').append('<h3 class="box-title">No projects available.</h3>');
+                    $('.box-header').append('<div class="box-footer with-border"><h3 class="box-title">No projects available.</h3></div>');
                     swal("Deleted!", "Project has been deleted successfully.", "success"); 
                 }
                 else {

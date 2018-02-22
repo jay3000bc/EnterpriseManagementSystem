@@ -65,6 +65,7 @@ else {
                                     
                                     <div class="form-group">
                                         <label for="photo">Photo</label>
+                                        <span style="color:#0000FF">[ Please upload a passport size photo of only JPG, GIF, PNG format and maximum size of 500 kb. For better resolution use 160 x 160 px image. ]</span>
                                         <input type="file" data-allowed-file-extensions="png jpg jpeg" name="photo" class="dropify" data-default-file="<?php echo 'uploads/client_image/'.$clientDetails['photo'];?>" data-height="100" style="height: 100% !important;">
                                     </div>
                                 </div>
@@ -85,13 +86,21 @@ else {
                                     </div>
                                     <div class="form-group">
                                         <label for="country">Country <span class="mandatory">*</span></label>
-                                        <select name="country" class="bfh-countries form-control" data-country="<?php echo $clientDetails['country']; ?>" required>
+                                        <select id="country" name="country" class="bfh-countries form-control" data-country="<?php echo $clientDetails['country']; ?>" required>
                                         </select>
                                     </div>
-                                    <div id="hide_div_state">
+                                    <?php if($clientDetails['state'] != '') {
+                                         $display = 'display:block;';
+                                         $disabled = '';
+                                     }  else {
+                                         $display = 'display:none;';
+                                         $disabled = 'disabled="disabled"';
+                                     }
+                                    ?>
+                                    <div id="hide_div_state" style="<?php echo $display; ?>">
                                         <div class="form-group">
                                             <label for="name">State <span class="mandatory">*</span></label>
-                                            <select id="state" class="form-control" name="state" required>   
+                                            <select id="state" class="form-control" name="state" required <?php echo $disabled;?>>   
                                                 <?php for ($i=0; $i < $totalStates ; $i++) { ?>
                                                 <option value="<?php echo $adminManager->state_id[$i]; ?>" <?php if ($clientDetails['state']== $i+1) { echo "selected"; } ?>><?php echo $adminManager->state_name[$i]; ?> (<?php echo $adminManager->state_gst_code[$i]; ?>)</option>
                                                 <?php } ?>
@@ -99,9 +108,10 @@ else {
                                         </div>
                                         <div class="form-group">
                                             <label for="name">GSTIN </label>
-                                            <input class="form-control" id="gstin" value="<?php echo $clientDetails['gstin']; ?>" placeholder="Enter Client GSTIN" type="text" name="gstin" autocomplete="off">
+                                            <input class="form-control" id="gstin" value="<?php echo $clientDetails['gstin']; ?>" placeholder="Enter Client GSTIN" type="text" name="gstin" autocomplete="off" <?php echo $disabled;?>>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                             <?php 
@@ -172,8 +182,13 @@ else {
      }
      $('#country').change( function() {
         if($(this).val() == 'India') {
+            $('#state').removeAttr('disabled');
+            $('#gstin').removeAttr('disabled');
             $('#hide_div_state').css('display','block');
+
          } else {
+            $('#state').attr('disabled', 'disabled');
+            $('#gstin').attr('disabled', 'disabled');
             $('#hide_div_state').css('display','none');
          }
      });

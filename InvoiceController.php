@@ -24,11 +24,11 @@ if (isset($_POST["saveInvoice"])) {
 	$client_id = mysqli_real_escape_string($DBManager->conn, $_POST['client_id']);
 	$client_name = mysqli_real_escape_string($DBManager->conn, $_POST['client_name']);
 	$client_address = mysqli_real_escape_string($DBManager->conn, $_POST['client_address']);
-	$client_gstin = mysqli_real_escape_string($DBManager->conn, $_POST['client_gstin']);
+	$client_state = '';
+	$client_gstin = '';
 	if(isset($_POST['client_state']) && ($_POST['client_state'] != '')) {
 		$client_state = mysqli_real_escape_string($DBManager->conn, $_POST['client_state']);
-	} else {
-		$client_state = 50;
+		$client_gstin = mysqli_real_escape_string($DBManager->conn, $_POST['client_gstin']);
 	}
 	
 	$mode_of_invoice = mysqli_real_escape_string($DBManager->conn, $_POST['mode_of_invoice']);
@@ -113,11 +113,11 @@ if (isset($_POST["previewInvoice"])) {
 	$client_id = mysqli_real_escape_string($DBManager->conn, $_POST['client_id']);
 	$client_name = mysqli_real_escape_string($DBManager->conn, $_POST['client_name']);
 	$client_address = mysqli_real_escape_string($DBManager->conn, $_POST['client_address']);
-	$client_gstin = mysqli_real_escape_string($DBManager->conn, $_POST['client_gstin']);
+	$client_state = '';
+	$client_gstin = '';
 	if(isset($_POST['client_state']) && ($_POST['client_state'] != '')) {
 		$client_state = mysqli_real_escape_string($DBManager->conn, $_POST['client_state']);
-	} else {
-		$client_state = 50;
+		$client_gstin = mysqli_real_escape_string($DBManager->conn, $_POST['client_gstin']);
 	}
 	$mode_of_invoice = mysqli_real_escape_string($DBManager->conn, $_POST['mode_of_invoice']);
 	$invoice_date = mysqli_real_escape_string($DBManager->conn, $_POST['invoice_date']);
@@ -125,6 +125,7 @@ if (isset($_POST["previewInvoice"])) {
 	
 	$admin_bank_account = mysqli_real_escape_string($DBManager->conn, $_POST['admin_bank_account']);
 	$net_amount = mysqli_real_escape_string($DBManager->conn, $_POST['net_amount']);
+	$deleteAllPreviewServices = $invoiceManager->deleteAllPreviewServices();
 	foreach ($_POST['desc_of_service'] as $key => $value) {
 		$desc_of_service = mysqli_real_escape_string($DBManager->conn, $_POST['desc_of_service'][$key]);
 		$sac_code = mysqli_real_escape_string($DBManager->conn, $_POST['sac_code'][$key]);
