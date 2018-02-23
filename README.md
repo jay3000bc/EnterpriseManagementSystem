@@ -10,14 +10,12 @@
 Likewise, there are more customised options available in this config file.
 Apart from the database credentials, you can change all other values later, if you want.
 4. EMS generates PDF’s for Invoices for clients and Payrolls for employees. For this, the system use the popular WKHTMLTOPDF.
- - (a) You will need to install WKHTMLTOPDF in your machine or server.
+ You will need to install WKHTMLTOPDF in your machine or server.
 
 A nice tutorial, for how to install WKHTMLTOPDF is available here https://jaimegris.wordpress.com/2015/03/04/how-to-install-wkhtmltopdf-in-centos-7-0/
-
- - (b) Next, you will also need to make all the folders inside “uploads” writeable.
 
 **You are done!**
 
 Now open your browser and point to the setup file. For example, if you your site is http://www.example.com and you have installed EMS in a folder called “ems”, than you will open http://www.example.com/ems/setup in your browser.
 
-Just follow the on screen instructions.
+Just follow the on screen instructions. To know the details of entering data in these screens, you can follow us on [support](http://www.alegralabs.com/ems/support) page.
