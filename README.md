@@ -9,7 +9,7 @@
  - (b) Then you will also have to edit the absolute path i.e., where you have installed or running the EMS. Similarly, edit the email address of all out going emails. Out going emails will go to your employees and clients. You can disable out going emails to clients by changing the $sendEmailToClient from true to false.
 Likewise, there are more customised options available in this config file.
 Apart from the database credentials, you can change all other values later, if you want.
-4. EMS generates PDF’s for Invoices for clients and Payrolls for employees. For this, the system use the popular WKHTMLTOPDF.
+4. EMS generates PDF’s for Invoices for clients and Payrolls for employees. For this, the system uses the popular WKHTMLTOPDF.
  You will need to install WKHTMLTOPDF in your machine or server.
 
 A nice tutorial, for how to install WKHTMLTOPDF is available here https://jaimegris.wordpress.com/2015/03/04/how-to-install-wkhtmltopdf-in-centos-7-0/
