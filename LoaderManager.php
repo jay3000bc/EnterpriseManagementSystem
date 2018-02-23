@@ -138,7 +138,7 @@ class LoaderManager {
 		  `client_id` varchar(50) NOT NULL,
 		  `name` varchar(100) NOT NULL,
 		  `country` varchar(50) NOT NULL,
-		  `state` int(5) NOT NULL,
+		  `state` varchar(11) DEFAULT NULL,
 		  `gstin` varchar(50) NOT NULL,
 		  `email` varchar(100) NOT NULL,
 		  `phone_no` varchar(50) NOT NULL,
