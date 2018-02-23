@@ -16,6 +16,6 @@ A nice tutorial, for how to install WKHTMLTOPDF is available here https://jaimeg
 
 **You are done!**
 
-Now open your browser and point to the setup file. For example, if you your site is http://www.example.com and you have installed EMS in a folder called “ems”, than you will open http://www.example.com/ems/setup in your browser.
+Now open your browser and point to the setup file. For example, if your site is http://www.example.com and you have installed EMS in a folder called “ems”, than you will open http://www.example.com/ems/setup in your browser.
 
 Just follow the on screen instructions. To know the details of entering data in these screens, you can follow us on [support](http://www.alegralabs.com/ems/support) page.
