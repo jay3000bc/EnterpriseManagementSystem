@@ -1,0 +1,5 @@
+EMS Version 2 Update/ Improvement
++++++++++++++++++++++++++++++
+SAC/ HSN should be manual, because we cannot predict all purchase bills from different sellers.
+Once the SAC/ HSN number is entered, next time, it should appear in auto populate
+Mention only files changed, including path.
