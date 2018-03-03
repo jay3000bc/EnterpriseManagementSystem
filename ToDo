@@ -1,5 +1,9 @@
 EMS Version 2 Update/ Improvement
 +++++++++++++++++++++++++++++
-Under Received Invoices, SAC/ HSN should be manual, because we cannot predict all purchase bills from different sellers.
+(1) Under Received Invoices, SAC/ HSN should be manual, because we cannot predict all purchase bills from different sellers.
 Once the SAC/ HSN number is entered, next time, it should appear in auto populate
 Mention only files changed, including path.
+
+(2) Create Invoice: Price should also accept decimal.
+
+(3) Create Employee: Add another mandatory field called "Max. Qualification".
