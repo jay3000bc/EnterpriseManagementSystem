@@ -9,3 +9,7 @@ Mention only files changed, including path.
 (3) Create Employee: Add another mandatory field called "Max. Qualification".
 
 (4) All dates, should be in Indian format i.e., dd/mm/yyyy
+
+(5) When we create a foreign client (say) US, there is no option for entering State in the Create Client form. But when invoice is generated, it shows the State as Address of the client.
+
+When client is foreign, there should be another input box called “State” in the Create Client form. The State field is not mandatory. Whatever, Admin enters in State, should appear exactly in the invoice. If no state is entered, than State should be empty/ blank in the invoice.
