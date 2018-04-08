@@ -106,8 +106,8 @@ if(isset($_POST['invoice_type'])) {
                                             <th>Client Name</th>
                                             <th>Created At</th>
                                             <th>Amount</th>
-                                            <th>Invoice pdf</th>
                                             <th>Status</th>
+                                            <th>Action</th>
                                             <?php } ?>
                                         </tr>
                                     </thead>
@@ -128,19 +128,19 @@ if(isset($_POST['invoice_type'])) {
                                             } ?>
                                             <td><?php echo $currency_type.' '. sprintf('%0.2f', $invoiceManager->invoice_amount[$i]);?></td>
                                             <td>
+                                                <select class="form-control status" name="status">
+                                                    <option <?php if($invoiceManager->status[$i] == 0) echo 'selected';?> value="0">Unpaid</option>
+                                                    <option <?php if($invoiceManager->status[$i] == 1) echo 'selected';?> value="1">Paid</option>
+                                                </select>
+                                                <input type="hidden" name="id" value="<?php echo $invoiceManager->invoice_id[$i];?>">
+                                            </td>
+                                            <td>
                                                 <?php 
                                                 if(isset($_POST['invoice_type']) and ($_POST['invoice_type'] ==1)) { ?>
                                                 <a target="_blank" href="uploads/invoices/receivedInvoice/<?php echo $invoiceManager->upload_invoice[$i];?>"><u>View</u></a>
                                                 <?php } else { ?>
                                                 <a target="_blank" href="uploads/invoices/createdInvoice/<?php echo $invoiceManager->invoice_id[$i];?>.pdf"><u>View</u></a>
                                                 <?php } ?>
-                                            </td>
-                                            <td>
-                                                <select class="form-control status" name="status">
-                                                    <option <?php if($invoiceManager->status[$i] == 0) echo 'selected';?> value="0">Unpaid</option>
-                                                    <option <?php if($invoiceManager->status[$i] == 1) echo 'selected';?> value="1">Paid</option>
-                                                </select>
-                                                <input type="hidden" name="id" value="<?php echo $invoiceManager->invoice_id[$i];?>">
                                             </td>
                                         </tr>
                                         <?php
