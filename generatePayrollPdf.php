@@ -53,7 +53,7 @@ $companyInfo = $adminManager->getAdminDetails();
                 <?php } ?><br>
 			</div>
 			<div class="col-md-12">
-				<h4>Payslip for the Month of <?php echo date("F Y",strtotime("-1 month"));?><br> Financial year 2017 - 2018</h4><br>
+				<h4>Payslip for the Month of <?php echo date("F Y",strtotime("-1 month"));?><br> Financial year 2018 - 2019</h4><br>
 			</div>
 			<div class="col-md-12">
 				<h4><label>Private &amp; Confidential</label></h4>

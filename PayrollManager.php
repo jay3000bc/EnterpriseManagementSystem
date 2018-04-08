@@ -101,7 +101,8 @@ class PayrollManager {
             $sql = "SELECT * from ems_payroll where employee_id = $employee_id and Year(updated_at) = Year(CURRENT_TIMESTAMP) 
                  AND Month(updated_at) = Month(CURRENT_TIMESTAMP)";
         } else {
-            $sql = "SELECT * from ems_payroll where DATE_FORMAT(created_at, '$currentMonth') and employee_id = '$employee_id'";
+            $sql = "SELECT * from ems_payroll where employee_id = '$employee_id' and Year(updated_at) = Year(CURRENT_TIMESTAMP) 
+                 AND Month(updated_at) = Month(CURRENT_TIMESTAMP)";
         }
         $data = $db->getAllRecords($sql);
         $total = $db->getNumRow($sql);
