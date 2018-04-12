@@ -11,6 +11,7 @@ $invoiceManager = new InvoiceManager();
 include_once 'AdminManager.php';
 $adminManager = new AdminManager();
 $companyInfo = $adminManager->getAdminDetails();
+// save Invoice of client
 if (isset($_POST["saveInvoice"])) { 
 	foreach( $_POST as $key => $value )
     {
@@ -28,6 +29,8 @@ if (isset($_POST["saveInvoice"])) {
 	$client_gstin = '';
 	if(isset($_POST['client_state']) && ($_POST['client_state'] != '')) {
 		$client_state = mysqli_real_escape_string($DBManager->conn, $_POST['client_state']);
+	}
+	if(isset($_POST['client_gstin']) && ($_POST['client_gstin'] != '')) {
 		$client_gstin = mysqli_real_escape_string($DBManager->conn, $_POST['client_gstin']);
 	}
 	
@@ -57,7 +60,7 @@ if (isset($_POST["saveInvoice"])) {
 		}
 		$result1 = $invoiceManager->saveInvoiceAmount($invoice_id, $desc_of_service, $sac_code, $quantity, $price, $cgst, $sgst, $igst);
 	}
-	$result2 = $invoiceManager->saveInvoice($invoice_id, $client_id, $client_name, $client_email, $client_address, $client_gstin, $client_state, $mode_of_invoice, $reverse_charge, $admin_bank_account, $currency_type, $net_amount, $invoice_date);
+	$result2 = $invoiceManager->saveInvoice($invoice_id, $invoice_type, $client_id, $client_name, $client_email, $client_address, $client_gstin, $client_state, $mode_of_invoice, $reverse_charge, $admin_bank_account, $currency_type, $net_amount, $invoice_date);
 	
 	
 	if($result2) {
@@ -103,7 +106,108 @@ if (isset($_POST["saveInvoice"])) {
 		header('location:createInvoice');
 	}
 }
+// End
+// update invoices of client
+if (isset($_POST["saveEditedInvoice"])) { 
+	$client_email = mysqli_real_escape_string($DBManager->conn, $_POST['client_email']);
+	$invoice_type = mysqli_real_escape_string($DBManager->conn, $_POST['invoice_type']);
+	$currency_type = mysqli_real_escape_string($DBManager->conn, $_POST['currency_type']);
+	$invoice_id = mysqli_real_escape_string($DBManager->conn, $_POST['invoice_no']);
+	$client_id = mysqli_real_escape_string($DBManager->conn, $_POST['client_id']);
+	$client_name = mysqli_real_escape_string($DBManager->conn, $_POST['client_name']);
+	$client_address = mysqli_real_escape_string($DBManager->conn, $_POST['client_address']);
+	$client_state = '';
+	$client_gstin = '';
+	if(isset($_POST['client_state']) && ($_POST['client_state'] != '')) {
+		$client_state = mysqli_real_escape_string($DBManager->conn, $_POST['client_state']);
+		$client_gstin = mysqli_real_escape_string($DBManager->conn, $_POST['client_gstin']);
+	}
+	
+	$mode_of_invoice = mysqli_real_escape_string($DBManager->conn, $_POST['mode_of_invoice']);
+	$invoice_date = mysqli_real_escape_string($DBManager->conn, $_POST['invoice_date']);
+	$reverse_charge = mysqli_real_escape_string($DBManager->conn, $_POST['reverse_charge']);
+	
+	$admin_bank_account = mysqli_real_escape_string($DBManager->conn, $_POST['admin_bank_account']);
+	$net_amount = mysqli_real_escape_string($DBManager->conn, $_POST['net_amount']);
 
+	if(isset($_POST['desc_of_service_old'])) {
+
+		foreach ($_POST['desc_of_service_old'] as $key_old => $value) {
+			$service_id = mysqli_real_escape_string($DBManager->conn, $_POST['service_id_old'][$key_old]);
+			$desc_of_service = mysqli_real_escape_string($DBManager->conn, $_POST['desc_of_service_old'][$key_old]);
+			$sac_code = mysqli_real_escape_string($DBManager->conn, $_POST['sac_code_old'][$key_old]);
+			$quantity = mysqli_real_escape_string($DBManager->conn, $_POST['quantity_old'][$key_old]);
+			$price = mysqli_real_escape_string($DBManager->conn, $_POST['price_old'][$key_old]);
+			$cgst = mysqli_real_escape_string($DBManager->conn, $_POST['cgst_old'][$key_old]);
+			$sgst = mysqli_real_escape_string($DBManager->conn, $_POST['sgst_old'][$key_old]);
+			$igst = mysqli_real_escape_string($DBManager->conn, $_POST['igst_old'][$key_old]);
+			if($cgst == '') {
+				$cgst = 0;
+			}
+			if($sgst == '') {
+				$sgst = 0;
+			}
+			if($igst == '') {
+				$igst = 0;
+			}
+			$result1 = $invoiceManager->updateInvoiceAmount($service_id, $invoice_id, $desc_of_service, $sac_code, $quantity, $price, $cgst, $sgst, $igst);
+		}
+	}
+	if(isset($_POST['desc_of_service'])){
+		foreach ($_POST['desc_of_service'] as $key_new => $value) {
+			$desc_of_service = mysqli_real_escape_string($DBManager->conn, $_POST['desc_of_service'][$key_new]);
+			$sac_code = mysqli_real_escape_string($DBManager->conn, $_POST['sac_code'][$key_new]);
+			$quantity = mysqli_real_escape_string($DBManager->conn, $_POST['quantity'][$key_new]);
+			$price = mysqli_real_escape_string($DBManager->conn, $_POST['price'][$key_new]);
+			$cgst = mysqli_real_escape_string($DBManager->conn, $_POST['cgst'][$key_new]);
+			$sgst = mysqli_real_escape_string($DBManager->conn, $_POST['sgst'][$key_new]);
+			$igst = mysqli_real_escape_string($DBManager->conn, $_POST['igst'][$key_new]);
+			if($cgst == '') {
+				$cgst = 0;
+			}
+			if($sgst == '') {
+				$sgst = 0;
+			}
+			if($igst == '') {
+				$igst = 0;
+			}
+			$result1 = $invoiceManager->saveInvoiceAmount($invoice_id, $desc_of_service, $sac_code, $quantity, $price, $cgst, $sgst, $igst);
+		}
+	}
+	$result2 = $invoiceManager->saveEditedInvoice($invoice_id, $invoice_type, $client_id, $client_name, $client_email, $client_address, $client_gstin, $client_state, $mode_of_invoice, $reverse_charge, $admin_bank_account, $currency_type, $net_amount, $invoice_date);
+	
+	
+	if($result2) {
+		// GENERATE PDF
+		$generatePdfUrl = $absoluteUrl."generateInvoice.php?invoice_id=".$invoice_id;
+
+		$pdf=exec('/usr/local/bin/wkhtmltopdf --page-size A4 --print-media-type --include-in-outline --encoding UTF-8 "'.$generatePdfUrl.'" uploads/invoices/createdInvoice/'.$invoice_id.'.pdf 2>&1');
+		if(!$pdf) {
+			$_SESSION['ErrorMsgInvoice'] = 'Failed to generate Invoice pdf. Its seems you have not installed WKHTMLTOPDF on server or on local machine also enable exec function of php if it is in disbaled list.';
+			header('location:createInvoice');
+		}
+		// send invoice details to client
+		if($sendEmailToClient == true) {
+
+			$invoicelink = $absoluteUrl.'uploads/invoices/createdInvoice/'.$invoice_id.'.pdf';
+			include_once 'emails/invoiceEmailToClient.php';
+			mail($client_email, $invoiceSubject, $message, $from);
+		}	
+		// end
+		if($_POST['saveEditedInvoice'] == 'Print') {
+			$_SESSION['successMsg'] = 'success';
+			header('location:generateInvoice.php?print_invoice='.$invoice_id);
+		} else {
+			$_SESSION['successMsg'] = 'success';
+			header('location:editCreatedInvoice');
+		}
+		
+	} else {
+		$_SESSION['errorMsg'] = 'fail';
+		header('location:editCreatedInvoice');
+	}
+}
+// End
 // preview Invoice
 
 if (isset($_POST["previewInvoice"])) { 
@@ -117,6 +221,8 @@ if (isset($_POST["previewInvoice"])) {
 	$client_gstin = '';
 	if(isset($_POST['client_state']) && ($_POST['client_state'] != '')) {
 		$client_state = mysqli_real_escape_string($DBManager->conn, $_POST['client_state']);
+	}
+	if(isset($_POST['client_gstin']) && ($_POST['client_gstin'] != '')) {
 		$client_gstin = mysqli_real_escape_string($DBManager->conn, $_POST['client_gstin']);
 	}
 	$mode_of_invoice = mysqli_real_escape_string($DBManager->conn, $_POST['mode_of_invoice']);
@@ -126,25 +232,53 @@ if (isset($_POST["previewInvoice"])) {
 	$admin_bank_account = mysqli_real_escape_string($DBManager->conn, $_POST['admin_bank_account']);
 	$net_amount = mysqli_real_escape_string($DBManager->conn, $_POST['net_amount']);
 	$deleteAllPreviewServices = $invoiceManager->deleteAllPreviewServices();
-	foreach ($_POST['desc_of_service'] as $key => $value) {
-		$desc_of_service = mysqli_real_escape_string($DBManager->conn, $_POST['desc_of_service'][$key]);
-		$sac_code = mysqli_real_escape_string($DBManager->conn, $_POST['sac_code'][$key]);
-		$quantity = mysqli_real_escape_string($DBManager->conn, $_POST['quantity'][$key]);
-		$price = mysqli_real_escape_string($DBManager->conn, $_POST['price'][$key]);
-		$cgst = mysqli_real_escape_string($DBManager->conn, $_POST['cgst'][$key]);
-		$sgst = mysqli_real_escape_string($DBManager->conn, $_POST['sgst'][$key]);
-		$igst = mysqli_real_escape_string($DBManager->conn, $_POST['igst'][$key]);
-		if($cgst == '') {
-			$cgst = 0;
+
+
+	if(isset($_POST['desc_of_service_old'])) {
+
+		foreach ($_POST['desc_of_service_old'] as $key_old => $value) {
+			$service_id = mysqli_real_escape_string($DBManager->conn, $_POST['service_id_old'][$key_old]);
+			$desc_of_service = mysqli_real_escape_string($DBManager->conn, $_POST['desc_of_service_old'][$key_old]);
+			$sac_code = mysqli_real_escape_string($DBManager->conn, $_POST['sac_code_old'][$key_old]);
+			$quantity = mysqli_real_escape_string($DBManager->conn, $_POST['quantity_old'][$key_old]);
+			$price = mysqli_real_escape_string($DBManager->conn, $_POST['price_old'][$key_old]);
+			$cgst = mysqli_real_escape_string($DBManager->conn, $_POST['cgst_old'][$key_old]);
+			$sgst = mysqli_real_escape_string($DBManager->conn, $_POST['sgst_old'][$key_old]);
+			$igst = mysqli_real_escape_string($DBManager->conn, $_POST['igst_old'][$key_old]);
+			if($cgst == '') {
+				$cgst = 0;
+			}
+			if($sgst == '') {
+				$sgst = 0;
+			}
+			if($igst == '') {
+				$igst = 0;
+			}
+			$result1 = $invoiceManager->previewInvoiceAmount($invoice_id, $desc_of_service, $sac_code, $quantity, $price, $cgst, $sgst, $igst);
 		}
-		if($sgst == '') {
-			$sgst = 0;
-		}
-		if($igst == '') {
-			$igst = 0;
-		}
-		$result1 = $invoiceManager->previewInvoiceAmount($invoice_id, $desc_of_service, $sac_code, $quantity, $price, $cgst, $sgst, $igst);
 	}
+	if(isset($_POST['desc_of_service'])){
+		foreach ($_POST['desc_of_service'] as $key_new => $value) {
+			$desc_of_service = mysqli_real_escape_string($DBManager->conn, $_POST['desc_of_service'][$key_new]);
+			$sac_code = mysqli_real_escape_string($DBManager->conn, $_POST['sac_code'][$key_new]);
+			$quantity = mysqli_real_escape_string($DBManager->conn, $_POST['quantity'][$key_new]);
+			$price = mysqli_real_escape_string($DBManager->conn, $_POST['price'][$key_new]);
+			$cgst = mysqli_real_escape_string($DBManager->conn, $_POST['cgst'][$key_new]);
+			$sgst = mysqli_real_escape_string($DBManager->conn, $_POST['sgst'][$key_new]);
+			$igst = mysqli_real_escape_string($DBManager->conn, $_POST['igst'][$key_new]);
+			if($cgst == '') {
+				$cgst = 0;
+			}
+			if($sgst == '') {
+				$sgst = 0;
+			}
+			if($igst == '') {
+				$igst = 0;
+			}
+			$result1 = $invoiceManager->previewInvoiceAmount($invoice_id, $desc_of_service, $sac_code, $quantity, $price, $cgst, $sgst, $igst);
+		}
+	}
+
 	$result2 = $invoiceManager->previewInvoice($invoice_id, $client_id, $client_name, $client_address, $client_gstin, $client_state, $mode_of_invoice, $reverse_charge, $admin_bank_account, $currency_type, $net_amount, $invoice_date);
 	
 	

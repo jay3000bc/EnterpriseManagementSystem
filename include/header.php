@@ -161,7 +161,7 @@ else {
             <li class="<?php if($current_link == $absoluteUrl.'viewProjects' || $current_link == $absoluteUrl.'viewSingleProjectDetails') echo 'active'; ?>"><a href="viewProjects"><i class="fa fa-circle"></i>View Projects</a></li>
           </ul>
         </li>
-        <li class="treeview <?php if($current_link == $absoluteUrl.'createInvoice' || $current_link == $absoluteUrl.'viewInvoices' || $current_link == $absoluteUrl.'receiveInvoice') echo 'active'; ?>">
+        <li class="treeview <?php if($current_link == $absoluteUrl.'createInvoice' || $current_link == $absoluteUrl.'viewInvoices' || $current_link == $absoluteUrl.'receiveInvoice' || $current_link == $absoluteUrl.'editCreatedInvoice') echo 'active'; ?>">
           <a href="#">
             <i class="fa fa-file-text" aria-hidden="true"></i>
             <span>Invoice</span>

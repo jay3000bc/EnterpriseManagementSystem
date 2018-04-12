@@ -32,11 +32,11 @@ class InvoiceManager {
         return $data;
  
     }
-    public function saveInvoice($invoice_id, $client_id, $client_name, $client_email, $client_address, $client_gstin, $client_state, $mode_of_invoice, $reverse_charge, $bank_account, $currency_type, $net_amount, $invoice_date) {
+    public function saveInvoice($invoice_id, $invoice_type, $client_id, $client_name, $client_email, $client_address, $client_gstin, $client_state, $mode_of_invoice, $reverse_charge, $bank_account, $currency_type, $net_amount, $invoice_date) {
     	$db = new DBManager();
-    	$sql = "INSERT into ems_invoices(invoice_id, client_id, name, email, address, gstin, state, invoice_mode, reverse_charge, bank_id, currency_type, net_amount, invoice_date) values ('$invoice_id', '$client_id', '$client_name', '$client_email,','$client_address', '$client_gstin', '$client_state' ,'$mode_of_invoice', '$reverse_charge', '$bank_account', '$currency_type', '$net_amount' , '$invoice_date')";
-    	//echo $sql;
-    	//die();
+    	$sql = "INSERT into ems_invoices(invoice_id, invoice_type, client_id, name, email, address, gstin, state, invoice_mode, reverse_charge, bank_id, currency_type, net_amount, invoice_date) values ('$invoice_id', '$invoice_type', '$client_id', '$client_name', '$client_email', '$client_address', '$client_gstin', '$client_state' ,'$mode_of_invoice', '$reverse_charge', '$bank_account', '$currency_type', '$net_amount' , '$invoice_date')";
+    	// echo $sql;
+    	// die();
     	$result = $db->execute($sql);
     	return $result;
 
@@ -48,6 +48,27 @@ class InvoiceManager {
     	//die();
     	$result = $db->execute($sql);
     	return $result;
+
+    }
+    // update invoice table
+    public function saveEditedInvoice($invoice_id, $invoice_type, $client_id, $name, $email, $address, $gstin, $state, $invoice_mode, $reverse_charge, $bank_id, $currency_type, $net_amount, $invoice_date) {
+        $db = new DBManager();
+        if (is_numeric($invoice_id)) {
+            $sql = "UPDATE ems_invoices set invoice_type='$invoice_type', client_id='$client_id', name='$name', email='$email', address='$address', gstin='$gstin', state='$state', invoice_mode='$invoice_mode', reverse_charge='$reverse_charge', bank_id='$bank_id', currency_type='$currency_type', net_amount='$net_amount', invoice_date='$invoice_date' where invoice_id=$invoice_id";
+        } else {
+            $sql = "UPDATE ems_invoices set invoice_type='$invoice_type', client_id='$client_id', name='$name', email='$email', address='$address', gstin='$gstin', state='$state', invoice_mode='$invoice_mode', reverse_charge='$reverse_charge', bank_id='$bank_id', currency_type='$currency_type', net_amount='$net_amount', invoice_date='$invoice_date' where invoice_id='$invoice_id'";
+        }
+        $result = $db->execute($sql);
+        return $result;
+
+    }
+    // end
+    // update invoice service amount
+    public function updateInvoiceAmount($service_id, $invoice_id, $desc_of_service, $sac_code, $quantity, $price, $cgst, $sgst, $igst) {
+        $db = new DBManager();
+        $sql = "UPDATE ems_invoice_amount set desc_of_service='$desc_of_service', sac_code='$sac_code', quantity='$quantity', price='$price', cgst='$cgst', sgst='$sgst', igst='$igst' where id=$service_id";
+        $result = $db->execute($sql);
+        return $result;
 
     }
     //deleteAllPreviewServices
@@ -115,6 +136,7 @@ class InvoiceManager {
         $data = $db->getAllRecords($sql);
         $total = $db->getNumRow($sql);
         while ($row = $db->getNextRow()) {
+             $this->service_id[] = $row['id'];
             $this->desc_of_service[] = $row['desc_of_service'];
             $this->sac_code[] = $row['sac_code'];
             $this->quantity[] = $row['quantity'];

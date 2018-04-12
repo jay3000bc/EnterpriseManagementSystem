@@ -84,7 +84,7 @@ foreach ($currencies as $key => $currency) {
 						</td>
 
 						<td>State: <?php 
-							if($invoiceDetails['state'] == 0) { echo $invoiceDetails['address']; 
+							if (!is_numeric($invoiceDetails['state'])) { echo $invoiceDetails['state']; 
 							} else {
 							for ($i=0; $i < $totalStates ; $i++) {
 								if ($invoiceDetails['state'] == $i+1) {

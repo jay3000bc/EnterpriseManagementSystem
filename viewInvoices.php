@@ -137,9 +137,10 @@ if(isset($_POST['invoice_type'])) {
                                             <td>
                                                 <?php 
                                                 if(isset($_POST['invoice_type']) and ($_POST['invoice_type'] ==1)) { ?>
-                                                <a target="_blank" href="uploads/invoices/receivedInvoice/<?php echo $invoiceManager->upload_invoice[$i];?>"><u>View</u></a>
+                                                <a title="View" target="_blank" class="btn btn-sm btn-primary" href="uploads/invoices/receivedInvoice/<?php echo $invoiceManager->upload_invoice[$i];?>"><i class="fa fa-eye"></i></a>
                                                 <?php } else { ?>
-                                                <a target="_blank" href="uploads/invoices/createdInvoice/<?php echo $invoiceManager->invoice_id[$i];?>.pdf"><u>View</u></a>
+                                                <a title="View" target="_blank" class="btn btn-sm btn-primary" href="uploads/invoices/createdInvoice/<?php echo $invoiceManager->invoice_id[$i];?>.pdf"><i class="fa fa-eye"></i></a>
+                                                <a title="Edit" href="editCreatedInvoice?invoice_id=<?php echo $invoiceManager->invoice_id[$i];?>" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i></a>
                                                 <?php } ?>
                                             </td>
                                         </tr>

@@ -122,6 +122,9 @@ $(document).ready(function() {
             sac_code: {
                required: true
             },
+            sac_code_old: {
+               required: true
+            },
             admin_gstin: {
                required: true
             },
@@ -133,7 +136,7 @@ $(document).ready(function() {
             },
             price: {
                required: true,
-               digits: true
+               number: true
             }
             ,
             cgst: {
@@ -143,6 +146,23 @@ $(document).ready(function() {
                digits: true
             },
             igst: {
+               digits: true
+            },
+            desc_of_service_old: {
+               required: true
+            },
+            price_old: {
+               required: true,
+               number: true
+            }
+            ,
+            cgst_old: {
+               digits: true
+            },
+            sgst_old: {
+               digits: true
+            },
+            igst_old: {
                digits: true
             }
         },     
@@ -173,6 +193,9 @@ $(document).ready(function() {
             sac_code: {
                required: "Please Select SAC code."
             },
+            sac_code_old: {
+               required: "Please Select SAC code."
+            },
             admin_gstin: {
                required: "Please Enter your GSTIN."
             },
@@ -184,7 +207,7 @@ $(document).ready(function() {
             },
             price: {
                required: "Please Enter Price.",
-               digits: "Please Enter only Number."
+               number: "Please Enter only Number."
             },
             cgst: {
                digits: "Please Enter only Number-will be calculated as % (Percentage)."
@@ -193,6 +216,22 @@ $(document).ready(function() {
                digits: "Please Enter only Number-will be calculated as % (Percentage)."
             },
             igst: {
+               digits: "Please Enter only Number-will be calculated as % (Percentage)."
+            },
+            desc_of_service_old: {
+               required: "Please Enter Service Description."
+            },
+            price_old: {
+               required: "Please Enter Price.",
+               number: "Please Enter only Number."
+            },
+            cgst_old: {
+               digits: "Please Enter only Number-will be calculated as % (Percentage)."
+            },
+            sgst_old: {
+               digits: "Please Enter only Number-will be calculated as % (Percentage)."
+            },
+            igst_old: {
                digits: "Please Enter only Number-will be calculated as % (Percentage)."
             }
         }
@@ -222,7 +261,7 @@ $(document).ready(function() {
          $('input.price').each(function() {
             $(this).rules("add", 
                 {
-                    digits: true,
+                    number: true,
                     required:true
                 })
         });
@@ -299,7 +338,7 @@ $(document).ready(function() {
             },
             price: {
                required: true,
-               digits: true
+               number: true
             },
             cgst: {
                digits: true
@@ -344,7 +383,7 @@ $(document).ready(function() {
             },
             price: {
                required: "Please Enter Price.",
-               digits: "Please Enter only Number."
+               number: "Please Enter only Number."
             },
             cgst: {
                digits: "Please Enter only Number-will be calculated as % (Percentage)."

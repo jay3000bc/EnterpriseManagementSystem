@@ -34,13 +34,14 @@ class LoaderManager {
 		$result = $db->execute($sql);
 		$sql3 = "CREATE TABLE IF NOT EXISTS `ems_invoices` (
 		  `id` int($invoice_digits) unsigned zerofill NOT NULL AUTO_INCREMENT,
+		  `invoice_type` int(11) NOT NULL COMMENT '0-National, 1-Export',
 		  `invoice_id` varchar(255) NOT NULL,
 		  `client_id` varchar(255) NOT NULL,
 		  `name` varchar(100) NOT NULL,
 		  `email` varchar(100) NOT NULL,
 		  `address` text NOT NULL,
 		  `gstin` varchar(100) NOT NULL,
-		  `state` varchar(11) DEFAULT NULL,
+		  `state` varchar(255) DEFAULT NULL,
 		  `invoice_mode` int(2) NOT NULL COMMENT '0-online, 1-manual',
 		  `reverse_charge` int(2) NOT NULL COMMENT '0-No, 1-Yes',
 		  `bank_id` int(11) NOT NULL,

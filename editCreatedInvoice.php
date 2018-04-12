@@ -1,5 +1,12 @@
 <?php
-$title = 'Create Invoice';
+// variables or catch variable name misspellings ...)
+error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+$title = 'Edit Created Invoice';
+if(isset($_GET['invoice_id'])) {
+    $invoice_id = $_GET['invoice_id'];
+} else {
+    header('location: viewInvoices');
+}
 setlocale(LC_MONETARY, 'en_IN'); 
 include('include/header.php');
 $sacResults = $adminManager->getSac();
@@ -10,6 +17,9 @@ include_once 'ClientManager.php';
 $clientManager = new ClientManager();
 include_once 'InvoiceManager.php';
 $invoiceManager = new InvoiceManager();
+$invoiceDetails = $invoiceManager->getInvoiceDetails($invoice_id);
+$totalServices = $invoiceManager->getServices($invoice_id);
+
 $generate_export_invoice_id = '';
 $generate_india__based_invoice_id = '';
 if($manageIdStatus['invoice_id'] ==1) {
@@ -27,7 +37,7 @@ $bankDetails= $adminManager->getBankDetails();
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>Create Invoice</h1>
+      <h1>Edit Created Invoice</h1>
       <?php include_once('include/notificationBell.php'); ?>
     </section>
 
@@ -40,8 +50,6 @@ $bankDetails= $adminManager->getBankDetails();
                 <div class="box box-primary">
                     <div class="box-body">
                         <form role="form" id="invoiceForm" method="POST" action="InvoiceController.php">
-                            <input type="hidden" name="current_export_id" value="<?php echo $invoiceId['current_export_id']+1;?>">
-                            <input type="hidden" name="current_national_id" value="<?php echo $invoiceId['current_india_based_id']+1;?>">
                             <div class="form-content">
                                 <div class="row">
                                     <?php 
@@ -64,18 +72,18 @@ $bankDetails= $adminManager->getBankDetails();
                                                 <?php if($manageIdStatus['invoice_id'] == 1) {  
                                                     if($invoiceId['export_invoice_prefix'] != '')  { ?>
                                                 <select id="invoice_type" name="invoice_type" class="form-control" required>
-                                                    <option value="">Select Invoice Type<?php foreach ($invoiceTypes as $key => $invoiceType) { ?>
-                                                    <option <?php if(isset($_SESSION['session_create_invoice_type']) && $_SESSION['session_create_invoice_type'] == $key) echo 'selected'; unset($_SESSION['session_create_invoice_type']); ?> value="<?php echo $key ?>"><?php echo $invoiceType ?></option>
+                                                    <option value="">Select Invoice Type</option><?php foreach ($invoiceTypes as $key => $invoiceType) { ?>
+                                                    <option value="<?php echo $key ?>" <?php if($invoiceDetails['invoice_type'] == $key) echo 'selected=selected'; ?>><?php echo $invoiceType ?></option>
                                                     <?php } ?>
                                                 </select>
                                                 <?php } else { ?>
-                                                <input value="<?php if(isset($_SESSION['session_create_invoice_invoice_type'])) echo htmlspecialchars($_SESSION['session_create_invoice_invoice_type']); unset($_SESSION['session_create_invoice_invoice_type']); ?>" type="text" name="invoice_type" class="form-control" value="National Invoice" readonly>
-
+                                                <input value="0" type="hidden" name="invoice_type" class="form-control" value="National Invoice" readonly>
+                                                <input type="text" class="form-control" value="National Invoice" readonly>
                                                 <?php } 
                                                         } else { ?>
                                                 <select id="invoice_type" name="invoice_type" class="form-control" disabled>
                                                     <?php foreach ($invoiceTypes as $key => $invoiceType) { ?>
-                                                    <option value="<?php echo $key ?>"><?php echo $invoiceType ?></option>
+                                                    <option value="<?php echo $key; ?>"><?php echo $invoiceType ?></option>
                                                     <?php } ?>
                                                 </select>
                                                 <?php } ?>
@@ -86,7 +94,7 @@ $bankDetails= $adminManager->getBankDetails();
                                                 <label for="client_name">Currency Type <span class="mandatory">*</span></label>
                                                 <select id="currency_type" name="currency_type" class="form-control" required>
                                                     <?php foreach ($currencies as $key => $currency) { ?>
-                                                    <option <?php if(isset($_SESSION['session_create_currency_type']) && $_SESSION['session_create_currency_type'] == $key) echo 'selected'; unset($_SESSION['session_create_currency_type']); ?> value="<?php echo $key ?>"><?php echo $currency ?></option>
+                                                    <option value="<?php echo $key ?>" <?php if($invoiceDetails['currency_type'] == $key) echo 'selected=selected'; ?>><?php echo $currency ?></option>
                                                     <?php } ?>
                                                 </select>
                                             </div>    
@@ -94,38 +102,38 @@ $bankDetails= $adminManager->getBankDetails();
                                     </div>
                                     <div class="form-group">
                                         <label for="client_name">Client Name <span class="mandatory">*</span></label>
-                                        <input id="client_name" placeholder="Enter Client Name" type="text" value="<?php if(isset($_SESSION['session_create_invoice_client_name'])) echo htmlspecialchars($_SESSION['session_create_invoice_client_name']); unset($_SESSION['session_create_invoice_client_name']); ?>" name="client_name" class="form-control">
+                                        <input id="client_name" placeholder="Enter Client Name" type="text" value="<?php echo $invoiceDetails['name'];?>" name="client_name" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label for="client_email">Client Email <span class="mandatory">*</span></label>
-                                        <input id="client_email" placeholder="Enter Client Name" type="text" value="<?php if(isset($_SESSION['session_create_invoice_client_email'])) echo htmlspecialchars($_SESSION['session_create_invoice_client_email']); unset($_SESSION['session_create_invoice_client_email']); ?>" name="client_email" class="form-control">
+                                        <input id="client_email" placeholder="Enter Client Name" type="text" value="<?php echo $invoiceDetails['email'];?>" name="client_email" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label for="client_address">Client Address <span class="mandatory">*</span></label>
-                                        <textarea id="client_address" name="client_address" class="form-control" placeholder="Address of Client" rows="4"><?php if(isset($_SESSION['session_create_invoice_client_address'])) echo htmlspecialchars($_SESSION['session_create_invoice_client_address']); unset($_SESSION['session_create_invoice_client_address']); ?></textarea>
+                                        <textarea id="client_address" name="client_address" class="form-control" placeholder="Address of Client" rows="4"><?php echo $invoiceDetails['address'] ?></textarea>
                                     </div>
                                     <div id="hide_div_state">
                                         <div class="form-group">
                                             <label for="client_gstin">Client GST <span class="mandatory">*</span></label>
-                                            <input id="client_gstin" placeholder="Enter Client GSTIN" type="text" value="<?php if(isset($_SESSION['session_create_invoice_client_gstin'])) echo htmlspecialchars($_SESSION['session_create_invoice_client_gstin']); unset($_SESSION['session_create_invoice_client_gstin']); ?>" name="client_gstin" class="form-control">
+                                            <input id="client_gstin" placeholder="Enter Client GSTIN" type="text" value="<?php echo $invoiceDetails['gstin'] ?>" name="client_gstin" class="form-control">
                                         </div>
-                                    </div>
+                                    </div>    
                                     <div class="form-group">
-                                        <label for="foreign_state">Client State <span class="mandatory">*</span></label>
+                                        <label for="state">Client State <span class="mandatory">*</span></label>
                                         <select id="state" class="form-control" name="client_state" required>   
-                                                <option value="">Select Client State</option>
-                                                <?php for ($i=0; $i < $totalStates ; $i++) { ?>
-                                                <option <?php if(isset($_SESSION['session_create_invoice_client_state']) && $_SESSION['session_create_invoice_client_state'] == $adminManager->state_id[$i]) echo 'selected'; unset($_SESSION['session_create_invoice_client_state']); ?> value="<?php echo $adminManager->state_id[$i]; ?>"><?php echo $adminManager->state_name[$i]; ?> (<?php echo $adminManager->state_gst_code[$i]; ?>)</option>
-                                                <?php } ?>
-                                            </select>
-                                        <input type="text" name="client_state" id="foreign_state" class="form-control" placeholder="Enter Client State" style="display: none;" disabled required>
+                                            <option value="">Select Client State</option>
+                                            <?php for ($i=0; $i < $totalStates ; $i++) { ?>
+                                            <option <?php if($invoiceDetails['state'] == $adminManager->state_id[$i]) echo 'selected'; ?> value="<?php echo $adminManager->state_id[$i]; ?>"><?php echo $adminManager->state_name[$i]; ?> (<?php echo $adminManager->state_gst_code[$i]; ?>)</option>
+                                            <?php } ?>
+                                        </select>
+                                        <input type="text" name="client_state" id="foreign_state" class="form-control" placeholder="Enter Client State" value="<?php echo $invoiceDetails['state'];?>" style="display: none;" disabled required>
                                     </div>
                                     <div class="form-group">
                                         <label for="mode_of_invoice">Mode of Invoice <span class="mandatory">*</span></label>
                                         <select id="mode_of_invoice" name="mode_of_invoice" class="form-control">
                                             <option value="">Select Mode of Invoice</option>
-                                            <option <?php if(isset($_SESSION['session_create_invoice_mode_of_invoice']) && $_SESSION['session_create_invoice_mode_of_invoice'] == 0) echo 'selected'; unset($_SESSION['session_create_invoice_mode_of_invoice']); ?> value="0">Online</option>
-                                            <option <?php if(isset($_SESSION['session_create_invoice_mode_of_invoice']) && $_SESSION['session_create_invoice_mode_of_invoice'] == 1) echo 'selected'; unset($_SESSION['session_create_invoice_mode_of_invoice']); ?>  value="1">Manual</option>
+                                            <option <?php if($invoiceDetails['invoice_mode'] == 0) echo 'selected'; unset($_SESSION['session_create_invoice_mode_of_invoice']); ?> value="0">Online</option>
+                                            <option <?php if($invoiceDetails['invoice_mode'] == 1) echo 'selected'; unset($_SESSION['session_create_invoice_mode_of_invoice']); ?>  value="1">Manual</option>
                                         </select>
                                     </div>
                                 </div>
@@ -133,27 +141,17 @@ $bankDetails= $adminManager->getBankDetails();
                                     <h4><b>Invoice Details</b></h4>
                                     <div class="form-group">
                                         <label for="invoice_no">Invoice No. <span class="mandatory">*</span></label>
-                                        <?php if($manageIdStatus['invoice_id'] ==1) { ?>
-
-                                            <?php if($invoiceId['export_invoice_prefix'] != '')  { ?>
-                                        <input palceholder="Invoice No." id="invoice_no" type="text" name="invoice_no" class="form-control" readonly> 
-                                        <?php } else { ?>
-                                        <input palceholder="Invoice No." id="invoice_no" type="text" name="invoice_no" class="form-control" value="<?php echo $generate_india__based_invoice_id; ?>" readonly>
-                                        <?php } ?>
-                                        <?php } elseif($manageIdStatus['invoice_id'] ==2) { ?>
-                                        <input palceholder="Invoice No." id="invoice_no" type="text" name="invoice_no" class="form-control"><?php } else { ?>
-                                        <input palceholder="Please Select Invoice No. type from link above" type="text" name="invoice_no" class="form-control" readonly> 
-                                        <?php } ?>
+                                        <input palceholder="Invoice No." id="invoice_no" type="text" name="invoice_no" class="form-control" value="<?php echo $invoiceDetails['invoice_id']; ?>" readonly> 
                                     </div>
                                     <div class="form-group">
                                         <label for="invoice_date">Invoice Date <span class="mandatory">*</span></label>
-                                        <input id="invoice_date" type="text" name="invoice_date" value="<?php echo date("d/m/Y", $current_date);?>" class="form-control" readonly>
+                                        <input id="invoice_date" type="text" name="invoice_date" value="<?php echo $invoiceDetails['invoice_date'];?>" class="form-control" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label for="reverse_charge">Reverse Charge <span class="mandatory">*</span></label>
                                         <select id="reverse_charge" name="reverse_charge" class="form-control">
-                                            <option <?php if(isset($_SESSION['session_create_invoice_reverse_charge']) && $_SESSION['session_create_invoice_reverse_charge'] == 0) echo 'selected'; unset($_SESSION['session_create_invoice_reverse_charge']); ?> value="0">No</option>
-                                            <option <?php if(isset($_SESSION['session_create_invoice_reverse_charge']) && $_SESSION['session_create_invoice_reverse_charge'] == 1) echo 'selected'; unset($_SESSION['session_create_invoice_reverse_charge']); ?> value="1">Yes</option>
+                                            <option <?php if($invoiceDetails['reverse_charge'] == 0) echo 'selected'; ?> value="0">No</option>
+                                            <option <?php if($invoiceDetails['reverse_charge'] == 1) echo 'selected'; ?> value="1">Yes</option>
                                         </select>
                                     </div>
                                     
@@ -179,7 +177,7 @@ $bankDetails= $adminManager->getBankDetails();
                                         <select id="admin_bank_account" class="form-control" name="admin_bank_account" required>   
                                             <option value="">Select Bank A/C No.</option>
                                             <?php for ($i=0; $i < $bankDetails ; $i++) { ?>
-                                            <option <?php if(isset($_SESSION['session_create_invoice_admin_bank_account']) && $_SESSION['session_create_invoice_admin_bank_account'] == $adminManager->bank_id[$i]) echo 'selected'; unset($_SESSION['session_create_invoice_admin_bank_account']); ?> value="<?php echo $adminManager->bank_id[$i]; ?>"><?php echo $adminManager->bank_account_no[$i]; ?></option>
+                                            <option <?php if($invoiceDetails['bank_id'] == $adminManager->bank_id[$i]) echo 'selected'; ?> value="<?php echo $adminManager->bank_id[$i]; ?>"><?php echo $adminManager->bank_account_no[$i]; ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -189,21 +187,22 @@ $bankDetails= $adminManager->getBankDetails();
                                     <br>
                                 </div>
                             </div>
+                            <?php for ($i=0; $i < $totalServices ; $i++)  { ?>
                             <div class="row">
                                 <div class="col-md-5">
                                     <div class="form-group">
                                         <label for="desc_of_service">Description of Service</label>
-                                        <input id="desc_of_service" type="text" name="desc_of_service[]" class="form-control desc_of_service" placeholder="Write about description of service" autocomplete="off">
+                                        <input id="desc_of_service" type="text" name="desc_of_service_old[]" class="form-control desc_of_service" placeholder="Write about description of service" autocomplete="off" value="<?php echo $invoiceManager->desc_of_service[$i];?>">
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="sac_code">SAC/ HSN <span class="mandatory">*</span></label>
                                         <p style="color: #0000FF; float:right;"><a style="color:#0000FF;" href="https://cleartax.in/s/sac-codes-gst-rates-for-services" target="_blank">Find SAC Code</a></p>
-                                        <select id="sac_code" name="sac_code[]" class="form-control" required>
+                                        <select id="sac_code" name="sac_code_old[]" class="form-control" required>
                                             <option value="">Select SAC</option>
-                                            <?php for ($i=0; $i < $sacResults ; $i++) { ?>
-                                            <option value="<?php echo $adminManager->sac[$i]; ?>"><?php echo $adminManager->sac[$i]; ?></option>
+                                            <?php for ($j=0; $j < $sacResults ; $j++) { ?>
+                                            <option value="<?php echo $adminManager->sac[$j]; ?>" <?php if($invoiceManager->sac_code[$i] == $adminManager->sac[$j]) echo 'selected';?>><?php echo $adminManager->sac[$j]; ?></option>
                                             <?php } ?> 
                                         </select>
                                     </div>
@@ -211,34 +210,44 @@ $bankDetails= $adminManager->getBankDetails();
                                 <div class="col-md-1">
                                     <div class="form-group">
                                         <label for="quantity">Qnty. </label>
-                                        <input pattern="[0-9]"  onkeyup="keyupFunctionQuantity(0)" id="quantity0" type="text" name="quantity[]" class="form-control quantity" placeholder="Qnty." autocomplete="off">
+                                        <input pattern="[0-9]"  onkeyup="keyupFunctionQuantity(<?php echo $i;?>)" id="quantity<?php echo $i;?>" type="text" name="quantity_old[]" class="form-control quantity" placeholder="Qnty." autocomplete="off" value="<?php echo $invoiceManager->quantity[$i]; ?>">
                                     </div>
                                 </div>
                                 <div class="col-md-1">
                                     <div class="form-group">
                                         <label for="price">Price (<span class="currency_type_selected">&#8377;</span>) </label>
-                                        <input  onkeyup="keyupFunctionPrice(0)" id="price0" type="text" name="price[]"  class="form-control price" placeholder="Price" autocomplete="off">
+                                        <input  onkeyup="keyupFunctionPrice(<?php echo $i;?>)" id="price<?php echo $i;?>" type="text" name="price_old[]" class="form-control price" placeholder="Price" autocomplete="off" value="<?php echo $invoiceManager->price[$i]; ?>">
                                     </div>
                                 </div>
                                 <div class="col-md-1">
                                     <div class="form-group">
                                         <label for="cgst">CGST (%)</label>
-                                        <input  onkeyup="keyupFunctionCGST(0)" id="cgst0" type="text" name="cgst[]" class="form-control cgst gst-validate" placeholder="CGST(%)" autocomplete="off">
+                                        <input  onkeyup="keyupFunctionCGST(<?php echo $i;?>)" id="cgst<?php echo $i;?>" type="text" name="cgst_old[]" class="form-control cgst gst-validate" placeholder="CGST(%)" autocomplete="off" value="<?php echo $invoiceManager->cgst[$i]; ?>">
                                     </div>
                                 </div>
                                 <div class="col-md-1">
                                     <div class="form-group">
                                         <label for="sgst">SGST (%)</label>
-                                        <input  onkeyup="keyupFunctionSGST(0)" id="sgst0" type="text" name="sgst[]" class="form-control sgst gst-validate" placeholder="SGST(%)" autocomplete="off">
+                                        <input  onkeyup="keyupFunctionSGST(<?php echo $i;?>)" id="sgst<?php echo $i;?>" type="text" name="sgst_old[]" class="form-control sgst gst-validate" placeholder="SGST(%)" autocomplete="off" value="<?php echo $invoiceManager->sgst[$i]; ?>">
                                     </div>
                                 </div>
                                 <div class="col-md-1">
                                     <div class="form-group">
                                         <label for="igst">IGST (%)</label>
-                                        <input  onkeyup="keyupFunctionIGST(0)" id="igst0" type="text" name="igst[]" class="form-control igst gst-validate" placeholder="IGST(%)" autocomplete="off">
+                                        <input  onkeyup="keyupFunctionIGST(<?php echo $i;?>)" id="igst<?php echo $i;?>" type="text" name="igst_old[]" class="form-control igst gst-validate" placeholder="IGST(%)" autocomplete="off" value="<?php echo $invoiceManager->igst[$i]; ?>">
                                     </div>
                                 </div>
                             </div>
+                            <?php 
+                                $totalTax = $invoiceManager->sgst[$i] + $invoiceManager->cgst[$i] + $invoiceManager->igst[$i];
+                                $individualTaxAmount = $invoiceManager->quantity[$i] * $invoiceManager->price[$i] * .01 * $totalTax;
+                                $amount = $invoiceManager->quantity[$i] * $invoiceManager->price[$i] + $individualTaxAmount;
+                            ?>
+                            <input type="hidden" id="total<?php echo $i;?>" value="<?php echo $amount;?>">
+                            
+                            <input type="hidden" name="service_id_old[]" value="<?php echo $invoiceManager->service_id[$i];?>">
+                            <?php } ?>
+                            <input type="hidden" id="clone_div_id_value" name="clone_div_id_value" value="<?php echo $i;?>">
                             <div class="clone_desc_of_service">
                                 
                             </div>
@@ -247,7 +256,7 @@ $bankDetails= $adminManager->getBankDetails();
                                     <a id="add-more-service" class="btn btn-success">Add More</a>
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Total amount: <span class="currency_type_selected">&#8377;</span> <span id="total_amount">0.00</span></label>
+                                    <label>Total amount: <span class="currency_type_selected">&#8377;</span> <span id="total_amount"><?php echo sprintf('%0.2f', $invoiceDetails['net_amount']); ?></span></label>
                                 </div>
                                 <div class="col-md-12">
                                     <br>
@@ -261,16 +270,15 @@ $bankDetails= $adminManager->getBankDetails();
                                     <div class="form-group">
                                         <?php if($manageIdStatus['invoice_id'] !=0)  { ?>
                                         <input class="btn btn-info preview-btn pull-left" value="Preview" type="text" name="previewInvoice">
-                                        <input type="submit" class="btn btn-success pull-right generate-pdf-btn" name="saveInvoice" value="Generate Pdf">
-                                        <input style="margin: 0 10px;" class="btn btn-warning pull-right generate-pdf-btn"  value="Print" type="submit" name="saveInvoice">
+                                        <input type="submit" class="btn btn-success pull-right generate-pdf-btn" name="saveEditedInvoice" value="Generate Pdf">
+                                        <input style="margin: 0 10px;" class="btn btn-warning pull-right generate-pdf-btn"  value="Print" type="submit" name="saveEditedInvoice">
                                         <?php } ?>
                                     </div>
                                 </div>
                             </div>
                             <input type="hidden" name="adminEmail" value="<?php echo $companyInfo['email'];?>">
                             <input id="client_id" type="hidden" name="client_id">
-                            <input type="hidden" id="net_amount" value="0" name="net_amount">
-                            <input type="hidden" id="total0" value="0">
+                            <input type="hidden" id="net_amount" value="<?php echo $invoiceDetails['net_amount'];?>" name="net_amount">
                         </form> 
                     </div>
                     
@@ -285,6 +293,16 @@ $bankDetails= $adminManager->getBankDetails();
   </div>
   <!-- /.content-wrapper -->
 <?php include('include/footer.php');
+if($invoiceDetails['invoice_type'] == 1 ) { ?>
+<script type="text/javascript">
+    $('#state').attr('disabled');
+    $('#state').css('display','none');
+    $('#client_gstin').attr('disabled', 'disabled');
+    $('#hide_div_state').css('display','none');
+    $('#foreign_state').css('display','block');
+    $('#foreign_state').removeAttr('disabled');
+</script>
+<?php }
 if(isset($_SESSION['successMsg'])) {
 ?>
 <script type="text/javascript">
@@ -532,7 +550,7 @@ unset($_SESSION['errorMsg']);
         }
     }
     // Add more Services 
-    var div_id =1;
+    var div_id = $('#clone_div_id_value').val();
     $('#add-more-service').click(function() {
         quantity = 0;
         price = 0;
@@ -556,15 +574,13 @@ unset($_SESSION['errorMsg']);
     
     $('#invoice_type').change(function(){
         if($(this).val() == 1) {
-            $('#invoice_no').val('<?php echo $generate_export_invoice_id;?>');
-            $('#state').attr('disabled');
+            $('#state').removeAttr('disabled');
             $('#state').css('display','none');
             $('#client_gstin').attr('disabled', 'disabled');
             $('#hide_div_state').css('display','none');
             $('#foreign_state').css('display','block');
             $('#foreign_state').removeAttr('disabled');
         } else {
-            $('#invoice_no').val('<?php echo $generate_india__based_invoice_id;?>');
             $('#state').removeAttr('disabled');
             $('#client_gstin').removeAttr('disabled');
             $('#hide_div_state').css('display','block');
@@ -574,6 +590,7 @@ unset($_SESSION['errorMsg']);
         $('#invoice_no').removeClass('error');
         $('#invoice_no').next('label').remove();
     });
+
     // select currency type
     $('#currency_type').change(function(){
         $('.currency_type_selected').html($( "#currency_type option:selected" ).text());
