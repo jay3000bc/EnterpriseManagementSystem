@@ -271,6 +271,22 @@ class InvoiceManager {
         }
         return $arrayNameList;
     }
+
+    // list of Received Description of Services
+
+    public function getSACReceivedInvoice($searchKey) {
+        $db = new DBManager();
+        $sql = "SELECT DISTINCT sac_code from ems_invoice_receive_amount where sac_code LIKE '$searchKey%'";
+        $data = $db->getAllRecords($sql);
+        $arrayNameList =array();
+        $arrayName = array();
+        while ($row = $db->getNextRow()) {
+            $arrayName['value'] = $row['sac_code'];
+            $arrayName['label'] = $row['sac_code'];
+            array_push($arrayNameList, $arrayName); 
+        }
+        return $arrayNameList;
+    }
     // check_already_exist_value
     public function check_already_exist_value($field_value, $field_name) {
         $db = new DBManager();

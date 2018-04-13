@@ -4,25 +4,25 @@ include_once 'DBManager.php';
 class EmployeeManager {
 
     //function create a new Employee
-    function CreateEmployee($employee_id, $name, $designation, $email, $phone_no, $password, $photo, $current_address, $permanent_address, $father_name, $gender, $date_of_joining, $date_of_birth, $pf_account, $policy_no, $lic_id, $pan, $passport_no, $driving_license_no, $bank_account, $ifsc_code) {
+    function CreateEmployee($employee_id, $name, $designation, $email, $phone_no, $password, $photo, $current_address, $permanent_address, $father_name, $gender, $date_of_joining, $date_of_birth, $max_qualification, $pf_account, $policy_no, $lic_id, $pan, $passport_no, $driving_license_no, $bank_account, $ifsc_code) {
         $current_time = time();
         $ip = $_SERVER["REMOTE_ADDR"];
         $db = new DBManager();
-        $sql = "INSERT into ems_employees(employee_id, name, designation, email, phone_no, password, photo, current_address, permanent_address, father_name, gender, date_of_joining, date_of_birth, pf_account, policy_no, lic_id, pan, passport_no, driving_license_no, bank_account, ifsc_code, last_logged_in, ip) 
+        $sql = "INSERT into ems_employees(employee_id, name, designation, email, phone_no, password, photo, current_address, permanent_address, father_name, gender, date_of_joining, date_of_birth, max_qualification, pf_account, policy_no, lic_id, pan, passport_no, driving_license_no, bank_account, ifsc_code, last_logged_in, ip) 
 
-        Values('$employee_id', '$name','$designation', '$email', $phone_no, '$password','$photo','$current_address','$permanent_address','$father_name','$gender','$date_of_joining','$date_of_birth','$pf_account','$policy_no','$lic_id','$pan','$passport_no','$driving_license_no','$bank_account','$ifsc_code', '$current_time', '$ip')";
+        Values('$employee_id', '$name','$designation', '$email', $phone_no, '$password','$photo','$current_address','$permanent_address','$father_name','$gender','$date_of_joining','$date_of_birth', '$max_qualification', '$pf_account','$policy_no','$lic_id','$pan','$passport_no','$driving_license_no','$bank_account','$ifsc_code', '$current_time', '$ip')";
 
         $result = $db->execute($sql);
         return $result;
        
     }
     //function edit a new Employee
-    function editEmployee($id, $employee_id, $name, $designation, $email, $phone_no, $password, $photo, $current_address, $permanent_address, $father_name, $gender, $date_of_joining, $date_of_birth, $pf_account, $policy_no, $lic_id, $pan, $passport_no, $driving_license_no, $bank_account, $ifsc_code) {
+    function editEmployee($id, $employee_id, $name, $designation, $email, $phone_no, $password, $photo, $current_address, $permanent_address, $father_name, $gender, $date_of_joining, $date_of_birth, $max_qualification, $pf_account, $policy_no, $lic_id, $pan, $passport_no, $driving_license_no, $bank_account, $ifsc_code) {
         $db = new DBManager();
         if($password == '') {
-            $sql = "UPDATE ems_employees set employee_id='$employee_id', name='$name', designation='$designation', email='$email', phone_no= '$phone_no', photo='$photo', current_address='$current_address', permanent_address='$permanent_address', father_name='$father_name', gender='$gender', date_of_joining='$date_of_joining', date_of_birth='$date_of_birth', pf_account='$pf_account', policy_no='$policy_no', lic_id='$lic_id', pan='$pan', passport_no='$passport_no', driving_license_no='$driving_license_no', bank_account='$bank_account', ifsc_code='$ifsc_code' where id=$id";
+            $sql = "UPDATE ems_employees set employee_id='$employee_id', name='$name', designation='$designation', email='$email', phone_no= '$phone_no', photo='$photo', current_address='$current_address', permanent_address='$permanent_address', father_name='$father_name', gender='$gender', date_of_joining='$date_of_joining', max_qualification='$max_qualification', date_of_birth='$date_of_birth', pf_account='$pf_account', policy_no='$policy_no', lic_id='$lic_id', pan='$pan', passport_no='$passport_no', driving_license_no='$driving_license_no', bank_account='$bank_account', ifsc_code='$ifsc_code' where id=$id";
         } else {
-            $sql = "UPDATE ems_employees set employee_id='$employee_id', name='$name', designation='$designation', email='$email', phone_no= '$phone_no', password='$password', photo='$photo', current_address='$current_address', permanent_address='$permanent_address', father_name='$father_name', gender='$gender', date_of_joining='$date_of_joining', date_of_birth='$date_of_birth', pf_account='$pf_account', policy_no='$policy_no', lic_id='$lic_id', pan='$pan', passport_no='$passport_no', driving_license_no='$driving_license_no', bank_account='$bank_account', ifsc_code='$ifsc_code' where id=$id";
+            $sql = "UPDATE ems_employees set employee_id='$employee_id', name='$name', designation='$designation', email='$email', phone_no= '$phone_no', password='$password', photo='$photo', current_address='$current_address', permanent_address='$permanent_address', father_name='$father_name', gender='$gender', date_of_joining='$date_of_joining', date_of_birth='$date_of_birth', max_qualification='$max_qualification', pf_account='$pf_account', policy_no='$policy_no', lic_id='$lic_id', pan='$pan', passport_no='$passport_no', driving_license_no='$driving_license_no', bank_account='$bank_account', ifsc_code='$ifsc_code' where id=$id";
         }    
 
         $result = $db->execute($sql);
@@ -243,15 +243,15 @@ class EmployeeManager {
         return $total;
     }
     // employee profile update request editProfileRequset
-    function editProfileRequset($employee_id, $name, $designation, $email, $phone_no, $password, $photo, $current_address, $permanent_address, $father_name, $gender, $date_of_joining, $date_of_birth, $pf_account, $policy_no, $lic_id, $pan, $passport_no, $driving_license_no, $bank_account, $ifsc_code) {
+    function editProfileRequset($employee_id, $name, $designation, $email, $phone_no, $password, $photo, $current_address, $permanent_address, $father_name, $gender, $date_of_joining, $date_of_birth, $max_qualification, $pf_account, $policy_no, $lic_id, $pan, $passport_no, $driving_license_no, $bank_account, $ifsc_code) {
         date_default_timezone_set('Asia/Kolkata');
         $created_at = date("Y-m-d H:i:s");
         $current_time = time();
         $ip = $_SERVER["REMOTE_ADDR"];
         $db = new DBManager();
-        $sql = "INSERT into ems_profile_update_request(employee_id, name, designation, email, phone_no, password, photo, current_address, permanent_address, father_name, gender, date_of_joining, date_of_birth, pf_account, policy_no, lic_id, pan, passport_no, driving_license_no, bank_account, ifsc_code, last_logged_in, ip, created_at) 
+        $sql = "INSERT into ems_profile_update_request(employee_id, name, designation, email, phone_no, password, photo, current_address, permanent_address, father_name, gender, date_of_joining, date_of_birth, max_qualification, pf_account, policy_no, lic_id, pan, passport_no, driving_license_no, bank_account, ifsc_code, last_logged_in, ip, created_at) 
 
-        Values('$employee_id', '$name','$designation', '$email', '$phone_no', '$password','$photo','$current_address','$permanent_address','$father_name','$gender','$date_of_joining','$date_of_birth','$pf_account','$policy_no','$lic_id','$pan','$passport_no','$driving_license_no','$bank_account','$ifsc_code','$current_time', '$ip', '$created_at')";
+        Values('$employee_id', '$name','$designation', '$email', '$phone_no', '$password','$photo','$current_address','$permanent_address','$father_name','$gender','$date_of_joining','$date_of_birth', '$max_qualification','$pf_account','$policy_no','$lic_id','$pan','$passport_no','$driving_license_no','$bank_account','$ifsc_code','$current_time', '$ip', '$created_at')";
 
         $result = $db->execute($sql);
         return $result;

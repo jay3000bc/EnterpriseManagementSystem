@@ -117,13 +117,7 @@ $bankDetails= $adminManager->getBankDetails();
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="sac_code">SAC/ HSN <span class="mandatory">*</span></label>
-                                        <p style="color: #0000FF; float:right;"><a style="color:#0000FF;" href="https://cleartax.in/s/sac-codes-gst-rates-for-services" target="_blank">Find SAC Code</a></p>
-                                        <select id="sac_code" name="sac_code[]" class="form-control" required>
-                                            <option value="">Select SAC</option>
-                                            <?php for ($i=0; $i < $sacResults ; $i++) { ?>
-                                            <option value="<?php echo $adminManager->sac[$i]; ?>"><?php echo $adminManager->sac[$i]; ?></option>
-                                            <?php } ?> 
-                                        </select>
+                                        <input type="text" placeholder="Enter SAC" name="sac_code[]" class="form-control sac_code" required="required">
                                     </div>
                                 </div>
                                 <div class="col-md-1">
@@ -468,7 +462,7 @@ unset($_SESSION['errorMsg']);
         cgst = 0;
         sgst = 0;
         igst = 0;
-        $('.clone_desc_of_service').append('<div data-id="'+div_id+'" class="row"><input type="hidden" id="total'+div_id+'" value="0"><div class="col-md-5"><div class="form-group"><label for="desc_of_service'+div_id+'">Description of Service</label><input id="desc_of_service'+div_id+'" type="text" name="desc_of_service[]" class="form-control desc_of_service" placeholder="Write about description of service" autocomplete="off"></div></div><div class="col-md-2"><div class="form-group"><label for="sac_code'+div_id+'">SAC <span class="mandatory">*</span></label><select id="sac_code'+div_id+'" name="sac_code[]" class="form-control" required><option value="">Select SAC</option><?php for ($i=0; $i < $sacResults ; $i++) { ?><option value="<?php echo $adminManager->sac_id[$i]; ?>"><?php echo $adminManager->sac[$i]; ?></option><?php } ?></select></div></div><div class="col-md-1"><div class="form-group"><label for="quantity'+div_id+'">Qnty. </label><input autocomplete="off" id="quantity'+div_id+'" type="text" name="quantity[]" class="form-control quantity" placeholder="Qnty." onkeyup="keyupFunctionQuantity('+div_id+')"></div></div><div class="col-md-1"><div class="form-group"><label for="price'+div_id+'">Price </label><input autocomplete="off" id="price'+div_id+'" type="text" name="price[]" class="form-control price" placeholder="Price" onkeyup="keyupFunctionPrice('+div_id+')"></div></div><div class="col-md-1"><div class="form-group"><label for="cgst'+div_id+'">CGST (%)</label><input autocomplete="off" onkeyup="keyupFunctionCGST('+div_id+')" id="cgst'+div_id+'" type="text" name="cgst[]" class="form-control cgst" placeholder="CGST(%)"></div></div><div class="col-md-1"><div class="form-group"><label for="sgst'+div_id+'">SGST (%) </label><input autocomplete="off" onkeyup="keyupFunctionSGST('+div_id+')" id="sgst'+div_id+'" type="text" name="sgst[]" class="form-control sgst" placeholder="SGST(%)"></div></div><div class="col-md-1"><div class="form-group"><label for="igst'+div_id+'">IGST (%)</label><input autocomplete="off" onkeyup="keyupFunctionIGST('+div_id+')" id="igst'+div_id+'" type="text" name="igst[]" class="form-control igst" placeholder="IGST(%)"></div></div><div class="col-md-12"><div class="form-group"><a class="remove-clone-div btn btn-warning" onclick="removeCloneDiv('+div_id+');">Remove</a><br></div></div></div>');
+        $('.clone_desc_of_service').append('<div data-id="'+div_id+'" class="row"><input type="hidden" id="total'+div_id+'" value="0"><div class="col-md-5"><div class="form-group"><label for="desc_of_service'+div_id+'">Description of Service</label><input id="desc_of_service'+div_id+'" type="text" name="desc_of_service[]" class="form-control desc_of_service" placeholder="Write about description of service" autocomplete="off"></div></div><div class="col-md-2"><div class="form-group"><label for="sac_code'+div_id+'">SAC <span class="mandatory">*</span></label><input id="sac_code'+div_id+'" placeholder="Enter SAC" type="text" name="sac_code[]" class="form-control sac_code" required="required"></div></div><div class="col-md-1"><div class="form-group"><label for="quantity'+div_id+'">Qnty. </label><input autocomplete="off" id="quantity'+div_id+'" type="text" name="quantity[]" class="form-control quantity" placeholder="Qnty." onkeyup="keyupFunctionQuantity('+div_id+')"></div></div><div class="col-md-1"><div class="form-group"><label for="price'+div_id+'">Price </label><input autocomplete="off" id="price'+div_id+'" type="text" name="price[]" class="form-control price" placeholder="Price" onkeyup="keyupFunctionPrice('+div_id+')"></div></div><div class="col-md-1"><div class="form-group"><label for="cgst'+div_id+'">CGST (%)</label><input autocomplete="off" onkeyup="keyupFunctionCGST('+div_id+')" id="cgst'+div_id+'" type="text" name="cgst[]" class="form-control cgst" placeholder="CGST(%)"></div></div><div class="col-md-1"><div class="form-group"><label for="sgst'+div_id+'">SGST (%) </label><input autocomplete="off" onkeyup="keyupFunctionSGST('+div_id+')" id="sgst'+div_id+'" type="text" name="sgst[]" class="form-control sgst" placeholder="SGST(%)"></div></div><div class="col-md-1"><div class="form-group"><label for="igst'+div_id+'">IGST (%)</label><input autocomplete="off" onkeyup="keyupFunctionIGST('+div_id+')" id="igst'+div_id+'" type="text" name="igst[]" class="form-control igst" placeholder="IGST(%)"></div></div><div class="col-md-12"><div class="form-group"><a class="remove-clone-div btn btn-warning" onclick="removeCloneDiv('+div_id+');">Remove</a><br></div></div></div>');
        div_id++;
     });
     // remove clone div
@@ -589,7 +583,6 @@ unset($_SESSION['errorMsg']);
     // auto polulate decsription of services
     var options = {
         autoFocus: true,
-        delay: 100,
         source: 'descriptionOfReceivedServicesList.php',
         minLength: 2
     };
@@ -599,6 +592,24 @@ unset($_SESSION['errorMsg']);
     });
     // end
 
+    // auto polulate SAC in Received Invoice
+    var options = {
+        autoFocus: true,
+        source: 'sacReceivedInvoiceList.php',
+        minLength: 2
+    };
+    var selector = 'input.sac_code';
+    $(document).on('keydown.autocomplete', selector, function() {
+        $(this).autocomplete(options);
+    });
+    // end
+
+    // select currency type
+    $('#currency_type').change(function(){
+        $('.currency_type_selected').html($( "#currency_type option:selected" ).text());
+        
+    });
+    
     // trim space
     $('.remove-space').each(function() {
         $(this).keyup(function() {

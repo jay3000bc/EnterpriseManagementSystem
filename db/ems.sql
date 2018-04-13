@@ -703,6 +703,10 @@ INSERT INTO `ems_setup` (`id`, `status`, `created_at`) VALUES
 (1, 0, '2018-01-13 11:49:32');
 
 ALTER TABLE `ems_receive_invoice` CHANGE `status` `status` INT(11) NULL DEFAULT '0' COMMENT '0-Unpaid, 1-Paid';
+
 ALTER TABLE `ems_invoices` ADD `invoice_type` INT(11) NOT NULL COMMENT '0-National, 1-Export' AFTER `id`;
 ALTER TABLE `ems_invoices` CHANGE `state` `state` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
 ALTER TABLE `ems_invoices_preview` CHANGE `state` `state` VARCHAR(255) NULL DEFAULT NULL;
+ALTER TABLE `ems_invoice_receive_amount` CHANGE `sac_code` `sac_code` VARCHAR(255) NOT NULL;
+ALTER TABLE `ems_employees` ADD `max_qualification` VARCHAR(255) NOT NULL AFTER `date_of_birth`;
+ALTER TABLE `ems_profile_update_request` ADD `max_qualification` VARCHAR(255) NOT NULL AFTER `date_of_birth`;

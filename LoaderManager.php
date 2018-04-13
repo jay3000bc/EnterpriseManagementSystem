@@ -100,6 +100,7 @@ class LoaderManager {
 		  `gender` varchar(10) NOT NULL,
 		  `date_of_joining` varchar(50) NOT NULL,
 		  `date_of_birth` varchar(50) NOT NULL,
+		  `max_qualification` varchar(255) NOT NULL,
 		  `pf_account` text,
 		  `policy_no` varchar(100) DEFAULT NULL,
 		  `lic_id` varchar(100) DEFAULT NULL,

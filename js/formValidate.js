@@ -557,6 +557,9 @@ $(document).ready(function() {
             date_of_birth : {
                 required:true
             },
+            max_qualification : {
+                required:true
+            },
             pan: {
                 required: true
             }
@@ -611,6 +614,9 @@ $(document).ready(function() {
             },
             date_of_birth: {
                 required: "Please Enter Employee's Date of Birth"
+            },
+            max_qualification: {
+                required: "Please Enter Employee's Max. Qualification"
             },
             pan: {
                 required: "Please Enter Employess's PAN"

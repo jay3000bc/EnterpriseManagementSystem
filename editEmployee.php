@@ -175,6 +175,10 @@ if (isset($_GET['request_id'])) {
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label for="max_qualification">Max. Qualification <span class="mandatory">*</span></label>
+                                        <input type="text"  name="max_qualification" value="<?php echo $result['max_qualification'];?>" class="form-control" id="max_qualification" placeholder="Enter Max. Qualification" autocomplete="off" required>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="pan">PAN <span class="mandatory">*</span></label>
                                         <input value="<?php echo $result['pan'];?>" name="pan" class="form-control" id="pan" placeholder="Enter PAN" type="text" autocomplete="off">
                                     </div>
@@ -325,6 +329,14 @@ if (isset($_GET['request_id'])) {
                                         <input value="<?php echo $resultRequestProfileDetails['ifsc_code'];?>" name="ifsc_code" class="form-control input-high-light" id="ifscCode" placeholder="Enter IFSC Code." type="text" autocomplete="off" required>
                                         <?php } else { ?>
                                         <input value="<?php echo $result['ifsc_code'];?>" name="ifsc_code" class="form-control" id="ifscCode" placeholder="Enter IFSC Code." type="text" autocomplete="off" required>
+                                        <?php } ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="max_qualification">Max. Qualification <span class="mandatory">*</span></label>
+                                        <?php if($resultRequestProfileDetails['max_qualification'] !='') { ?>
+                                        <input type="text"  name="max_qualification" value="<?php echo $resultRequestProfileDetails['max_qualification'];?>" class="form-control input-high-light" id="max_qualification" placeholder="Enter Max. Qualification" autocomplete="off" required>
+                                        <?php } else { ?>
+                                        <input type="text"  name="max_qualification" value="<?php echo $result['max_qualification'];?>" class="form-control" id="max_qualification" placeholder="Enter Max. Qualification" autocomplete="off" required>
                                         <?php } ?>
                                     </div>
                                 </div>
