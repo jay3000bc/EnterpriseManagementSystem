@@ -20,3 +20,19 @@ When client is foreign, there should be another input box called “State” in 
 
 (7) Invoice MAJOR ISSUE - We have to provide Edit facility for any invoice that is unpaid. An invoice may not even be paid by customer, hence we should have facility for a Credit Note.
 (partially completed that is Credit Note part left)
+
+(8) Many clients have multiple companies with whom we work. Hence these clients use the same email. But currently, we cannot use the same email, when creating another company.
+
+(9) In the configuration file, we have a variable for invoice “Send email to client”. We have to remove this from this config file and instead we have to to add it here -
+
+Normally, many clients do not want automatic emails to be sent. Also many clients want additional CC copies to be sent to their accountant, CA etc.
+
+Hence, when we are generating an invoice, we should provide use a checkbox (by default checked). The check box is “Send email to client”. Beside the check box, we should have a button called “Send additional CC”. If it is clicked, another input box will appear below for entering another email address. User can hit this button multiple times to add more CC emails. Limit this to 10 emails.
+
+So, if user unchecked the “Send email to client” than the “Send additional CC” button should also disappear.
+
+
+
+
+
+
