@@ -15,7 +15,16 @@ Hence, when we are generating an invoice, we should provide use a checkbox (by d
 
 So, if user unchecked the “Send email to client” than the “Send additional CC” button should also disappear.
 
+(5) Important Changes in GST
++++++++++++++++++++++
+Currently, you are showing GST, based on the paid invoices for a particular month. This is wrong.
+You have to show GST based on the invoices generated for a particular month and not based on payment received.
 
+Example: Suppose, we have generated invoices, like No. 11, 12, 13, 14 etc in the month of February. All the invoices have been paid in February, except (say) Invoice No. 12. But still you will have to show this in GST return for the month of February that is payable in March.
+
+Hence, in View Invoices, the Invoice No. 12 will show as unpaid. So, we need to add a credit note beside this Unpaid (select box). Actually every Unpaid select box, should have a Credit Note, beside it. As soon as user changes Unpaid to Paid, this Credit note show disappear.
+
+Meaning of Credit Note - Credit Note is a simple Note by user, to write something, as to why this invoice has not been paid
 
 
 
