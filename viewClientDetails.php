@@ -30,11 +30,14 @@ else {
                     <div class="box-body">
                        <div class="col-md-4">
                             <div><label>Client Id: </label> <?php echo str_pad($result['client_id'], 4, '0', STR_PAD_LEFT);?></div>
-                            <div><label>Country: </label> <?php echo $result['country'];?></div>
                             <div><label>Name: </label> <?php echo $result['name'];?></div>
                             <div><label>Email: </label> <?php echo $result['email'];?></div>
                             <div><label>Phone No.: </label> <?php echo $result['phone_no'];?></div>
                             <div><label>Address: </label> <?php echo $result['address'];?></div>
+                            <?php if( !is_numeric($result['state'])) { ?>
+                            <div><label>State: </label> <?php echo $result['state'];?> </div>
+                            <?php } ?>
+                            <div><label>Country: </label> <?php echo $result['country'];?></div>
                             <div><label>Created At: </label> <?php echo $result['created_at'];?></div>
                         </div>
                         <div class="col-md-2">

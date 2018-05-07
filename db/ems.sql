@@ -710,3 +710,7 @@ ALTER TABLE `ems_invoices_preview` CHANGE `state` `state` VARCHAR(255) NULL DEFA
 ALTER TABLE `ems_invoice_receive_amount` CHANGE `sac_code` `sac_code` VARCHAR(255) NOT NULL;
 ALTER TABLE `ems_employees` ADD `max_qualification` VARCHAR(255) NOT NULL AFTER `date_of_birth`;
 ALTER TABLE `ems_profile_update_request` ADD `max_qualification` VARCHAR(255) NOT NULL AFTER `date_of_birth`;
+
+ALTER TABLE `ems_invoices` ADD `qty_hrs` INT(11) NOT NULL DEFAULT '0' COMMENT '0-Quantity, 1-Hourly' AFTER `currency_type`;
+ALTER TABLE `ems_invoices_preview` ADD `qty_hrs` INT(11) NOT NULL DEFAULT '0' COMMENT '0-Quantity, 1-Hourly' AFTER `currency_type`;
+ALTER TABLE `ems_clients` CHANGE `state` `state` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;

@@ -39,6 +39,7 @@ if (isset($_POST["saveInvoice"])) {
 	$reverse_charge = mysqli_real_escape_string($DBManager->conn, $_POST['reverse_charge']);
 	
 	$admin_bank_account = mysqli_real_escape_string($DBManager->conn, $_POST['admin_bank_account']);
+	$qty_hrs = mysqli_real_escape_string($DBManager->conn, $_POST['qty_hrs']);
 	$net_amount = mysqli_real_escape_string($DBManager->conn, $_POST['net_amount']);
 
 	foreach ($_POST['desc_of_service'] as $key => $value) {
@@ -60,7 +61,7 @@ if (isset($_POST["saveInvoice"])) {
 		}
 		$result1 = $invoiceManager->saveInvoiceAmount($invoice_id, $desc_of_service, $sac_code, $quantity, $price, $cgst, $sgst, $igst);
 	}
-	$result2 = $invoiceManager->saveInvoice($invoice_id, $invoice_type, $client_id, $client_name, $client_email, $client_address, $client_gstin, $client_state, $mode_of_invoice, $reverse_charge, $admin_bank_account, $currency_type, $net_amount, $invoice_date);
+	$result2 = $invoiceManager->saveInvoice($invoice_id, $invoice_type, $client_id, $client_name, $client_email, $client_address, $client_gstin, $client_state, $mode_of_invoice, $reverse_charge, $admin_bank_account, $currency_type, $qty_hrs, $net_amount, $invoice_date);
 	
 	
 	if($result2) {
@@ -98,7 +99,7 @@ if (isset($_POST["saveInvoice"])) {
 			header('location:generateInvoice.php?print_invoice='.$invoice_id);
 		} else {
 			$_SESSION['successMsg'] = 'success';
-			header('location:createInvoice');
+			header('location:viewInvoices');
 		}
 		
 	} else {
@@ -128,6 +129,8 @@ if (isset($_POST["saveEditedInvoice"])) {
 	$reverse_charge = mysqli_real_escape_string($DBManager->conn, $_POST['reverse_charge']);
 	
 	$admin_bank_account = mysqli_real_escape_string($DBManager->conn, $_POST['admin_bank_account']);
+	$qty_hrs = mysqli_real_escape_string($DBManager->conn, $_POST['qty_hrs']);
+	
 	$net_amount = mysqli_real_escape_string($DBManager->conn, $_POST['net_amount']);
 
 	if(isset($_POST['desc_of_service_old'])) {
@@ -174,7 +177,7 @@ if (isset($_POST["saveEditedInvoice"])) {
 			$result1 = $invoiceManager->saveInvoiceAmount($invoice_id, $desc_of_service, $sac_code, $quantity, $price, $cgst, $sgst, $igst);
 		}
 	}
-	$result2 = $invoiceManager->saveEditedInvoice($invoice_id, $invoice_type, $client_id, $client_name, $client_email, $client_address, $client_gstin, $client_state, $mode_of_invoice, $reverse_charge, $admin_bank_account, $currency_type, $net_amount, $invoice_date);
+	$result2 = $invoiceManager->saveEditedInvoice($invoice_id, $invoice_type, $client_id, $client_name, $client_email, $client_address, $client_gstin, $client_state, $mode_of_invoice, $reverse_charge, $admin_bank_account, $currency_type, $qty_hrs, $net_amount, $invoice_date);
 	
 	
 	if($result2) {
@@ -199,7 +202,7 @@ if (isset($_POST["saveEditedInvoice"])) {
 			header('location:generateInvoice.php?print_invoice='.$invoice_id);
 		} else {
 			$_SESSION['successMsg'] = 'success';
-			header('location:editCreatedInvoice');
+			header('location:viewInvoices');
 		}
 		
 	} else {
@@ -230,6 +233,7 @@ if (isset($_POST["previewInvoice"])) {
 	$reverse_charge = mysqli_real_escape_string($DBManager->conn, $_POST['reverse_charge']);
 	
 	$admin_bank_account = mysqli_real_escape_string($DBManager->conn, $_POST['admin_bank_account']);
+	$qty_hrs = mysqli_real_escape_string($DBManager->conn, $_POST['qty_hrs']);
 	$net_amount = mysqli_real_escape_string($DBManager->conn, $_POST['net_amount']);
 	$deleteAllPreviewServices = $invoiceManager->deleteAllPreviewServices();
 
@@ -279,7 +283,7 @@ if (isset($_POST["previewInvoice"])) {
 		}
 	}
 
-	$result2 = $invoiceManager->previewInvoice($invoice_id, $client_id, $client_name, $client_address, $client_gstin, $client_state, $mode_of_invoice, $reverse_charge, $admin_bank_account, $currency_type, $net_amount, $invoice_date);
+	$result2 = $invoiceManager->previewInvoice($invoice_id, $client_id, $client_name, $client_address, $client_gstin, $client_state, $mode_of_invoice, $reverse_charge, $admin_bank_account, $currency_type, $qty_hrs, $net_amount, $invoice_date);
 	
 	
 	if($result2) {

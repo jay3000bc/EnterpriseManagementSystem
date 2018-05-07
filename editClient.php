@@ -89,7 +89,10 @@ else {
                                         <select id="country" name="country" class="bfh-countries form-control" data-country="<?php echo $clientDetails['country']; ?>" required>
                                         </select>
                                     </div>
-                                    <?php if($clientDetails['state'] != '') {
+                                    <?php 
+                                    $var_state = $clientDetails['state'];
+                                    //echo $var_state;
+                                    if(is_numeric($var_state)) {
                                          $display = 'display:block;';
                                          $disabled = '';
                                      }  else {
@@ -111,7 +114,18 @@ else {
                                             <input class="form-control" id="gstin" value="<?php echo $clientDetails['gstin']; ?>" placeholder="Enter Client GSTIN" type="text" name="gstin" autocomplete="off" <?php echo $disabled;?>>
                                         </div>
                                     </div>
-
+                                    <?php if(!is_numeric($var_state)) {
+                                         $display = 'display:block;';
+                                         $disabled = '';
+                                     }  else {
+                                         $display = 'display:none;';
+                                         $disabled = 'disabled="disabled"';
+                                     }
+                                    ?>
+                                    <div class="form-group" id="foreign_state_div" style="<?php echo $display; ?>">
+                                        <label for="name">State <span class="mandatory">*</span></label>
+                                        <input value="<?php echo $clientDetails['state'];?>" class="form-control" id="foreign_state" placeholder="Enter Client State" type="text" name="state" autocomplete="off" <?php echo $disabled;?>>
+                                    </div>
                                 </div>
                             </div>
                             <?php 
@@ -179,14 +193,19 @@ else {
     //toggle div state and GST
      if($('#country').val() == 'India') {
         $('#hide_div_state').css('display','block');
+        $('#foreign_state_div').css('display','none');
      }
      $('#country').change( function() {
         if($(this).val() == 'India') {
+            $('#foreign_state_div').css('display','none');
+            $('#foreign_state').attr('disabled', 'disabled');
             $('#state').removeAttr('disabled');
             $('#gstin').removeAttr('disabled');
             $('#hide_div_state').css('display','block');
 
          } else {
+            $('#foreign_state_div').css('display','block');
+            $('#foreign_state').removeAttr('disabled');
             $('#state').attr('disabled', 'disabled');
             $('#gstin').attr('disabled', 'disabled');
             $('#hide_div_state').css('display','none');

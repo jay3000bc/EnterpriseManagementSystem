@@ -110,6 +110,10 @@ if($manageIdStatus['employee_id'] ==1) {
                                             <input value="<?php if(isset($_SESSION['session_client_gstin'])) echo htmlspecialchars($_SESSION['session_client_gstin']); unset($_SESSION['session_client_gstin']);?>" class="form-control" id="gstin" placeholder="Enter Client GSTIN" type="text" name="gstin" autocomplete="off">
                                         </div>
                                     </div>
+                                    <div class="form-group" id="foreign_state_div" style="display: none;">
+                                        <label for="name">State <span class="mandatory">*</span></label>
+                                        <input value="<?php if(isset($_SESSION['session_state'])) echo htmlspecialchars($_SESSION['session_state']); unset($_SESSION['session_gstin']);?>" class="form-control" id="foreign_state" placeholder="Enter Client State" type="text" name="state" autocomplete="off" disabled>
+                                    </div>
                                 </div>
                             </div>
                             <?php
@@ -184,14 +188,19 @@ if($manageIdStatus['employee_id'] ==1) {
     //toggle div state and GST
      if($('#country').val() == 'India') {
         $('#hide_div_state').css('display','block');
+        $('#foreign_state_div').css('display','none');
      }
      $('#country').change( function() {
         if($(this).val() == 'India') {
+            $('#foreign_state_div').css('display','none');
+            $('#foreign_state').attr('disabled', 'disabled');
             $('#state').removeAttr('disabled');
             $('#gstin').removeAttr('disabled');
             $('#hide_div_state').css('display','block');
 
          } else {
+            $('#foreign_state_div').css('display','block');
+            $('#foreign_state').removeAttr('disabled');
             $('#state').attr('disabled', 'disabled');
             $('#gstin').attr('disabled', 'disabled');
             $('#hide_div_state').css('display','none');

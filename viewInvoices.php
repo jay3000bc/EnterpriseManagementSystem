@@ -233,6 +233,15 @@ if(isset($_POST['invoice_type'])) { ?>
 </script>
 <?php
 } 
+if(isset($_SESSION['successMsg'])) {
+?>
+<script type="text/javascript">
+    swal('Congrats','Invoice generated successfully', 'success');
+</script>
+
+<?php   
+unset($_SESSION['successMsg']);
+}
 ?>
 
 <script>

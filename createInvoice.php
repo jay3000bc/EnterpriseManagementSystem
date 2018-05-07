@@ -186,8 +186,19 @@ $bankDetails= $adminManager->getBankDetails();
                                 </div>
                                 <div class="col-md-12">
                                     <div style="border-bottom: 2px solid #a1a1a1;"></div>
-                                    <br>
                                 </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group radio">
+                                        <label class="radio-inline">
+                                            <input id="qty_based_service" type="radio" name="qty_hrs" value="0" checked>Quantity based Services
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input id="hrs_based_service" type="radio" name="qty_hrs" value="1">Hourly based Services
+                                        </label>
+                                    </div>
+                                </div>    
                             </div>
                             <div class="row">
                                 <div class="col-md-5">
@@ -210,7 +221,7 @@ $bankDetails= $adminManager->getBankDetails();
                                 </div>
                                 <div class="col-md-1">
                                     <div class="form-group">
-                                        <label for="quantity">Qnty. </label>
+                                        <label for="quantity"><span class="qty_hrs">Qnty.</span></label>
                                         <input pattern="[0-9]"  onkeyup="keyupFunctionQuantity(0)" id="quantity0" type="text" name="quantity[]" class="form-control quantity" placeholder="Qnty." autocomplete="off">
                                     </div>
                                 </div>
@@ -285,15 +296,6 @@ $bankDetails= $adminManager->getBankDetails();
   </div>
   <!-- /.content-wrapper -->
 <?php include('include/footer.php');
-if(isset($_SESSION['successMsg'])) {
-?>
-<script type="text/javascript">
-    swal('Congrats','Invoice generated successfully', 'success');
-</script>
-
-<?php   
-unset($_SESSION['successMsg']);
-}
 if(isset($_SESSION['errorMsg'])) {
 ?>
 <script type="text/javascript">
@@ -539,7 +541,7 @@ unset($_SESSION['errorMsg']);
         cgst = 0;
         sgst = 0;
         igst = 0;
-        $('.clone_desc_of_service').append('<div data-id="'+div_id+'" class="row"><input type="hidden" id="total'+div_id+'" value="0"><div class="col-md-5"><div class="form-group"><label for="desc_of_service'+div_id+'">Description of Service</label><input id="desc_of_service'+div_id+'" type="text" name="desc_of_service[]" class="form-control desc_of_service" placeholder="Write about description of service" autocomplete="off"></div></div><div class="col-md-2"><div class="form-group"><label for="sac_code'+div_id+'">SAC <span class="mandatory">*</span></label><select id="sac_code'+div_id+'" name="sac_code[]" class="form-control" required><option value="">Select SAC</option><?php for ($i=0; $i < $sacResults ; $i++) { ?><option value="<?php echo $adminManager->sac[$i]; ?>"><?php echo $adminManager->sac[$i]; ?></option><?php } ?></select></div></div><div class="col-md-1"><div class="form-group"><label for="quantity'+div_id+'">Qnty. </label><input autocomplete="off" id="quantity'+div_id+'" type="text" name="quantity[]" class="form-control quantity" placeholder="Qnty." onkeyup="keyupFunctionQuantity('+div_id+')"></div></div><div class="col-md-1"><div class="form-group"><label for="price'+div_id+'">Price </label><input autocomplete="off" id="price'+div_id+'" type="text" name="price[]" class="form-control price" placeholder="Price" onkeyup="keyupFunctionPrice('+div_id+')"></div></div><div class="col-md-1"><div class="form-group"><label for="cgst'+div_id+'">CGST (%)</label><input autocomplete="off" onkeyup="keyupFunctionCGST('+div_id+')" id="cgst'+div_id+'" type="text" name="cgst[]" class="form-control cgst" placeholder="CGST(%)"></div></div><div class="col-md-1"><div class="form-group"><label for="sgst'+div_id+'">SGST (%) </label><input autocomplete="off" onkeyup="keyupFunctionSGST('+div_id+')" id="sgst'+div_id+'" type="text" name="sgst[]" class="form-control sgst" placeholder="SGST(%)"></div></div><div class="col-md-1"><div class="form-group"><label for="igst'+div_id+'">IGST (%)</label><input autocomplete="off" onkeyup="keyupFunctionIGST('+div_id+')" id="igst'+div_id+'" type="text" name="igst[]" class="form-control igst" placeholder="IGST(%)"></div></div><div class="col-md-12"><div class="form-group"><a class="remove-clone-div btn btn-warning" onclick="removeCloneDiv('+div_id+');">Remove</a><br></div></div></div>');
+        $('.clone_desc_of_service').append('<div data-id="'+div_id+'" class="row"><input type="hidden" id="total'+div_id+'" value="0"><div class="col-md-5"><div class="form-group"><input id="desc_of_service'+div_id+'" type="text" name="desc_of_service[]" class="form-control desc_of_service" placeholder="Write about description of service" autocomplete="off"></div></div><div class="col-md-2"><div class="form-group"><select id="sac_code'+div_id+'" name="sac_code[]" class="form-control" required><option value="">Select SAC</option><?php for ($i=0; $i < $sacResults ; $i++) { ?><option value="<?php echo $adminManager->sac[$i]; ?>"><?php echo $adminManager->sac[$i]; ?></option><?php } ?></select></div></div><div class="col-md-1"><div class="form-group"><input autocomplete="off" id="quantity'+div_id+'" type="text" name="quantity[]" class="form-control quantity" placeholder="Qnty." onkeyup="keyupFunctionQuantity('+div_id+')"></div></div><div class="col-md-1"><div class="form-group"><input autocomplete="off" id="price'+div_id+'" type="text" name="price[]" class="form-control price" placeholder="Price" onkeyup="keyupFunctionPrice('+div_id+')"></div></div><div class="col-md-1"><div class="form-group"><input autocomplete="off" onkeyup="keyupFunctionCGST('+div_id+')" id="cgst'+div_id+'" type="text" name="cgst[]" class="form-control cgst" placeholder="CGST(%)"></div></div><div class="col-md-1"><div class="form-group"><input autocomplete="off" onkeyup="keyupFunctionSGST('+div_id+')" id="sgst'+div_id+'" type="text" name="sgst[]" class="form-control sgst" placeholder="SGST(%)"></div></div><div class="col-md-1"><div class="form-group"><input autocomplete="off" onkeyup="keyupFunctionIGST('+div_id+')" id="igst'+div_id+'" type="text" name="igst[]" class="form-control igst" placeholder="IGST(%)"></div></div><div class="col-md-12"><div class="form-group"><a class="remove-clone-div btn btn-warning" onclick="removeCloneDiv('+div_id+');">Remove</a><br></div></div></div>');
        div_id++;
     });
     // remove clone div
@@ -608,6 +610,7 @@ unset($_SESSION['errorMsg']);
                 $('#client_address').next('label').remove();
                 $('#client_email').removeClass('error');
                 $('#client_email').next('label').remove();
+                $('#foreign_state').val(state);
             }
         },
         // optional
@@ -679,7 +682,17 @@ unset($_SESSION['errorMsg']);
             }
         });
     });
-
+   // service type
+   $('#qty_based_service').click(function() {
+        // $(this).attr('checked');
+        // $('#hrs_based_service').removeAttr('checked');
+        $('.qty_hrs').html('Qty.');
+   });
+   $('#hrs_based_service').click(function() {
+        // $(this).attr('checked');
+        // $('#qty_based_service').removeAttr('checked');
+        $('.qty_hrs').html('Hrs.')
+   });
 </script>
 </body>
 </html>
