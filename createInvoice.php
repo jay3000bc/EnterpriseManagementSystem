@@ -201,7 +201,7 @@ $bankDetails= $adminManager->getBankDetails();
                                 </div>    
                             </div>
                             <div class="row">
-                                <div class="col-md-5">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="desc_of_service">Description of Service</label>
                                         <input id="desc_of_service" type="text" name="desc_of_service[]" class="form-control desc_of_service" placeholder="Write about description of service" autocomplete="off">
@@ -210,7 +210,7 @@ $bankDetails= $adminManager->getBankDetails();
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="sac_code">SAC/ HSN <span class="mandatory">*</span></label>
-                                        <p style="color: #0000FF; float:right;"><a style="color:#0000FF;" href="https://cleartax.in/s/sac-codes-gst-rates-for-services" target="_blank">Find SAC Code</a></p>
+                                        <p style="color: #0000FF; float:right; margin-bottom: 0;"><a style="color:#0000FF;" href="https://cleartax.in/s/sac-codes-gst-rates-for-services" target="_blank">Find SAC Code</a></p>
                                         <select id="sac_code" name="sac_code[]" class="form-control" required>
                                             <option value="">Select SAC</option>
                                             <?php for ($i=0; $i < $sacResults ; $i++) { ?>
@@ -225,7 +225,7 @@ $bankDetails= $adminManager->getBankDetails();
                                         <input pattern="[0-9]"  onkeyup="keyupFunctionQuantity(0)" id="quantity0" type="text" name="quantity[]" class="form-control quantity" placeholder="Qnty." autocomplete="off">
                                     </div>
                                 </div>
-                                <div class="col-md-1">
+                                <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="price"><span class="price_hr">Price</span> (<span class="currency_type_selected">&#8377;</span>) </label>
                                         <input  onkeyup="keyupFunctionPrice(0)" id="price0" type="text" name="price[]"  class="form-control price" placeholder="Price" autocomplete="off">
@@ -541,7 +541,7 @@ unset($_SESSION['errorMsg']);
         cgst = 0;
         sgst = 0;
         igst = 0;
-        $('.clone_desc_of_service').append('<div data-id="'+div_id+'" class="row"><input type="hidden" id="total'+div_id+'" value="0"><div class="col-md-5"><div class="form-group"><input id="desc_of_service'+div_id+'" type="text" name="desc_of_service[]" class="form-control desc_of_service" placeholder="Write about description of service" autocomplete="off"></div></div><div class="col-md-2"><div class="form-group"><select id="sac_code'+div_id+'" name="sac_code[]" class="form-control" required><option value="">Select SAC</option><?php for ($i=0; $i < $sacResults ; $i++) { ?><option value="<?php echo $adminManager->sac[$i]; ?>"><?php echo $adminManager->sac[$i]; ?></option><?php } ?></select></div></div><div class="col-md-1"><div class="form-group"><input autocomplete="off" id="quantity'+div_id+'" type="text" name="quantity[]" class="form-control quantity" placeholder="Qnty." onkeyup="keyupFunctionQuantity('+div_id+')"></div></div><div class="col-md-1"><div class="form-group"><input autocomplete="off" id="price'+div_id+'" type="text" name="price[]" class="form-control price" placeholder="Price" onkeyup="keyupFunctionPrice('+div_id+')"></div></div><div class="col-md-1"><div class="form-group"><input autocomplete="off" onkeyup="keyupFunctionCGST('+div_id+')" id="cgst'+div_id+'" type="text" name="cgst[]" class="form-control cgst" placeholder="CGST(%)"></div></div><div class="col-md-1"><div class="form-group"><input autocomplete="off" onkeyup="keyupFunctionSGST('+div_id+')" id="sgst'+div_id+'" type="text" name="sgst[]" class="form-control sgst" placeholder="SGST(%)"></div></div><div class="col-md-1"><div class="form-group"><input autocomplete="off" onkeyup="keyupFunctionIGST('+div_id+')" id="igst'+div_id+'" type="text" name="igst[]" class="form-control igst" placeholder="IGST(%)"></div></div><div class="col-md-12"><div class="form-group"><a class="remove-clone-div btn btn-warning" onclick="removeCloneDiv('+div_id+');">Remove</a><br></div></div></div>');
+        $('.clone_desc_of_service').append('<div data-id="'+div_id+'" class="row"><input type="hidden" id="total'+div_id+'" value="0"><div class="col-md-4"><div class="form-group"><input id="desc_of_service'+div_id+'" type="text" name="desc_of_service[]" class="form-control desc_of_service" placeholder="Write about description of service" autocomplete="off"></div></div><div class="col-md-2"><div class="form-group"><select id="sac_code'+div_id+'" name="sac_code[]" class="form-control" required><option value="">Select SAC</option><?php for ($i=0; $i < $sacResults ; $i++) { ?><option value="<?php echo $adminManager->sac[$i]; ?>"><?php echo $adminManager->sac[$i]; ?></option><?php } ?></select></div></div><div class="col-md-1"><div class="form-group"><input autocomplete="off" id="quantity'+div_id+'" type="text" name="quantity[]" class="form-control quantity" placeholder="Qnty." onkeyup="keyupFunctionQuantity('+div_id+')"></div></div><div class="col-md-2"><div class="form-group"><input autocomplete="off" id="price'+div_id+'" type="text" name="price[]" class="form-control price" placeholder="Price" onkeyup="keyupFunctionPrice('+div_id+')"></div></div><div class="col-md-1"><div class="form-group"><input autocomplete="off" onkeyup="keyupFunctionCGST('+div_id+')" id="cgst'+div_id+'" type="text" name="cgst[]" class="form-control cgst" placeholder="CGST(%)"></div></div><div class="col-md-1"><div class="form-group"><input autocomplete="off" onkeyup="keyupFunctionSGST('+div_id+')" id="sgst'+div_id+'" type="text" name="sgst[]" class="form-control sgst" placeholder="SGST(%)"></div></div><div class="col-md-1"><div class="form-group"><input autocomplete="off" onkeyup="keyupFunctionIGST('+div_id+')" id="igst'+div_id+'" type="text" name="igst[]" class="form-control igst" placeholder="IGST(%)"></div></div><div class="col-md-12"><div class="form-group"><a class="remove-clone-div btn btn-warning" onclick="removeCloneDiv('+div_id+');">Remove</a><br></div></div></div>');
        div_id++;
     });
     // remove clone div
