@@ -227,7 +227,7 @@ $bankDetails= $adminManager->getBankDetails();
                                 </div>
                                 <div class="col-md-1">
                                     <div class="form-group">
-                                        <label for="price">Price (<span class="currency_type_selected">&#8377;</span>) </label>
+                                        <label for="price"><span class="price_hr">Price</span> (<span class="currency_type_selected">&#8377;</span>) </label>
                                         <input  onkeyup="keyupFunctionPrice(0)" id="price0" type="text" name="price[]"  class="form-control price" placeholder="Price" autocomplete="off">
                                     </div>
                                 </div>
@@ -684,14 +684,16 @@ unset($_SESSION['errorMsg']);
     });
    // service type
    $('#qty_based_service').click(function() {
-        // $(this).attr('checked');
-        // $('#hrs_based_service').removeAttr('checked');
         $('.qty_hrs').html('Qty.');
+        $('#quantity0').attr('placeholder', 'Qty.');
+        $('.price_hr').html('Price');
+        $('#price0').attr('placeholder', 'price');
    });
    $('#hrs_based_service').click(function() {
-        // $(this).attr('checked');
-        // $('#qty_based_service').removeAttr('checked');
-        $('.qty_hrs').html('Hrs.')
+        $('.qty_hrs').html('Hrs.');
+        $('#quantity0').attr('placeholder', 'Hrs.');
+        $('.price_hr').html('Price/Hr');
+        $('#price0').attr('placeholder', 'Price/hr.');
    });
 </script>
 </body>
