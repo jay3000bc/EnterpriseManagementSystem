@@ -564,12 +564,19 @@ unset($_SESSION['errorMsg']);
     // Add more Services 
     var div_id = $('#clone_div_id_value').val();
     $('#add-more-service').click(function() {
+        if ($('#qty_based_service').is(':checked')) {
+            qty_hrs = 'Qty.';
+            price_type = 'Price'; 
+        } else {
+            qty_hrs = 'Hrs.';
+            price_type = 'Price/hr'; 
+        }
         quantity = 0;
         price = 0;
         cgst = 0;
         sgst = 0;
         igst = 0;
-        $('.clone_desc_of_service').append('<div data-id="'+div_id+'" class="row"><input type="hidden" id="total'+div_id+'" value="0"><div class="col-md-4"><div class="form-group"><input id="desc_of_service'+div_id+'" type="text" name="desc_of_service[]" class="form-control desc_of_service" placeholder="Write about description of service" autocomplete="off"></div></div><div class="col-md-2"><div class="form-group"><select id="sac_code'+div_id+'" name="sac_code[]" class="form-control" required><option value="">Select SAC</option><?php for ($i=0; $i < $sacResults ; $i++) { ?><option value="<?php echo $adminManager->sac[$i]; ?>"><?php echo $adminManager->sac[$i]; ?></option><?php } ?></select></div></div><div class="col-md-1"><div class="form-group"><input autocomplete="off" id="quantity'+div_id+'" type="text" name="quantity[]" class="form-control quantity" placeholder="Qnty." onkeyup="keyupFunctionQuantity('+div_id+')"></div></div><div class="col-md-2"><div class="form-group"><input autocomplete="off" id="price'+div_id+'" type="text" name="price[]" class="form-control price" placeholder="Price" onkeyup="keyupFunctionPrice('+div_id+')"></div></div><div class="col-md-1"><div class="form-group"><input autocomplete="off" onkeyup="keyupFunctionCGST('+div_id+')" id="cgst'+div_id+'" type="text" name="cgst[]" class="form-control cgst" placeholder="CGST(%)"></div></div><div class="col-md-1"><div class="form-group"><input autocomplete="off" onkeyup="keyupFunctionSGST('+div_id+')" id="sgst'+div_id+'" type="text" name="sgst[]" class="form-control sgst" placeholder="SGST(%)"></div></div><div class="col-md-1"><div class="form-group"><input autocomplete="off" onkeyup="keyupFunctionIGST('+div_id+')" id="igst'+div_id+'" type="text" name="igst[]" class="form-control igst" placeholder="IGST(%)"></div></div><div class="col-md-12"><div class="form-group"><a class="remove-clone-div btn btn-warning" onclick="removeCloneDiv('+div_id+');">Remove</a><br></div></div></div>');
+        $('.clone_desc_of_service').append('<div data-id="'+div_id+'" class="row"><input type="hidden" id="total'+div_id+'" value="0"><div class="col-md-4"><div class="form-group"><input id="desc_of_service'+div_id+'" type="text" name="desc_of_service[]" class="form-control desc_of_service" placeholder="Write about description of service" autocomplete="off"></div></div><div class="col-md-2"><div class="form-group"><select id="sac_code'+div_id+'" name="sac_code[]" class="form-control" required><option value="">Select SAC</option><?php for ($i=0; $i < $sacResults ; $i++) { ?><option value="<?php echo $adminManager->sac[$i]; ?>"><?php echo $adminManager->sac[$i]; ?></option><?php } ?></select></div></div><div class="col-md-1"><div class="form-group"><input autocomplete="off" id="quantity'+div_id+'" type="text" name="quantity[]" class="form-control quantity" placeholder="'+qty_hrs+'" onkeyup="keyupFunctionQuantity('+div_id+')"></div></div><div class="col-md-2"><div class="form-group"><input autocomplete="off" id="price'+div_id+'" type="text" name="price[]" class="form-control price" placeholder="'+price_type+'" onkeyup="keyupFunctionPrice('+div_id+')"></div></div><div class="col-md-1"><div class="form-group"><input autocomplete="off" onkeyup="keyupFunctionCGST('+div_id+')" id="cgst'+div_id+'" type="text" name="cgst[]" class="form-control cgst" placeholder="CGST(%)"></div></div><div class="col-md-1"><div class="form-group"><input autocomplete="off" onkeyup="keyupFunctionSGST('+div_id+')" id="sgst'+div_id+'" type="text" name="sgst[]" class="form-control sgst" placeholder="SGST(%)"></div></div><div class="col-md-1"><div class="form-group"><input autocomplete="off" onkeyup="keyupFunctionIGST('+div_id+')" id="igst'+div_id+'" type="text" name="igst[]" class="form-control igst" placeholder="IGST(%)"></div></div><div class="col-md-12"><div class="form-group"><a class="remove-clone-div btn btn-warning" onclick="removeCloneDiv('+div_id+');">Remove</a><br></div></div></div>');
        div_id++;
     });
     // remove clone div
@@ -712,15 +719,15 @@ unset($_SESSION['errorMsg']);
    // service type
    $('#qty_based_service').click(function() {
         $('.qty_hrs').html('Qty.');
-        $('#quantity0').attr('placeholder', 'Qty.');
+        $('.quantity').attr('placeholder', 'Qty.');
         $('.price_hr').html('Price');
-        $('#price0').attr('placeholder', 'price');
+        $('.price').attr('placeholder', 'price');
    });
    $('#hrs_based_service').click(function() {
         $('.qty_hrs').html('Hrs.');
-        $('#quantity0').attr('placeholder', 'Hrs.');
-        $('.price_hr').html('Price/hr');
-        $('#price0').attr('placeholder', 'Price/hr');
+        $('.quantity').attr('placeholder', 'Hrs.');
+        $('.price_hr').html('Price/Hr');
+        $('.price').attr('placeholder', 'Price/hr.');
    });
 </script>
 </body>
