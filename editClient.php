@@ -75,7 +75,7 @@ else {
                                         <?php if($manageIdStatus['client_id'] == 1) {?>
                                         <input name="client_id" value="<?php echo $clientDetails['client_id']; ?>" class="form-control" id="auto_generated_id" placeholder="Enter Client Id" type="text" autocomplete="off" readonly="" required>
                                         <?php } elseif($manageIdStatus['client_id'] == 2) {?>
-                                        <input value="<?php echo $clientDetails['client_id']; ?> name="client_id" class="form-control" id="auto_generated_id" placeholder="Enter Client Id" type="text" autocomplete="off" required>
+                                        <input value="<?php echo $clientDetails['client_id']; ?>" name="client_id" class="form-control" id="auto_generated_id" placeholder="Enter Client Id" type="text" autocomplete="off" required>
                                         <?php } else {?>
                                         <input name="client_id" class="form-control" id="auto_generated_id" placeholder="Choose type of client Id by clicking the link above" type="text" autocomplete="off" readonly="" required>
                                         <?php } ?>
