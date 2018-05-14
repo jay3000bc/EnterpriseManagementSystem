@@ -31,6 +31,16 @@ if($manageIdStatus['invoice_id'] ==1) {
     $generate_india__based_invoice_id = $invoiceId['india_based_prefix'].$national_auto_generated_id;
 }
 $bankDetails= $adminManager->getBankDetails();
+foreach ($currencies as $key => $currency) {
+    if($key == $invoiceDetails['currency_type']) {
+        if($key == 'rupee') {
+            $currency_type = '<i class="fa fa-inr" aria-hidden="true"></i>';
+        } else {
+            $currency_type = $currency;
+        }
+        
+    }
+}
 ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -227,7 +237,7 @@ $bankDetails= $adminManager->getBankDetails();
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <label for="price"><?php if($invoiceDetails['qty_hrs'] == 0) echo '<span class="price_hr">Price </span>'; else echo '<span class="price_hr">Price/hr.</span>';?> (<span class="currency_type_selected">&#8377;</span>) </label>
+                                        <label for="price"><?php if($invoiceDetails['qty_hrs'] == 0) echo '<span class="price_hr">Price </span>'; else echo '<span class="price_hr">Price/hr.</span>';?> (<span class="currency_type_selected"><?php echo $currency_type; ?></span>) </label>
                                         <input  onkeyup="keyupFunctionPrice(<?php echo $i;?>)" id="price<?php echo $i;?>" type="text" name="price_old[]" class="form-control price" placeholder="Price" autocomplete="off" value="<?php echo $invoiceManager->price[$i]; ?>">
                                     </div>
                                 </div>
@@ -268,7 +278,7 @@ $bankDetails= $adminManager->getBankDetails();
                                     <a id="add-more-service" class="btn btn-success">Add More</a>
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Total amount: <span class="currency_type_selected">&#8377;</span> <span id="total_amount"><?php echo sprintf('%0.2f', $invoiceDetails['net_amount']); ?></span></label>
+                                    <label>Total amount: <span class="currency_type_selected"><?php echo $currency_type; ?></span> <span id="total_amount"><?php echo sprintf('%0.2f', $invoiceDetails['net_amount']); ?></span></label>
                                 </div>
                                 <div class="col-md-12">
                                     <br>
