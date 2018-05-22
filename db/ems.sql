@@ -714,3 +714,9 @@ ALTER TABLE `ems_profile_update_request` ADD `max_qualification` VARCHAR(255) NO
 ALTER TABLE `ems_invoices` ADD `qty_hrs` INT(11) NOT NULL DEFAULT '0' COMMENT '0-Quantity, 1-Hourly' AFTER `currency_type`;
 ALTER TABLE `ems_invoices_preview` ADD `qty_hrs` INT(11) NOT NULL DEFAULT '0' COMMENT '0-Quantity, 1-Hourly' AFTER `currency_type`;
 ALTER TABLE `ems_clients` CHANGE `state` `state` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+
+ALTER TABLE `ems_invoices` ADD `credit_note` TEXT NULL DEFAULT NULL AFTER `invoice_paid_date`;
+ALTER TABLE `ems_receive_invoice` ADD `credit_note` TEXT NULL DEFAULT NULL AFTER `invoice_paid_date`;
+ALTER TABLE `ems_invoices` CHANGE `created_at` `created_at` DATE NOT NULL;
+ALTER TABLE `ems_receive_invoice` CHANGE `created_at` `created_at` DATE NOT NULL;

@@ -62,7 +62,7 @@ if($manageIdStatus['employee_id'] ==1) {
                                     </div>
                                     <div class="form-group">
                                         <label for="email">Email <span class="mandatory">*</span></label>
-                                        <input value="<?php if(isset($_SESSION['session_client_email'])) echo htmlspecialchars($_SESSION['session_client_email']); unset($_SESSION['session_client_email']);?>" name="email" class="form-control remove-space check-dublicate" id="email" placeholder="Enter Client Email Address" type="email" autocomplete="off" required>
+                                        <input value="<?php if(isset($_SESSION['session_client_email'])) echo htmlspecialchars($_SESSION['session_client_email']); unset($_SESSION['session_client_email']);?>" name="email" class="form-control remove-space" id="email" placeholder="Enter Client Email Address" type="email" autocomplete="off" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="phone_no">Phone No. <span class="mandatory">*</span></label>

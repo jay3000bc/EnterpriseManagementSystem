@@ -183,6 +183,13 @@ $bankDetails= $adminManager->getBankDetails();
                                             <?php } ?>
                                         </select>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline">
+                                            <input id="toggleEmailSend" name="sendEmailToClient" type="checkbox" value="1" checked>Send email to client
+                                        </label>
+                                        <a id="sendAddEmailCCBtn" class="btn btn-primary btn-sm pull-right">Send additional CC</a>
+                                    </div>
+                                    <div id="sendAdditionalEmailDiv"></div>
                                 </div>
                                 <div class="col-md-12">
                                     <div style="border-bottom: 2px solid #a1a1a1;"></div>
@@ -307,6 +314,8 @@ unset($_SESSION['errorMsg']);
 }
 ?>
 <script type="text/javascript">
+    
+
     // calculate total amount
     var total = 0;
     var quantity = 0;
@@ -704,6 +713,34 @@ unset($_SESSION['errorMsg']);
         $('.price_hr').html('Price/Hr');
         $('.price').attr('placeholder', 'Price/hr.');
    });
+
+   // toggle email send functionlity
+   $('#toggleEmailSend').click(function() {
+        var checkbox = $(this);
+        if(checkbox.val() == 0) {
+            checkbox.val(1);
+            checkbox.prop('checked');
+            $('#sendAddEmailCCBtn').show();
+       } else {
+            checkbox.val(0);
+            checkbox.prop('');
+            $('#sendAddEmailCCBtn').hide();
+            $('.sendAddEmailInput').remove()
+        }
+   });
+   // send additional emails CC
+    var sendAddEmailCount = 1;
+    $('#sendAddEmailCCBtn').click(function() {
+        if(sendAddEmailCount <= 10) {
+            $('#sendAdditionalEmailDiv').append('<div class="form-group sendAddEmailInput" id="sendAddEmailInput'+sendAddEmailCount+'"><input type="email" name="sendAdditionalEmails[]" class="form-control" placeholder="Enter email for CC" required><br><a onclick="removeAddEmailInput('+sendAddEmailCount+');" class="btn btn-danger btn-sm">Delete</a></div>');
+            sendAddEmailCount++;
+         } else {
+             swal('warning','Only 10 additional CC email are allowed.','warning');
+        }
+    });
+    function removeAddEmailInput(sendAddEmailCount) {
+        $('#sendAddEmailInput'+sendAddEmailCount).remove();
+    }
 </script>
 </body>
 </html>

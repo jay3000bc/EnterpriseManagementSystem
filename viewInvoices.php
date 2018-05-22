@@ -98,8 +98,9 @@ if(isset($_POST['invoice_type'])) {
                                             <th>Seller Name</th>
                                             <th>Created At</th>
                                             <th>Amount</th>
-                                            <th>Invoice pdf</th>
                                             <th>Status</th>
+                                            <th>Invoice pdf</th>
+                                            <th>Credit Note</th>
                                             <?php } else { ?>
                                             <th>#</th>
                                             <th>Invoice Id</th>
@@ -108,6 +109,7 @@ if(isset($_POST['invoice_type'])) {
                                             <th>Amount</th>
                                             <th>Status</th>
                                             <th>Action</th>
+                                            <th>Credit Note</th>
                                             <?php } ?>
                                         </tr>
                                     </thead>
@@ -136,12 +138,40 @@ if(isset($_POST['invoice_type'])) {
                                             </td>
                                             <td>
                                                 <?php 
-                                                if(isset($_POST['invoice_type']) and ($_POST['invoice_type'] ==1)) { ?>
+                                                if(isset($_POST['invoice_type']) and ($_POST['invoice_type'] ==1)) { 
+                                                    if(($invoiceManager->upload_invoice[$i]) != '') {
+                                                    ?>
                                                 <a title="View" target="_blank" class="btn btn-sm btn-primary" href="uploads/invoices/receivedInvoice/<?php echo $invoiceManager->upload_invoice[$i];?>"><i class="fa fa-eye"></i></a>
-                                                <?php } else { ?>
+                                                <?php } else {
+                                                    echo 'N/A';
+                                                    }
+                                                } else { ?>
                                                 <a title="View" target="_blank" class="btn btn-sm btn-primary" href="uploads/invoices/createdInvoice/<?php echo $invoiceManager->invoice_id[$i];?>.pdf"><i class="fa fa-eye"></i></a>
                                                 <a title="Edit" href="editCreatedInvoice?invoice_id=<?php echo $invoiceManager->invoice_id[$i];?>" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i></a>
                                                 <?php } ?>
+                                            </td>
+                                            <td>
+                                                <?php
+                                                $creditNoteButton = '';
+                                                if($invoiceManager->status[$i]== 1) { 
+                                                        $creditNoteButton = 'display:none;';
+                                                    } 
+                                                if(isset($_POST['invoice_type']) and ($_POST['invoice_type'] ==1)) {
+                                                     ?>
+
+                                                    <a style="<?php echo $creditNoteButton;?>" id="creditNote<?php echo $invoiceManager->invoice_id[$i];?>" href="#creditNoteAddModal" data-toggle="modal" data-id="<?php echo $invoiceManager->invoice_id[$i];?>"
+                                                data-type="1"
+                                                data-creditnote="<?php echo $invoiceManager->credit_note[$i];?>"
+                                                  class="btn btn-sm btn-primary creditNoteAddModal">Credit Note</a>
+                                                <?php } else {
+                                                    
+                                                 ?>
+                                                <a style="<?php echo $creditNoteButton;?>" id="creditNote<?php echo $invoiceManager->invoice_id[$i];?>" href="#creditNoteAddModal" data-toggle="modal" data-id="<?php echo $invoiceManager->invoice_id[$i];?>"
+                                                data-type="0"
+                                                data-creditnote="<?php echo $invoiceManager->credit_note[$i];?>"
+                                                  class="btn btn-sm btn-primary creditNoteAddModal">Credit Note</a>
+                                                
+                                            <?php } ?>
                                             </td>
                                         </tr>
                                         <?php
@@ -179,10 +209,11 @@ if(isset($_POST['invoice_type'])) { ?>
             success: function(result) {
                 if (result=='success') {
                     if(status == 0) {
-                        
+
+                        $('#creditNote'+invoice_id).css('display','inline-block');
                     }
                     else if(status == 1) {
-                        
+                        $('#creditNote'+invoice_id).css('display','none');
                     }
                     else {
                         
@@ -206,6 +237,7 @@ if(isset($_POST['invoice_type'])) { ?>
         var status = $(this).val();
         var invoice_id = $(this).next('input').val();
         var invoice_type = 0;
+
         $.ajax({
             url: "InvoiceController.php",
             type: "post",
@@ -214,10 +246,10 @@ if(isset($_POST['invoice_type'])) { ?>
             success: function(result) {
                 if (result=='success') {
                     if(status == 0) {
-                        
+                        $('#creditNote'+invoice_id).css('display','inline-block');
                     }
                     else if(status == 1) {
-                        
+                        $('#creditNote'+invoice_id).css('display','none');
                     }
                     else {
                         
@@ -324,6 +356,83 @@ $(document).ready(function () {
         $('#filtetInvoice').submit();
     });
 });
+</script>
+<!-- credit Note Modal -->
+<script type="text/javascript">
+    var current_object
+    $('.creditNoteAddModal').click( function() {
+        current_object = $(this); 
+        var invoice_id = $(this).attr('data-id');
+        var add_note_invoice_type = $(this).attr('data-type');
+        var credit_note_text = $(this).attr('data-creditnote');
+        $("#created_invoice_id").val(invoice_id);
+        $("#add_note_invoice_type").val(add_note_invoice_type);
+        $("#credit_note").val(credit_note_text);
+
+    });
+</script>
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="creditNoteAddModal" aria-hidden="true" id="creditNoteAddModal">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-content">
+                <form id="add_credit_note_form" method="POST" name="requestacallform">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Add Credit Note</h4>
+                    </div>
+                    <div class="modal-body">
+                    
+                        <input type="hidden" name="invoice_id" id="created_invoice_id">
+                        <input type="hidden" name="invoice_type" id="add_note_invoice_type">
+                        <div class="form-group">                     
+                            <textarea class="form-control" id="credit_note" type="text" name="credit_note"  placeholder="Write Credit Note" required></textarea>
+                            <label class="error errorMessage"></label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-primary saveCreditNote">Save</a>
+                  </div>
+              </form>          
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('.credit_note').keyup(function() {
+        if((this).val() != '') {
+            $('.errorMessage').html('');
+        } else {
+            $('.errorMessage').html('Please write credit note.');
+        }
+        
+    })
+    $('.saveCreditNote').click( function() {
+        var add_credit_note_id = $('#created_invoice_id').val();
+        var credit_note_save_invoice_type = $('#add_note_invoice_type').val(); 
+        var credit_note = $('#credit_note').val();
+        if(credit_note != '') {
+            $('.errorMessage').html('');
+            $.ajax({
+                url: "InvoiceController.php",
+                type: "post",
+                cache: false,
+                data: {"add_credit_note_id": add_credit_note_id, "credit_note": credit_note, "credit_note_save_invoice_type": credit_note_save_invoice_type },
+                success: function(result) {
+                    if (result) {
+                        swal('Congrats', 'Credit Note added successfully', 'success');
+                        $('#creditNoteAddModal').modal('hide');
+                        current_object.attr('data-creditnote', credit_note);
+                        current_object = '';
+                    }
+                    else {
+                        swal("Something Went Wrong!!!");
+                    }
+                }
+            });
+        } else {
+            $('.errorMessage').html('Please write credit note.');
+        }
+    })
 </script>
 </body>
 </html>

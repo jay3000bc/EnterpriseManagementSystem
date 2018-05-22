@@ -51,7 +51,8 @@ class LoaderManager {
 		  `invoice_date` varchar(50) NOT NULL,
 		  `status` int(11) DEFAULT NULL COMMENT '0-Unpaid, 1-Paid',
 		  `invoice_paid_date` date DEFAULT NULL,
-  		  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  		  `credit_note` text DEFAULT NULL,
+  		  `created_at` date NOT NULL,
 		  PRIMARY KEY (`id`)
 		) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=$starting_no";
 		$result = $db->execute($sql3);

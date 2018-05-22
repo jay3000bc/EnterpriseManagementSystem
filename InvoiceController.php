@@ -36,6 +36,10 @@ if (isset($_POST["saveInvoice"])) {
 	
 	$mode_of_invoice = mysqli_real_escape_string($DBManager->conn, $_POST['mode_of_invoice']);
 	$invoice_date = mysqli_real_escape_string($DBManager->conn, $_POST['invoice_date']);
+
+	$invoice_date_new = str_replace('/', '-', $_POST['invoice_date']);
+
+	$invoice_date_new = date("Y-m-d", strtotime($invoice_date_new));
 	$reverse_charge = mysqli_real_escape_string($DBManager->conn, $_POST['reverse_charge']);
 	
 	$admin_bank_account = mysqli_real_escape_string($DBManager->conn, $_POST['admin_bank_account']);
@@ -61,7 +65,7 @@ if (isset($_POST["saveInvoice"])) {
 		}
 		$result1 = $invoiceManager->saveInvoiceAmount($invoice_id, $desc_of_service, $sac_code, $quantity, $price, $cgst, $sgst, $igst);
 	}
-	$result2 = $invoiceManager->saveInvoice($invoice_id, $invoice_type, $client_id, $client_name, $client_email, $client_address, $client_gstin, $client_state, $mode_of_invoice, $reverse_charge, $admin_bank_account, $currency_type, $qty_hrs, $net_amount, $invoice_date);
+	$result2 = $invoiceManager->saveInvoice($invoice_id, $invoice_type, $client_id, $client_name, $client_email, $client_address, $client_gstin, $client_state, $mode_of_invoice, $reverse_charge, $admin_bank_account, $currency_type, $qty_hrs, $net_amount, $invoice_date, $invoice_date_new);
 	
 	
 	if($result2) {
@@ -87,11 +91,18 @@ if (isset($_POST["saveInvoice"])) {
 			header('location:createInvoice');
 		}
 		// send invoice details to client
-		if($sendEmailToClient == true) {
-
+		//if($sendEmailToClient == true) {
+		if($_POST['sendEmailToClient'] == 1) {
 			$invoicelink = $absoluteUrl.'uploads/invoices/createdInvoice/'.$invoice_id.'.pdf';
 			include_once 'emails/invoiceEmailToClient.php';
+
 			mail($client_email, $invoiceSubject, $message, $from);
+
+			if(isset($_POST['sendAdditionalEmails'])) {
+				foreach ($_POST['sendAdditionalEmails'] as $key => $additionalEmail) {
+					mail($additionalEmail, $invoiceSubject, $message, $from);
+				}
+			}
 		}	
 		// end
 		if($_POST['saveInvoice'] == 'Print') {
@@ -126,6 +137,10 @@ if (isset($_POST["saveEditedInvoice"])) {
 	
 	$mode_of_invoice = mysqli_real_escape_string($DBManager->conn, $_POST['mode_of_invoice']);
 	$invoice_date = mysqli_real_escape_string($DBManager->conn, $_POST['invoice_date']);
+
+	$invoice_date_new = str_replace('/', '-', $_POST['invoice_date']);
+
+	$invoice_date_new = date("Y-m-d", strtotime($invoice_date_new));
 	$reverse_charge = mysqli_real_escape_string($DBManager->conn, $_POST['reverse_charge']);
 	
 	$admin_bank_account = mysqli_real_escape_string($DBManager->conn, $_POST['admin_bank_account']);
@@ -177,7 +192,7 @@ if (isset($_POST["saveEditedInvoice"])) {
 			$result1 = $invoiceManager->saveInvoiceAmount($invoice_id, $desc_of_service, $sac_code, $quantity, $price, $cgst, $sgst, $igst);
 		}
 	}
-	$result2 = $invoiceManager->saveEditedInvoice($invoice_id, $invoice_type, $client_id, $client_name, $client_email, $client_address, $client_gstin, $client_state, $mode_of_invoice, $reverse_charge, $admin_bank_account, $currency_type, $qty_hrs, $net_amount, $invoice_date);
+	$result2 = $invoiceManager->saveEditedInvoice($invoice_id, $invoice_type, $client_id, $client_name, $client_email, $client_address, $client_gstin, $client_state, $mode_of_invoice, $reverse_charge, $admin_bank_account, $currency_type, $qty_hrs, $net_amount, $invoice_date, $invoice_date_new);
 	
 	
 	if($result2) {
@@ -190,11 +205,23 @@ if (isset($_POST["saveEditedInvoice"])) {
 			header('location:createInvoice');
 		}
 		// send invoice details to client
-		if($sendEmailToClient == true) {
-
+		if($_POST['sendEmailToClient'] == 1) {
 			$invoicelink = $absoluteUrl.'uploads/invoices/createdInvoice/'.$invoice_id.'.pdf';
 			include_once 'emails/invoiceEmailToClient.php';
-			mail($client_email, $invoiceSubject, $message, $from);
+
+			//mail($client_email, $invoiceSubject, $message, $from);
+
+			if(isset($_POST['sendAdditionalEmails'])) {
+				foreach ($_POST['sendAdditionalEmails'] as $key => $additionalEmail) {
+					mail($additionalEmail, $invoiceSubject, $message, $from);
+					if(mail($additionalEmail, $invoiceSubject, $message, $from)) {
+						
+					} else {
+						
+					}
+				}
+			}
+
 		}	
 		// end
 		if($_POST['saveEditedInvoice'] == 'Print') {
@@ -311,6 +338,8 @@ if (isset($_POST["saveReceiveInvoice"])) {
 	$client_gstin = mysqli_real_escape_string($DBManager->conn, $_POST['client_gstin']);
 	$currency_type = mysqli_real_escape_string($DBManager->conn, $_POST['currency_type']);
 	$invoice_date = mysqli_real_escape_string($DBManager->conn, $_POST['invoice_date']);
+	$invoice_date_new = str_replace('/', '-', $_POST['invoice_date']);
+	$invoice_date_new = date("Y-m-d", strtotime($invoice_date_new));
 	$invoice_amount = mysqli_real_escape_string($DBManager->conn, $_POST['invoice_amount']);
 
 	// upload invoice file
@@ -378,7 +407,7 @@ if (isset($_POST["saveReceiveInvoice"])) {
 		$result1 = $invoiceManager->saveReceiveInvoiceAmount($invoice_id, $desc_of_service, $sac_code, $quantity, $price, $cgst, $sgst, $igst);
 	}
 
-	$result = $invoiceManager->saveReceiveInvoice($invoice_id, $client_name, $client_address, $client_email, $client_contact_no, $invoice_date, $currency_type, $invoice_amount, $client_gstin, $upload_invoice );
+	$result = $invoiceManager->saveReceiveInvoice($invoice_id, $client_name, $client_address, $client_email, $client_contact_no, $invoice_date, $currency_type, $invoice_amount, $client_gstin, $upload_invoice, $invoice_date_new );
 	
 	if($result) {
 		foreach( $_POST as $key => $value )
@@ -411,4 +440,16 @@ if(isset($_POST['check_already_exist_value'])) {
     $field_value = mysqli_real_escape_string($DBManager->conn, $_POST['check_already_exist_value']);
     $field_name = mysqli_real_escape_string($DBManager->conn, $_POST['field_name']);
     echo $result = $invoiceManager->check_already_exist_value($field_value, $field_name);
+}
+
+// add credit note 
+
+if(isset($_POST['add_credit_note_id'])) {
+	$invoiceManager = new InvoiceManager();
+	$invoice_id = mysqli_real_escape_string($DBManager->conn, $_POST['add_credit_note_id']);
+	$credit_note = mysqli_real_escape_string($DBManager->conn, $_POST['credit_note']);
+	$invoice_type = mysqli_real_escape_string($DBManager->conn, $_POST['credit_note_save_invoice_type']);
+
+	echo $result = $invoiceManager->saveCreditNote($invoice_id, $invoice_type, $credit_note);
+
 }

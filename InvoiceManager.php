@@ -32,11 +32,10 @@ class InvoiceManager {
         return $data;
  
     }
-    public function saveInvoice($invoice_id, $invoice_type, $client_id, $client_name, $client_email, $client_address, $client_gstin, $client_state, $mode_of_invoice, $reverse_charge, $bank_account, $currency_type, $qty_hrs, $net_amount, $invoice_date) {
+    public function saveInvoice($invoice_id, $invoice_type, $client_id, $client_name, $client_email, $client_address, $client_gstin, $client_state, $mode_of_invoice, $reverse_charge, $bank_account, $currency_type, $qty_hrs, $net_amount, $invoice_date, $invoice_date_new) {
     	$db = new DBManager();
-    	$sql = "INSERT into ems_invoices(invoice_id, invoice_type, client_id, name, email, address, gstin, state, invoice_mode, reverse_charge, bank_id, currency_type, qty_hrs, net_amount, invoice_date) values ('$invoice_id', '$invoice_type', '$client_id', '$client_name', '$client_email', '$client_address', '$client_gstin', '$client_state' ,'$mode_of_invoice', '$reverse_charge', '$bank_account', '$currency_type', '$qty_hrs', '$net_amount' , '$invoice_date')";
-    	// echo $sql;
-    	// die();
+    	$sql = "INSERT into ems_invoices(invoice_id, invoice_type, client_id, name, email, address, gstin, state, invoice_mode, reverse_charge, bank_id, currency_type, qty_hrs, net_amount, invoice_date, created_at) values ('$invoice_id', '$invoice_type', '$client_id', '$client_name', '$client_email', '$client_address', '$client_gstin', '$client_state' ,'$mode_of_invoice', '$reverse_charge', '$bank_account', '$currency_type', '$qty_hrs', '$net_amount' , '$invoice_date', '$invoice_date_new')";
+
     	$result = $db->execute($sql);
     	return $result;
 
@@ -51,12 +50,12 @@ class InvoiceManager {
 
     }
     // update invoice table
-    public function saveEditedInvoice($invoice_id, $invoice_type, $client_id, $name, $email, $address, $gstin, $state, $invoice_mode, $reverse_charge, $bank_id, $currency_type, $qty_hrs, $net_amount, $invoice_date) {
+    public function saveEditedInvoice($invoice_id, $invoice_type, $client_id, $name, $email, $address, $gstin, $state, $invoice_mode, $reverse_charge, $bank_id, $currency_type, $qty_hrs, $net_amount, $invoice_date, $invoice_date_new) {
         $db = new DBManager();
         if (is_numeric($invoice_id)) {
-            $sql = "UPDATE ems_invoices set invoice_type='$invoice_type', client_id='$client_id', name='$name', email='$email', address='$address', gstin='$gstin', state='$state', invoice_mode='$invoice_mode', reverse_charge='$reverse_charge', bank_id='$bank_id', currency_type='$currency_type', qty_hrs='$qty_hrs', net_amount='$net_amount', invoice_date='$invoice_date' where invoice_id=$invoice_id";
+            $sql = "UPDATE ems_invoices set invoice_type='$invoice_type', client_id='$client_id', name='$name', email='$email', address='$address', gstin='$gstin', state='$state', invoice_mode='$invoice_mode', reverse_charge='$reverse_charge', bank_id='$bank_id', currency_type='$currency_type', qty_hrs='$qty_hrs', net_amount='$net_amount', invoice_date='$invoice_date', created_at ='$invoice_date_new' where invoice_id=$invoice_id";
         } else {
-            $sql = "UPDATE ems_invoices set invoice_type='$invoice_type', client_id='$client_id', name='$name', email='$email', address='$address', gstin='$gstin', state='$state', invoice_mode='$invoice_mode', reverse_charge='$reverse_charge', bank_id='$bank_id', currency_type='$currency_type', qty_hrs='$qty_hrs', net_amount='$net_amount', invoice_date='$invoice_date' where invoice_id='$invoice_id'";
+            $sql = "UPDATE ems_invoices set invoice_type='$invoice_type', client_id='$client_id', name='$name', email='$email', address='$address', gstin='$gstin', state='$state', invoice_mode='$invoice_mode', reverse_charge='$reverse_charge', bank_id='$bank_id', currency_type='$currency_type', qty_hrs='$qty_hrs', net_amount='$net_amount', invoice_date='$invoice_date', created_at='$invoice_date_new' where invoice_id='$invoice_id'";
         }
         $result = $db->execute($sql);
         return $result;
@@ -159,6 +158,7 @@ class InvoiceManager {
             $this->currency_type[] = $row['currency_type'];
             $this->invoice_amount[] = $row['net_amount'];
             $this->status[] = $row['status'];
+            $this->credit_note[] = $row['credit_note'];
         }
         return $total;
     } 
@@ -178,6 +178,7 @@ class InvoiceManager {
             $this->invoice_amount[] = $row['invoice_amount'];
             $this->upload_invoice[] = $row['upload_invoice'];
             $this->status[] = $row['status'];
+            $this->credit_note[] = $row['credit_note'];
         }
         return $total;
     }
@@ -198,9 +199,9 @@ class InvoiceManager {
     }
 
     // receive invoice function
-    public function saveReceiveInvoice($invoice_id, $name, $address, $email, $contact_no, $invoice_date, $currency_type, $invoice_amount, $gstin, $upload_invoice ) {
+    public function saveReceiveInvoice($invoice_id, $name, $address, $email, $contact_no, $invoice_date, $currency_type, $invoice_amount, $gstin, $upload_invoice, $invoice_date_new ) {
         $db = new DBManager();
-        $sql = "INSERT into ems_receive_invoice(invoice_id, name, address, email, contact_no, invoice_date, currency_type, invoice_amount, gstin, upload_invoice) values ('$invoice_id', '$name', '$address', '$email', '$contact_no', '$invoice_date', '$currency_type' ,'$invoice_amount', '$gstin', '$upload_invoice')";
+        $sql = "INSERT into ems_receive_invoice(invoice_id, name, address, email, contact_no, invoice_date, currency_type, invoice_amount, gstin, upload_invoice, created_at) values ('$invoice_id', '$name', '$address', '$email', '$contact_no', '$invoice_date', '$currency_type' ,'$invoice_amount', '$gstin', '$upload_invoice', '$invoice_date_new')";
         $result = $db->execute($sql);
         return $result;
     }
@@ -291,5 +292,19 @@ class InvoiceManager {
         $sql = "SELECT * from ems_receive_invoice where invoice_id = '$field_value'";
         $total = $db->getNumRow($sql);
         return $total;
+    }
+
+    // add credit note 
+
+    public function saveCreditNote($invoice_id, $invoice_type, $credit_note) {
+        $db = new DBManager();
+        if($invoice_type == 0) {
+            $sql = "UPDATE ems_invoices set credit_note='$credit_note' where invoice_id='$invoice_id'"; 
+        } else {
+            $sql = "UPDATE ems_receive_invoice set credit_note='$credit_note' where invoice_id='$invoice_id'";
+        }
+        
+        $result = $db->execute($sql);
+        return $result;
     }
 }
