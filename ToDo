@@ -28,6 +28,11 @@ Hence, in View Invoices, the Invoice No. 12 will show as unpaid. So, we need to 
 
 Meaning of Credit Note - Credit Note is a simple Note by user, to write something, as to why this invoice has not been paid
 
+(7) While generating an Invoice, there was some problems and the system got hanged. When I refreshed it, I got two invoices with he same Invoice No., which is impossible.
 
+I checked the invoice and tried to edit it. While checking the invoice, I saw two items got entered in one invoice (For example, adding more items in one invoice). But I made invoice for a single item.
+There is no way to delete an item, when creating/ editing an invoice.
+
+(8) GST is always created with respect to Invoices and not with payments received. We may have generated an invoice in May, 2018 and received the payment in July,2018. When checking the downloaded XLS, I saw that a Bill Paid date for an invoice, where no payment was made, is there. Interesting the date of the Bill Paid date is 1/1/1970.
 
 
