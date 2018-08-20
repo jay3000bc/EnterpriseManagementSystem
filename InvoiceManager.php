@@ -2,12 +2,12 @@
 include_once('settings/config.php');
 include_once 'DBManager.php';
 class InvoiceManager { 
-	public function getInvoiceId() {
-		$db = new DBManager();
-		$sql = "SELECT * from ems_invoice_auto_id";
-		$result = $db->getARecord($sql);
+    public function getInvoiceId() {
+        $db = new DBManager();
+        $sql = "SELECT * from ems_invoice_auto_id";
+        $result = $db->getARecord($sql);
         return $result;
-	}
+    }
     // updateNatioanlId
     public function updateNatioanlId($current_national_id) {
         $db = new DBManager();
@@ -21,7 +21,7 @@ class InvoiceManager {
         $result = $db->execute($sql);
         return $result;
     }
-	public function getAutoIncrimentIDInvoice() {
+    public function getAutoIncrimentIDInvoice() {
         $databaseName = $GLOBALS['databaseName'];
         $db = new DBManager();
         $sql = "SELECT `AUTO_INCREMENT`
@@ -33,20 +33,20 @@ class InvoiceManager {
  
     }
     public function saveInvoice($invoice_id, $invoice_type, $client_id, $client_name, $client_email, $client_address, $client_gstin, $client_state, $mode_of_invoice, $reverse_charge, $bank_account, $currency_type, $qty_hrs, $net_amount, $invoice_date, $invoice_date_new) {
-    	$db = new DBManager();
-    	$sql = "INSERT into ems_invoices(invoice_id, invoice_type, client_id, name, email, address, gstin, state, invoice_mode, reverse_charge, bank_id, currency_type, qty_hrs, net_amount, invoice_date, created_at) values ('$invoice_id', '$invoice_type', '$client_id', '$client_name', '$client_email', '$client_address', '$client_gstin', '$client_state' ,'$mode_of_invoice', '$reverse_charge', '$bank_account', '$currency_type', '$qty_hrs', '$net_amount' , '$invoice_date', '$invoice_date_new')";
+        $db = new DBManager();
+        $sql = "INSERT into ems_invoices(invoice_id, invoice_type, client_id, name, email, address, gstin, state, invoice_mode, reverse_charge, bank_id, currency_type, qty_hrs, net_amount, invoice_date, created_at) values ('$invoice_id', '$invoice_type', '$client_id', '$client_name', '$client_email', '$client_address', '$client_gstin', '$client_state' ,'$mode_of_invoice', '$reverse_charge', '$bank_account', '$currency_type', '$qty_hrs', '$net_amount' , '$invoice_date', '$invoice_date_new')";
 
-    	$result = $db->execute($sql);
-    	return $result;
+        $result = $db->execute($sql);
+        return $result;
 
     }
     public function saveInvoiceAmount($invoice_id, $desc_of_service, $sac_code, $quantity, $price, $cgst, $sgst, $igst) {
-    	$db = new DBManager();
-    	$sql = "INSERT into ems_invoice_amount(invoice_id, desc_of_service, sac_code, quantity, price, cgst, sgst, igst) values ('$invoice_id', '$desc_of_service', '$sac_code', '$quantity', '$price', '$cgst', '$sgst', '$igst')";
-    	//echo $sql;
-    	//die();
-    	$result = $db->execute($sql);
-    	return $result;
+        $db = new DBManager();
+        $sql = "INSERT into ems_invoice_amount(invoice_id, desc_of_service, sac_code, quantity, price, cgst, sgst, igst) values ('$invoice_id', '$desc_of_service', '$sac_code', '$quantity', '$price', '$cgst', '$sgst', '$igst')";
+        //echo $sql;
+        //die();
+        $result = $db->execute($sql);
+        return $result;
 
     }
     // update invoice table

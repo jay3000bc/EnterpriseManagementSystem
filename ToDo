@@ -27,7 +27,3 @@ Example: Suppose, we have generated invoices, like No. 11, 12, 13, 14 etc in the
 Hence, in View Invoices, the Invoice No. 12 will show as unpaid. So, we need to add a credit note beside this Unpaid (select box). Actually every Unpaid select box, should have a Credit Note, beside it. As soon as user changes Unpaid to Paid, this Credit note show disappear.
 
 Meaning of Credit Note - Credit Note is a simple Note by user, to write something, as to why this invoice has not been paid
-
-
-
-
