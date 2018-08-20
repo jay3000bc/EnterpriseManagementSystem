@@ -5,8 +5,11 @@ class GSTManager {
     // getSaleDetails of last month
 	public function getSaleDetails() {
 		$db = new DBManager();
-		//$lastMonth = date('m-Y', strtotime("-1 month"));
-		$sql = "SELECT * from ems_invoices, ems_invoice_amount where MONTH(ems_invoices.invoice_paid_date) = MONTH(CURRENT_DATE() - INTERVAL 1 MONTH) AND YEAR(ems_invoices.invoice_paid_date) = YEAR(CURRENT_DATE() - INTERVAL 1 MONTH) and ems_invoices.status = 1 and ems_invoices.invoice_id = ems_invoice_amount.invoice_id order by ems_invoices.id desc";
+		
+        $year = date("Y",strtotime("-1 month"));
+        $month = date("m",strtotime("-1 month"));
+
+        $sql = "SELECT * from ems_invoices, ems_invoice_amount where MONTH(ems_invoices.created_at) = $month AND YEAR(ems_invoices.created_at) = $year and ems_invoices.invoice_id = ems_invoice_amount.invoice_id order by ems_invoices.id desc";
 
         $data = $db->getAllRecords($sql);
         $total = $db->getNumRow($sql);
@@ -33,8 +36,10 @@ class GSTManager {
     // getPurchaseDetails of last month
 	public function getPurchaseDetails() {
 		$db = new DBManager();
-		//$lastMonth = date('m-Y', strtotime("-1 month"));
-		$sql = "SELECT * from ems_receive_invoice, ems_invoice_receive_amount where MONTH(ems_receive_invoice.invoice_paid_date) = MONTH(CURRENT_DATE() - INTERVAL 1 MONTH) AND YEAR(ems_receive_invoice.invoice_paid_date) = YEAR(CURRENT_DATE() - INTERVAL 1 MONTH) and ems_receive_invoice.status = 1 and ems_receive_invoice.invoice_id = ems_invoice_receive_amount.invoice_id order by ems_receive_invoice.id desc";
+
+		$year = date("Y",strtotime("-1 month"));
+        $month = date("m",strtotime("-1 month"));
+        $sql = "SELECT * from ems_receive_invoice, ems_invoice_receive_amount where MONTH(ems_receive_invoice.created_at) = $month AND YEAR(ems_receive_invoice.created_at) = $year and ems_receive_invoice.invoice_id = ems_invoice_receive_amount.invoice_id order by ems_receive_invoice.id desc";
 
         $data = $db->getAllRecords($sql);
         $total = $db->getNumRow($sql);
@@ -57,19 +62,17 @@ class GSTManager {
         return $total;
 	}
 
-	// get all created invoice which are paid group by Month 
+	// get all created invoice group by Month 
 
 	public function getCreatedInvoicebyMonth() {
 		$db = new DBManager();
-        $date = date("Y-m",strtotime("-1 month"));
-        $lastMonthDate = date('Y-m-d', strtotime('last day of previous month'));
-        $sql = "SELECT * from ems_invoices, ems_invoice_amount where DATE_FORMAT(ems_invoices.invoice_paid_date, 'Y-m-d') <= $lastMonthDate and ems_invoices.status = 1 and ems_invoices.invoice_id = ems_invoice_amount.invoice_id GROUP BY DATE_FORMAT(ems_invoices.invoice_paid_date, '%Y%m') order by ems_invoices.id desc";
+        $sql = "SELECT ems_invoices.invoice_id as invoice_id, ems_invoices.created_at as created_at from ems_invoices, ems_invoice_amount where ems_invoices.invoice_id = ems_invoice_amount.invoice_id GROUP BY DATE_FORMAT(ems_invoices.created_at, '%Y%m') order by ems_invoices.id desc";
 
         $data = $db->getAllRecords($sql);
         $totalSale = $db->getNumRow($sql);
         while ($row = $db->getNextRow()) {
             $this->created_invoice_id[] = $row['invoice_id'];
-            $this->created_invoice_date_monthly[] = $row['invoice_paid_date'];
+            $this->created_invoice_date_monthly[] = $row['created_at'];
         }
         return $totalSale;
     }
@@ -78,16 +81,14 @@ class GSTManager {
 
     public function getReceivedInvoicebyMonth() {
         $db = new DBManager();
-        $date = date("Y-m",strtotime("-1 month"));
-        $lastMonthDate = date('Y-m-d', strtotime('last day of previous month'));
-
-        $sql = "SELECT * from ems_receive_invoice, ems_invoice_receive_amount where DATE_FORMAT(ems_receive_invoice.invoice_paid_date, 'Y-m-d') <= $lastMonthDate and ems_receive_invoice.status = 1 and ems_receive_invoice.invoice_id = ems_invoice_receive_amount.invoice_id GROUP BY DATE_FORMAT(ems_receive_invoice.invoice_paid_date, 'Y%m%') order by ems_receive_invoice.id desc";
+        
+        $sql = "SELECT ems_receive_invoice.invoice_id as invoice_id, ems_receive_invoice.created_at as created_at  from ems_receive_invoice, ems_invoice_receive_amount where ems_receive_invoice.invoice_id = ems_invoice_receive_amount.invoice_id GROUP BY DATE_FORMAT(ems_receive_invoice.created_at, 'Y%m%') order by ems_receive_invoice.id desc";
 
         $data = $db->getAllRecords($sql);
         $totalPurchase = $db->getNumRow($sql);
         while ($row = $db->getNextRow()) {
             $this->receive_invoice_id[] = $row['invoice_id'];
-            $this->receive_invoice_date_monthly[] = $row['invoice_paid_date'];
+            $this->receive_invoice_date_monthly[] = $row['created_at'];
         }
         return $totalPurchase;
         
@@ -99,7 +100,7 @@ class GSTManager {
         $db = new DBManager();
         $year = date("Y",strtotime($period));
         $month = date("m",strtotime($period));
-        $sql = "SELECT * from ems_invoices, ems_invoice_amount where MONTH(ems_invoices.invoice_paid_date) = $month AND YEAR(ems_invoices.invoice_paid_date) = $year and ems_invoices.status = 1 and ems_invoices.invoice_id = ems_invoice_amount.invoice_id order by ems_invoices.id desc";
+        $sql = "SELECT * from ems_invoices, ems_invoice_amount where MONTH(ems_invoices.created_at) = $month AND YEAR(ems_invoices.created_at) = $year and ems_invoices.invoice_id = ems_invoice_amount.invoice_id order by ems_invoices.id desc";
         $data = $db->getAllRecords($sql);
         $total = $db->getNumRow($sql);
         while ($row = $db->getNextRow()) {
@@ -126,7 +127,7 @@ class GSTManager {
         $db = new DBManager();
         $year = date("Y",strtotime($period));
         $month = date("m",strtotime($period));
-        $sql = "SELECT * from ems_receive_invoice, ems_invoice_receive_amount where MONTH(ems_receive_invoice.invoice_paid_date) = $month AND YEAR(ems_receive_invoice.invoice_paid_date) = $year and ems_receive_invoice.status = 1  and ems_receive_invoice.invoice_id = ems_invoice_receive_amount.invoice_id order by ems_receive_invoice.id desc";
+        $sql = "SELECT * from ems_receive_invoice, ems_invoice_receive_amount where MONTH(ems_receive_invoice.created_at) = $month AND YEAR(ems_receive_invoice.created_at) = $year and ems_receive_invoice.invoice_id = ems_invoice_receive_amount.invoice_id order by ems_receive_invoice.id desc";
 
         $data = $db->getAllRecords($sql);
         $total = $db->getNumRow($sql);

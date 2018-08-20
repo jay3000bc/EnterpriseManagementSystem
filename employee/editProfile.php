@@ -140,6 +140,11 @@ if(isset($_POST['requestProfileChanges'])) {
     } else {
         $date_of_birth = NULL;
     }
+    if($result['max_qualification'] != mysqli_real_escape_string($DBManager->conn, $_POST['max_qualification'])) {
+       $max_qualification = mysqli_real_escape_string($DBManager->conn, $_POST['max_qualification']); 
+    } else {
+        $max_qualification = NULL;
+    }
     if($result['pf_account'] != mysqli_real_escape_string($DBManager->conn, $_POST['pf_account'])) {
         $pf_account = mysqli_real_escape_string($DBManager->conn, $_POST['pf_account']);
     } else {
@@ -203,7 +208,7 @@ if(isset($_POST['requestProfileChanges'])) {
         $ifsc_code = NULL;
     }
     
-    $result = $employeeManager->editProfileRequset($employee_id, $name, $designation, $email, $phone_no, $encryptpassword, $photo, $current_address, $permanent_address, $father_name, $gender, $date_of_joining, $date_of_birth, $pf_account, $policy_no, $lic_id, $pan, $passport_no, $driving_license_no, $bank_account, $ifsc_code);
+    $result = $employeeManager->editProfileRequset($employee_id, $name, $designation, $email, $phone_no, $encryptpassword, $photo, $current_address, $permanent_address, $father_name, $gender, $date_of_joining, $date_of_birth, $max_qualification, $pf_account, $policy_no, $lic_id, $pan, $passport_no, $driving_license_no, $bank_account, $ifsc_code);
     if($result) {
         $_SESSION['successMsg'] = "successProfileRequest";
         echo '<script type="text/javascript">
@@ -348,6 +353,10 @@ if(isset($_POST['requestProfileChanges'])) {
                                             </div>
                                             <input value="<?php echo $result['date_of_birth'];?>" name="date_of_birth" class="form-control pull-right" id="datepicker_date_of_birth" type="text">
                                         </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="max_qualification">Max. Qualification <span class="mandatory">*</span></label>
+                                        <input type="text"  name="max_qualification" value="<?php echo $result['max_qualification'];?>" class="form-control" id="max_qualification" placeholder="Enter Max. Qualification" autocomplete="off" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="pan">PAN <span class="mandatory">*</span></label>

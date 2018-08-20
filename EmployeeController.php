@@ -86,6 +86,7 @@ if (isset($_POST["saveEmployeeDetails"])) {
     $gender = mysqli_real_escape_string($DBManager->conn, $_POST['gender']);
     $date_of_joining = mysqli_real_escape_string($DBManager->conn, $_POST['date_of_joining']);
     $date_of_birth = mysqli_real_escape_string($DBManager->conn, $_POST['date_of_birth']);
+    $max_qualification = mysqli_real_escape_string($DBManager->conn, $_POST['max_qualification']);
     $pf_account = mysqli_real_escape_string($DBManager->conn, $_POST['pf_account']);
     $policy_no = mysqli_real_escape_string($DBManager->conn, $_POST['policy_no']);
     $lic_id = mysqli_real_escape_string($DBManager->conn, $_POST['lic_id']);
@@ -107,7 +108,7 @@ if (isset($_POST["saveEmployeeDetails"])) {
     }
     $ifsc_code = mysqli_real_escape_string($DBManager->conn, $_POST['ifsc_code']);
 
-    $result = $employeeManager->CreateEmployee($employee_id, $name, $designation, $email, $phone_no, $encryptpassword, $photo, $current_address, $permanent_address, $father_name, $gender, $date_of_joining, $date_of_birth, $pf_account, $policy_no, $lic_id, $pan, $passport_no, $driving_license_no, $bank_account, $ifsc_code);
+    $result = $employeeManager->CreateEmployee($employee_id, $name, $designation, $email, $phone_no, $encryptpassword, $photo, $current_address, $permanent_address, $father_name, $gender, $date_of_joining, $date_of_birth, $max_qualification, $pf_account, $policy_no, $lic_id, $pan, $passport_no, $driving_license_no, $bank_account, $ifsc_code);
     if($result) {
         $_SESSION['successMsg'] = "employeeAdded";
         foreach( $_POST as $key => $value )
@@ -215,6 +216,7 @@ if(isset($_POST['saveEditEmployeeDetails'])) {
     $gender = mysqli_real_escape_string($DBManager->conn, $_POST['gender']);
     $date_of_joining = mysqli_real_escape_string($DBManager->conn, $_POST['date_of_joining']);
     $date_of_birth = mysqli_real_escape_string($DBManager->conn, $_POST['date_of_birth']);
+    $max_qualification = mysqli_real_escape_string($DBManager->conn, $_POST['max_qualification']);
     $pf_account = mysqli_real_escape_string($DBManager->conn, $_POST['pf_account']);
     $policy_no = mysqli_real_escape_string($DBManager->conn, $_POST['policy_no']);
     $lic_id = mysqli_real_escape_string($DBManager->conn, $_POST['lic_id']);
@@ -246,7 +248,7 @@ if(isset($_POST['saveEditEmployeeDetails'])) {
 
 
 
-    $result = $employeeManager->editEmployee($id, $employee_id, $name, $designation, $email, $phone_no, $encryptpassword, $photo, $current_address, $permanent_address, $father_name, $gender, $date_of_joining, $date_of_birth, $pf_account, $policy_no, $lic_id, $pan, $passport_no, $driving_license_no, $bank_account, $ifsc_code);
+    $result = $employeeManager->editEmployee($id, $employee_id, $name, $designation, $email, $phone_no, $encryptpassword, $photo, $current_address, $permanent_address, $father_name, $gender, $date_of_joining, $date_of_birth, $max_qualification, $pf_account, $policy_no, $lic_id, $pan, $passport_no, $driving_license_no, $bank_account, $ifsc_code);
     if($result) {
         if(isset($_POST['profile_update_request'])) {
             $resultProfileRequestUpdate = $employeeManager->deleteProfileUpdateRequest($_POST['profile_update_request']);

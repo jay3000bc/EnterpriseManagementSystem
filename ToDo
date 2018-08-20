@@ -1,5 +1,33 @@
 EMS Version 2 Update/ Improvement
 +++++++++++++++++++++++++++++
-Under Received Invoices, SAC/ HSN should be manual, because we cannot predict all purchase bills from different sellers.
-Once the SAC/ HSN number is entered, next time, it should appear in auto populate
-Mention only files changed, including path.
+
+(1) All dates, should be in Indian format i.e., dd/mm/yyyy
+
+(2) An invoice may not even be paid by customer, hence we should have facility for a Credit Note.
+
+(3) Client state issue: You should not ask for Client State when creating invoices. The State should be taken during “Create Client”. So, now you have the Client State, that you require to show in Invoice PDF.
+
+(4) Many clients have multiple companies with whom we work. Hence these clients use the same email. But currently, we cannot use the same email, when creating another company.
+
+(5) In the configuration file, we have a variable for invoice “Send email to client”. We have to remove this from this config file and instead we have to to add it here -
+
+Normally, many clients do not want automatic emails to be sent. Also many clients want additional CC copies to be sent to their accountant, CA etc.
+
+Hence, when we are generating an invoice, we should provide use a checkbox (by default checked). The check box is “Send email to client”. Beside the check box, we should have a button called “Send additional CC”. If it is clicked, another input box will appear below for entering another email address. User can hit this button multiple times to add more CC emails. Limit this to 10 emails.
+
+So, if user unchecked the “Send email to client” than the “Send additional CC” button should also disappear.
+
+(6) Important Changes in GST
++++++++++++++++++++++
+Currently, you are showing GST, based on the paid invoices for a particular month. This is wrong.
+You have to show GST based on the invoices generated for a particular month and not based on payment received.
+
+Example: Suppose, we have generated invoices, like No. 11, 12, 13, 14 etc in the month of February. All the invoices have been paid in February, except (say) Invoice No. 12. But still you will have to show this in GST return for the month of February that is payable in March.
+
+Hence, in View Invoices, the Invoice No. 12 will show as unpaid. So, we need to add a credit note beside this Unpaid (select box). Actually every Unpaid select box, should have a Credit Note, beside it. As soon as user changes Unpaid to Paid, this Credit note show disappear.
+
+Meaning of Credit Note - Credit Note is a simple Note by user, to write something, as to why this invoice has not been paid
+
+
+
+

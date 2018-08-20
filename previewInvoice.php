@@ -84,7 +84,7 @@ foreach ($currencies as $key => $currency) {
 						</td>
 
 						<td>State: <?php 
-							if($invoiceDetails['state'] == 0) { echo $invoiceDetails['address']; 
+							if (!is_numeric($invoiceDetails['state'])) { echo $invoiceDetails['state']; 
 							} else {
 							for ($i=0; $i < $totalStates ; $i++) {
 								if ($invoiceDetails['state'] == $i+1) {
@@ -100,13 +100,22 @@ foreach ($currencies as $key => $currency) {
 			</table><hr>
 			<table class="table table-bordered">
 				<thead>
-					
+					<?php 
+						if($invoiceDetails['qty_hrs'] == 0 ) {
+							$service_type = 'Qty.';
+							$price_qty_hrs = 'Price';
+						} else {
+							$service_type = 'Hrs.';
+							$price_qty_hrs = 'Price/Hr';
+						}
+
+						?>
 					<tr>
 						<th class="text-center">SL NO.</th>
 						<th class="text-center">Services Description</th>
 						<th class="text-center">HSN/ SAC Code</th>
-						<th class="text-center">Qnty.</th>
-						<th class="text-center">Price</th>
+						<th class="text-center"><?php echo $service_type;?></th>
+						<th class="text-center"><?php echo $price_qty_hrs;?></th>
 						<th class="text-center">SGST <br>( % )</th>
 						<th class="text-center">CGST <br>( % )</th>
 						<th class="text-center">IGST <br>( % )</th>

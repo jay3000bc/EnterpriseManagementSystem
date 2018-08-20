@@ -66,7 +66,7 @@ if($manageIdStatus['employee_id'] ==1) {
                                     </div>
                                     <div class="form-group">
                                         <label for="phone_no">Phone No. <span class="mandatory">*</span></label>
-                                        <input name="phone_no" value="<?php if(isset($_SESSION['session_phone_no'])) echo htmlspecialchars($_SESSION['session_phone_no']); unset($_SESSION['session_phone_no']); ?>" class="form-control remove-space" id="phone_no" placeholder="Enter Employee Phone Number" type="text" autocomplete="off" required>
+                                        <input type="text" name="phone_no" value="<?php if(isset($_SESSION['session_phone_no'])) echo htmlspecialchars($_SESSION['session_phone_no']); unset($_SESSION['session_phone_no']); ?>" class="form-control remove-space" id="phone_no" placeholder="Enter Employee Phone Number" autocomplete="off" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="password">Password <span class="mandatory">*</span></label>
@@ -162,6 +162,10 @@ if($manageIdStatus['employee_id'] ==1) {
                                             </div>
                                             <input name="date_of_birth" value="<?php if(isset($_SESSION['session_date_of_birth'])) echo htmlspecialchars($_SESSION['session_date_of_birth']); unset($_SESSION['session_date_of_birth']); ?>" class="form-control pull-right" id="datepicker_date_of_birth" type="text">
                                         </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="max_qualification">Max. Qualification <span class="mandatory">*</span></label>
+                                        <input name="max_qualification" value="<?php if(isset($_SESSION['session_max_qualification'])) echo htmlspecialchars($_SESSION['session_max_qualification']); unset($_SESSION['session_max_qualification']); ?>" class="form-control" id="max_qualification" placeholder="Enter Max. Qualification" type="text" autocomplete="off">
                                     </div>
                                     <div class="form-group">
                                         <label for="pan">PAN <span class="mandatory">*</span></label>

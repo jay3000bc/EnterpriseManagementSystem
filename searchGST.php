@@ -6,7 +6,9 @@ include_once('include/header.php');
 include_once 'GSTManager.php';
 $GSTManager = new GSTManager();
 $getCreatedInvoicebyMonth = $GSTManager->getCreatedInvoicebyMonth();
+
 $getReceivedInvoicebyMonth = $GSTManager->getReceivedInvoicebyMonth();
+
 $resultGSTPeriod = $GSTManager->getAllGSTPeriod();
 ?>
 <style type="text/css">
@@ -64,14 +66,15 @@ $resultGSTPeriod = $GSTManager->getAllGSTPeriod();
                                     </thead>
                                     <tbody>
                                         <?php
+                                        $generatedStatus = '';
                                         if($getCreatedInvoicebyMonth > $getReceivedInvoicebyMonth)  {
-                                            for($i=0; $i < $getCreatedInvoicebyMonth; $i++) {
+                                            for($i=1; $i < $getCreatedInvoicebyMonth; $i++) {
                                          ?>   
                                         <tr>
-                                            <td><?php echo $i+1;?></td>
-                                            <td><?php $invoice_paid_date = $GSTManager->created_invoice_date_monthly[$i];
-                                                $period = date('Y-m', strtotime($invoice_paid_date));
-                                            echo date('M Y', strtotime($invoice_paid_date));?></td>
+                                            <td><?php echo $i;?></td>
+                                            <td><?php $invoice_created_date = $GSTManager->created_invoice_date_monthly[$i];
+                                                $period = date('Y-m', strtotime($invoice_created_date));
+                                            echo date('M Y', strtotime($invoice_created_date));?></td>
                                             <td>
                                             <?php 
                                             for($j=0; $j < $resultGSTPeriod; $j++) {
@@ -81,7 +84,7 @@ $resultGSTPeriod = $GSTManager->getAllGSTPeriod();
                                                     
                                                 }  
                                             } 
-                                            if(isset($generatedStatus)) { ?>
+                                            if(isset($generatedStatus) && $generatedStatus == 'GENERATED') { ?>
                                             <span class="text-success">GENERATED</span>
                                             <?php } else  { ?>
                                             <span class="text-danger" style="color:#FF0000;">NOT GENERATED</span>
@@ -89,7 +92,7 @@ $resultGSTPeriod = $GSTManager->getAllGSTPeriod();
                                             </td>
                                             <td><a href="viewGST?period=<?php echo $period; ?>">View</a></td>
                                             <?php 
-                                            if($GSTManager->period[$i] == $period) { ?>
+                                            if(isset($generatedStatus) && $generatedStatus == 'GENERATED') { ?>
                                             <td><a target="_blank" href="uploads/GST/<?php echo $period;?>.xlsx">Download Excel</a></td>
                                             <td><a target="_blank" href="uploads/GST/<?php echo $period;?>.pdf">Download pdf</a></td>
                                             <?php } else { ?>
@@ -99,13 +102,13 @@ $resultGSTPeriod = $GSTManager->getAllGSTPeriod();
                                         </tr>
                                         <?php } 
                                         } else { 
-                                        for($i=0; $i < $getReceivedInvoicebyMonth; $i++) {
+                                        for($i=1; $i < $getReceivedInvoicebyMonth; $i++) {
                                          ?>   
                                         <tr>
-                                            <td><?php echo $i+1;?></td>
-                                            <td><?php $invoice_paid_date = $GSTManager->receive_invoice_date_monthly[$i];
-                                                $period = date('Y-m', strtotime($invoice_paid_date));
-                                            echo date('M Y', strtotime($invoice_paid_date));?></td>
+                                            <td><?php echo $i;?></td>
+                                            <td><?php $invoice_created_date = $GSTManager->receive_invoice_date_monthly[$i];
+                                                $period = date('Y-m', strtotime($invoice_created_date));
+                                            echo date('M Y', strtotime($invoice_created_date));?></td>
                                             <td>
                                             <?php 
                                             for($j=0; $j < $resultGSTPeriod; $j++) {
@@ -115,7 +118,7 @@ $resultGSTPeriod = $GSTManager->getAllGSTPeriod();
                                                     
                                                 }  
                                             } 
-                                            if(isset($generatedStatus)) {
+                                            if(isset($generatedStatus) && $generatedStatus == 'GENERATED') {
                                             ?>
 
                                             <span class="text-success">GENERATED</span>
@@ -125,13 +128,15 @@ $resultGSTPeriod = $GSTManager->getAllGSTPeriod();
                                             </td>
                                             <td><a href="viewGST?period=<?php echo $period; ?>">View</a></td>
                                             <?php 
-                                            if($GSTManager->period[$i] == $period) { ?>
+                                            if(isset($generatedStatus) && $generatedStatus == 'GENERATED') { ?>
                                             <td><a target="_blank" href="uploads/GST/<?php echo $period;?>.xlsx">Download Excel</a></td>
                                             <td><a target="_blank" href="uploads/GST/<?php echo $period;?>.pdf">Download pdf</a></td>
                                             <?php } else { ?>
                                             <td><a class="current-page" href="uploads/GST/<?php echo $period;?>.xlsx">Download Excel</a></td>
                                             <td><a class="current-page" href="uploads/GST/<?php echo $period;?>.pdf">Download pdf</a></td>  
-                                            <?php } ?>  
+                                            <?php 
+                                            } $generatedStatus='';
+                                            ?>  
                                         </tr>
                                         <?php } 
                                         } ?>

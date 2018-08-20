@@ -36,10 +36,6 @@
 	
 	$invoiceTypes = array("National Invoice", "Export Invoice");
 
-	
-	// Email sent to Client for Invoice details boolean value, default is true
-
-	$sendEmailToClient = true;
 
 	//Subject of email, sent to client for Invoice details form EMS system
 

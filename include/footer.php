@@ -42,6 +42,10 @@
     $('#datepicker_date_of_birth').datepicker({
       autoclose: true
     });
+    $('.invoice_date_picker').datepicker({
+      autoclose: true,
+      format: 'dd/mm/yyyy',
+    });
     /*edit_employee_id*/
     $('#edit_employee_id').click(function() {
         $('#auto_generated_id').removeAttr('readonly').val('');

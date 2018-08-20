@@ -39,6 +39,7 @@ include_once 'EmployeeManager.php';?>
                            
                             <div><label>Date of Joining: </label> <?php echo $result['date_of_joining'];?></div>
                             <div><label>Date of Birth: </label> <?php echo $result['date_of_birth'];?></div>
+                            <div><label>Max. Qualification: </label> <?php echo $result['max_qualification'];?></div>
                             <div><label>PF Account: </label> <?php echo $result['pf_account'];?></div>
                             <div><label>Policy No: </label> <?php echo $result['policy_no'];?></div>
                             <div><label>LIC Id: </label> <?php echo $result['lic_id'];?></div>
