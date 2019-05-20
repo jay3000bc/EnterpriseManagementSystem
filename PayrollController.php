@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('settings/config.php');
+require("PHPMailer_5.2.0/class.phpmailer.php");
 date_default_timezone_set('Asia/Kolkata');
 $current_date = time();
 include_once 'DBManager.php';
@@ -141,7 +142,24 @@ if (isset($_POST["savePayroll"])) {
 			// send mail to employee for salary credit acknowledgement
 			if($sendEmailToEmployee == true) { 
 				include_once 'emails/paysilipEmailToEmployee.php';
-				mail($employee_email, $payslipSubject, $paysilipMessage, $paysilipHeaders);
+				//mail($employee_email, $payslipSubject, $paysilipMessage, $paysilipHeaders);
+                //global $mail_error;
+                 $mail = new PHPMailer();  // create a new object
+                 $mail->IsSMTP(); // enable SMTP
+                 $mail->SMTPDebug = 1;  // debugging: 1 = errors and messages, 2 = messages only
+                 $mail->SMTPAuth = true;  // authentication enabled
+                 $mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for GMail
+                 $mail->Host = 'smtp.gmail.com';
+                 $mail->Port = 465; 
+                 $mail->Username = "info@alegralabs.com";
+                 $mail->Password = "XXXXXXXXXX";
+                 $mail->SetFrom("info@alegralabs.com", "Jay J. Das");
+                 $mail->Subject = $payslipSubject;
+                 $mail->IsHTML(true);
+                 $mail->Body = $paysilipMessage;
+                 $mail->AddAddress($employee_email);
+                 $mail->Send();
+
 			}
 			// mail send end
 
