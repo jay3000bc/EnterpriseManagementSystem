@@ -11,17 +11,23 @@ if(!isset($DBManager->mysqlConnectError)) {
         // overite htaccess file
         include_once('functionMakeHtaccessDynamic.php');
 
-        // create all database tables
-        $file = 'db/ems.sql';
-
-        if($allSQLFileContent = file_get_contents($file)) {
-            $DBManager = new DBManager();
-            $var_array = explode(';',$allSQLFileContent);
-            foreach($var_array as $value) {
-                $sql = $value.';';
-                if($sql != '' and $sql != ';') {
-                    $result = $DBManager->execute($sql);
-                }    
+        if($DBManager->checkTableExist !== FALSE)
+        {
+            header('location:index');
+        }
+        else
+        {
+            // create all database tables
+            $file = 'db/ems.sql';
+            if($allSQLFileContent = file_get_contents($file)) {
+                $DBManager = new DBManager();
+                $var_array = explode(';',$allSQLFileContent);
+                foreach($var_array as $value) {
+                    $sql = $value.';';
+                    if($sql != '' and $sql != ';') {
+                        $result = $DBManager->execute($sql);
+                    }    
+                }
             }
         }
         //end

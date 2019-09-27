@@ -4,6 +4,7 @@ class DBManager {
     var $records;
     var $conn;
     var $mysqlConnectError;
+    var $checkTableExist;
     function __construct() {
         
         $this->conn = mysqli_connect($GLOBALS['host'], $GLOBALS['databaseUser'], $GLOBALS['databasePassword'], $GLOBALS['databaseName']);
@@ -12,6 +13,7 @@ class DBManager {
         {
           $this->mysqlConnectError = "Failed to connect to MySQL: " . mysqli_connect_error();
         }
+        $this->checkTableExist = mysqli_query($this->conn, 'select 1 from `ems_admin`');
     }
 
     function execute($sqlStr) {
