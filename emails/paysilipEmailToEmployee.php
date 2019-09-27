@@ -8,7 +8,7 @@ $paysilipHeaders .= 'From: '.$fromEMS."\r\n".'Reply-To: '.$fromEMS."\r\n" .'X-Ma
 $lastMonth = date("F Y",strtotime("-1 month"));
 $pdf_link = $absoluteUrl.$target_file;
 $paysilipMessage = '<html><body>';
-
+$paysilipMessage .='<p><a href="https://www.alegralabs.com/"><img src="https://www.alegralabs.com/source/img/email-logo-black.png" /></a></p>';
 $paysilipMessage .= '<p>Dear '.$name.',</p>';
 
 $paysilipMessage .= '<p>Salary for the month of '.$lastMonth.' has been credited to your Bank A/c # ' .$bankAccount.'</p>';
