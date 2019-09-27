@@ -75,6 +75,7 @@ if(!isset($DBManager->mysqlConnectError)) {
             $step = 3;
         } else {
             $_SESSION['setupSuccess'] = 'success';
+            $success = 'All steps have been already performed.';
             //header('location:index');
         }
 		
