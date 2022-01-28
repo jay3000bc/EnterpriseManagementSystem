@@ -152,7 +152,7 @@ if (isset($_POST["savePayroll"])) {
                  $mail->Host = 'smtp.gmail.com';
                  $mail->Port = 465; 
                  $mail->Username = "info@alegralabs.com";
-                 $mail->Password = "HLXpro1913";
+                 $mail->Password = "XXXXXXXXXX";
                  $mail->SetFrom("info@alegralabs.com", "Jay J. Das");
                  $mail->Subject = $payslipSubject;
                  $mail->IsHTML(true);

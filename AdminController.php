@@ -6,7 +6,7 @@ include_once 'DBManager.php';
 $DBManager = new DBManager();
 include_once 'AdminManager.php';
 include_once 'LoaderManager.php';
-if (isset($_POST["loginForm"])) { 
+if (isset($_POST["loginForm"])) {
     $adminLoginForm = new AdminManager();
     $username = mysqli_real_escape_string($DBManager->conn, $_POST['username']);
     $password = mysqli_real_escape_string($DBManager->conn, $_POST['password']);
