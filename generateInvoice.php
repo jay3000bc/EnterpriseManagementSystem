@@ -55,7 +55,7 @@ foreach ($currencies as $key => $currency) {
 			</div>
 			<div class="col-md-12 text-center invoice-company-address">
 				<h4><?php echo $companyInfo['company_address']; ?></h4>
-				<h4>Cell: <?php echo $companyInfo['contact_number']; ?></h4>
+				<h4>Cell: 8822774191 &nbsp;&nbsp; Email: info@alegralabs.com</h4>
 				<h4>GSTIN: <?php echo $companyInfo['gstin']; ?></h4>
 			</div>
 			<div class="col-md-12">
@@ -201,18 +201,22 @@ foreach ($currencies as $key => $currency) {
 							<td class="text-center">For Alegra Labs</td>
 						</tr>
 						<tr>
+							<td>Beneficiary Name: Alegra Labs</td>
+					
+						</tr>
+						<tr>
 							<td>Bank A/C No.: 
-								<?php echo $abankDetails['bank_account_no']; 
-								?></td>
-							<td rowspan="3" class="text-center">
-								<?php 
-								if($companyInfo['signature'] != '') { ?>
-									<img style="width: 200px; padding-top: 15px;" src="<?php echo 'uploads/company_profile_images/'.$companyInfo['signature'];?>" alt="signature">
-								<?php 	
-								} else {
-									echo 'This is a computer generated invoice and does not require a signature'; 
-								} ?>	
-							</td>
+									<?php echo $abankDetails['bank_account_no']; 
+									?></td>
+								<td rowspan="3" class="text-center">
+									<?php 
+									if($companyInfo['signature'] != '') { ?>
+										<img style="width: 200px; padding-top: 15px;" src="<?php echo 'uploads/company_profile_images/'.$companyInfo['signature'];?>" alt="signature">
+									<?php 	
+									} else {
+										echo 'This is a computer generated invoice and does not require a signature'; 
+									} ?>	
+								</td>
 						</tr>
 						<tr>
 							<td>Bank IFSC: <?php echo $abankDetails['ifsc']; 
@@ -220,9 +224,6 @@ foreach ($currencies as $key => $currency) {
 						</tr>
 						<tr>
 							<td>PAN No.: <?php echo $companyInfo['pan']; ?></td>
-						</tr>
-						<tr>
-							<td></td>
 							<td class="text-center">Authorised Signatory</td>
 						</tr>
 					</tbody>

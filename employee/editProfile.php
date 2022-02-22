@@ -241,6 +241,7 @@ if(isset($_POST['requestProfileChanges'])) {
     <section class="content">
     <!-- Small boxes (Stat box) -->
         <div class="row">
+
             <div class="col-md-12">
                 <!-- general form elements -->
                 <div class="box box-primary">
@@ -259,16 +260,18 @@ if(isset($_POST['requestProfileChanges'])) {
                                     }
                                 ?>
                                 <?php
+                                if(isset($resultRequestProfileDetails)){
                                  if(count($resultRequestProfileDetails) > 0) { ?>
                                      <div class="col-md-12 error-message">
                                         <p class="alert alert-warning">You have already sent profile update request to admin. <span style="color:#fff;" class="clear-error-msg close">&times;</span></p>
                                     </div>    
-                                <?php } ?>
+                                <?php }}?>
                                 <p class="col-md-12"><label>Note: &nbsp;<span class="mandatory"> * </span></label> &nbsp;fields are mandatory.</p>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="name">Name <span class="mandatory">*</span></label>
                                         <input class="form-control" id="name" value="<?php echo $result['name'];?>" placeholder="Enter Name" type="text" name="name" autocomplete="off" required autofocus>
+                                        <input type="hidden" id="hidden_name" value="<?php echo $result['name'];?>">
                                         <?php  if(isset($_SESSION['inputFieldName'])) { 
                                         if($_SESSION['inputFieldName'] == 'name') {
                                         ?> <p><?php echo $_SESSION['inputFieldNameError'];?></p>
@@ -278,12 +281,14 @@ if(isset($_POST['requestProfileChanges'])) {
                                     <div class="form-group">
                                         <label for="email">Email <span class="mandatory">*</span></label>
                                         <input name="email" value="<?php echo $result['email'];?>" class="form-control remove-space check-dublicate" id="email" placeholder="Enter Employee Email Address" type="email" autocomplete="off" required>
+                                        <input type="hidden" id="hidden_email" value="<?php echo $result['email'];?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="photo">Photo</label>
                                         <span style="color:#0000FF">[ Please upload a passport size photo of only JPG, GIF, PNG format and maximum size of 500 kb. For better resolution use 160 x 160 px image. ]</span>
                                         <input type="file" name="photo" class="dropify" data-height="100" data-allowed-file-extensions="png jpg jpeg" data-default-file="<?php echo '../uploads/employee/images/'.$result['photo'];?>" style="height: 100% !important;">
-                                        <input type="hidden" name="oldPhoto" value="<?php echo $result['photo'];?>">
+                                        <input type="hidden" name="oldPhoto" id="oldPhoto" value="<?php echo $result['photo'];?>">
+                                        <input type="hidden" id="hidden_photo" value="<?php echo $result['photo'];?>">
                                     </div>
                                     
                                     <div class="from-group">
@@ -296,45 +301,55 @@ if(isset($_POST['requestProfileChanges'])) {
                                                 <input <?php if($result['gender']=='Female') echo "checked";?> name="gender" id="optionsRadios2" value="Female" type="radio">
                                                 Female
                                             </label>
+                                            <input type="hidden" id="hidden_gender" value="<?php echo $result['gender'];?>">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="pfAccount">PF Account</label>
                                         <input name="pf_account" value="<?php echo $result['pf_account'];?>" class="form-control" id="pfAccount" placeholder="Enter PF Account" type="text" autocomplete="off">
+                                        <input type="hidden" id="hidden_pf_account" value="<?php echo $result['pf_account'];?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="lic_id">LIC ID</label>
                                         <input name="lic_id" value="<?php echo $result['lic_id'];?>" class="form-control" id="lic_id" placeholder="Enter LIC Id" type="text" autocomplete="off">
+                                        <input type="hidden" id="hidden_lic_id" value="<?php echo $result['lic_id'];?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="ploicyNumber">Policy Number</label>
                                         <input value="<?php echo $result['policy_no'];?>" name="policy_no" class="form-control" id="ploicyNumber" placeholder="Enter Policy Number" type="text" autocomplete="off">
+                                        <input type="hidden" id="hidden_policy_no" value="<?php echo $result['policy_no'];?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="bankAccount">Bank Account <span class="mandatory">*</span></label>
                                         <input value="<?php echo $result['bank_account'];?>" name="bank_account" class="form-control" id="bankAccount" placeholder="Enter Bank Account No." type="text" autocomplete="off" required>
+                                        <input type="hidden" id="hidden_bankAccount" value="<?php echo $result['bank_account'];?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="ifscCode">IFSC Code <span class="mandatory">*</span></label>
                                         <input value="<?php echo $result['ifsc_code'];?>" name="ifsc_code" class="form-control" id="ifscCode" placeholder="Enter IFSC Code" type="text" autocomplete="off" required>
+                                        <input type="hidden" id="hidden_ifscCode" value="<?php echo $result['ifsc_code'];?>">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="phone_no">Phone No. <span class="mandatory">*</span></label>
                                         <input value="<?php echo $result['phone_no'];?>" name="phone_no" class="form-control" id="phone_no" placeholder="Enter Employee Phone Number" type="text" autocomplete="off" required>
+                                        <input type="hidden" id="hidden_phone_no" value="<?php echo $result['phone_no'];?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="currentAddress">Current Adreess <span class="mandatory">*</span></label>
                                         <input value="<?php echo $result['current_address'];?>" name="current_address" class="form-control" id="currentAddress" placeholder="Enter Employee Address" type="text" autocomplete="off" required>
+                                        <input type="hidden" id="hidden_current_address" value="<?php echo $result['current_address'];?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="permanentAddress">Permanent Adreess <span class="mandatory">*</span></label>
                                         <input value="<?php echo $result['permanent_address'];?>" name="permanent_address" class="form-control" id="permanentAddress" placeholder="Enter Employee Permament Address" type="text" autocomplete="off" required>
+                                        <input type="hidden" id="hidden_permanent_address" value="<?php echo $result['permanent_address'];?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="fatherName">Father Name <span class="mandatory">*</span></label>
                                         <input value="<?php echo $result['father_name'];?>" name="father_name" class="form-control" id="fatherName" placeholder="Father Name" type="text" autocomplete="off" required>
+                                        <input type="hidden" id="hidden_father_name" value="<?php echo $result['father_name'];?>">
                                     </div>
                                     <div class="form-group">
                                         <label>Date of Joining <span class="mandatory">*</span></label>
@@ -342,7 +357,7 @@ if(isset($_POST['requestProfileChanges'])) {
                                           <div class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
                                           </div>
-                                          <input value="<?php echo $result['date_of_joining'];?>" name="date_of_joining" class="form-control pull-right" id="datepicker_date_of_joining" type="text">
+                                          <input value="<?php echo $result['date_of_joining'];?>" name="date_of_joining" class="form-control pull-right" id="datepicker_date_of_joining" type="text" readonly>
                                         </div>
                                     </div> 
                                     <div class="form-group">
@@ -351,24 +366,28 @@ if(isset($_POST['requestProfileChanges'])) {
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input value="<?php echo $result['date_of_birth'];?>" name="date_of_birth" class="form-control pull-right" id="datepicker_date_of_birth" type="text">
+                                            <input value="<?php echo $result['date_of_birth'];?>" name="date_of_birth" class="form-control pull-right" id="datepicker_date_of_birth" type="text" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="max_qualification">Max. Qualification <span class="mandatory">*</span></label>
                                         <input type="text"  name="max_qualification" value="<?php echo $result['max_qualification'];?>" class="form-control" id="max_qualification" placeholder="Enter Max. Qualification" autocomplete="off" required>
+                                        <input type="hidden" id="hidden_max_qualification" value="<?php echo $result['max_qualification'];?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="pan">PAN <span class="mandatory">*</span></label>
                                         <input value="<?php echo $result['pan'];?>" name="pan" class="form-control" id="pan" placeholder="Enter PAN" type="text" autocomplete="off">
+                                        <input type="hidden" id="hidden_pan" value="<?php echo $result['pan'];?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="drivingLicense">Driving License</label>
                                         <input value="<?php echo $result['driving_license_no'];?>" name="driving_license_no" class="form-control" id="drivingLicense" placeholder="Enter Driving License No." type="text" autocomplete="off">
+                                        <input type="hidden" id="hidden_driving_license_no" value="<?php echo $result['driving_license_no'];?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="passportNo">Passport No</label>
                                         <input value="<?php echo $result['passport_no'];?>" name="passport_no" class="form-control" id="passportNo" placeholder="Enter Passport No." type="text" autocomplete="off">
+                                        <input type="hidden" id="hidden_passport_no" value="<?php echo $result['passport_no'];?>">
                                     </div>
                                 </div>
                             </div>
@@ -376,11 +395,15 @@ if(isset($_POST['requestProfileChanges'])) {
                         </div>
                         <div class="box-footer text-center">
                             <input type="hidden" name="id" value="<?php echo $result['id'];?>">
-                            <?php if(count($resultRequestProfileDetails) > 0) {
+                            <?php 
+                            if(isset($resultRequestProfileDetails)){
+                            if(count($resultRequestProfileDetails) > 0) {
                              ?>
-                            <input type="text" class="btn btn-primary" value="Request Changes" name="requestProfileChanges" disabled>
-                            <?php }  else { ?>
-                            <input type="submit" class="btn btn-primary" value="Request Changes" name="requestProfileChanges">
+                            <input type="text" class="btn btn-primary" value="Request Changes"  disabled>
+                            <?php } }
+
+                            else { ?>
+                            <input type="submit" class="btn btn-primary" value="Request Changes" name="requestProfileChanges" id="submitBtn">
                             <?php } ?>
                         </div>
                     </form>
@@ -476,6 +499,194 @@ if(isset($_POST['requestProfileChanges'])) {
 
         });
     });
+
+    // Restrict empty request change 
+
+
+    $(document).ready(function(){
+
+     /*   $("#name").keyup(function(){
+           
+            if( $("#name").val() == $("#hidden_name").val() ){
+                $('#submitBtn').removeAttr("type");
+            }
+      
+        });*/
+
+        $("#submitBtn").click(function(){
+
+            if( ($("#name").val() == $("#hidden_name").val())
+             && ($("#email").val() == $("#hidden_email").val()) 
+             && ($("#oldPhoto").val() == $("#hidden_photo").val()) 
+             && ($("#pfAccount").val() == $("#hidden_pf_account").val() )
+             && ($("#lic_id").val() == $("#hidden_lic_id").val()) 
+             && ($("#policyNumber").val() == $("#hidden_policyNumber").val()) 
+             && ($("#bankAccount").val() == $("#hidden_bankAccount").val())
+             && ($("#ifscCode").val() == $("#hidden_ifscCode").val()) 
+             && ( $('input[name="gender"]:checked').val() == $("#hidden_gender").val() ) 
+             && ( $("#phone_no").val() == $("#hidden_phone_no").val() ) 
+             && ( $("#currentAddress").val() == $("#hidden_current_address").val() )
+             && ( $("#permanentAddress").val() == $("#hidden_permanent_address").val() )  
+             && ( $("#fatherName").val() == $("#hidden_father_name").val() )
+             && ( $("#max_qualification").val() == $("#hidden_max_qualification").val() )  
+             && ( $("#pan").val() == $("#hidden_pan").val() )
+             && ( $("#drivingLicense").val() == $("#hidden_driving_license_no").val() ) 
+             && ( $("#passportNo").val() == $("#hidden_passport_no").val() ) 
+
+
+            ){
+
+                
+                //$('#submitBtn').removeAttr("type");
+                $('#submitBtn').attr('type', 'button');
+                alert("You did not change nothing"  );
+               
+            }
+            else {
+
+               // alert("success");
+                
+               $('#submitBtn').attr('type', 'submit');
+            }
+
+
+
+
+        });
+
+
+        $("#name").keyup(function(){
+           
+           if( $("#name").val() != $("#hidden_name").val() ){
+                $('#submitBtn').attr('type', 'submit');
+           }
+     
+       });
+
+       $("#email").keyup(function(){
+           
+           if( $("#email").val() != $("#hidden_email").val() ){
+                $('#submitBtn').attr('type', 'submit');
+           }
+     
+       });
+
+
+       $("#oldPhoto").change(function(){
+           
+           if( $("#oldPhoto").val() != $("#hidden_photo").val() ){
+                $('#submitBtn').attr('type', 'submit');
+           }
+     
+       });
+
+       $("#pfAccount").keyup(function(){
+           
+           if( $("#pfAccount").val() != $("#hidden_pf_account").val() ){
+                $('#submitBtn').attr('type', 'submit');
+           }
+     
+       });
+
+
+       $("#lic_id").keyup(function(){
+           
+           if( $("#lic_id").val() != $("#hidden_lic_id").val() ){
+                $('#submitBtn').attr('type', 'submit');
+           }
+     
+       });
+
+       $("#policyNumber").keyup(function(){
+           
+           if( $("#policyNumber").val() != $("#hidden_policyNumber").val() ){
+                $('#submitBtn').attr('type', 'submit');
+           }
+     
+       });
+
+       $("#bankAccount").keyup(function(){
+           
+           if( $("#bankAccount").val() != $("#hidden_bankAccount").val() ){
+                $('#submitBtn').attr('type', 'submit');
+           }
+     
+       });
+
+       $("#ifscCode").keyup(function(){
+           
+           if( $("#ifscCode").val() != $("#hidden_ifscCode").val() ){
+                $('#submitBtn').attr('type', 'submit');
+           }
+     
+       });
+
+
+       $("#phone_no").keyup(function(){
+           
+           if( $("#phone_no").val() != $("#hidden_phone_no").val() ){
+                $('#submitBtn').attr('type', 'submit');
+           }
+     
+       });
+       $("#currentAddress").keyup(function(){
+           
+           if( $("#currentAddress").val() != $("#hidden_current_address").val() ){
+                $('#submitBtn').attr('type', 'submit');
+           }
+     
+       });
+       $("#permanentAddress").keyup(function(){
+           
+           if( $("#permanentAddress").val() != $("#hidden_permanent_address").val() ){
+                $('#submitBtn').attr('type', 'submit');
+           }
+     
+       });
+       $("#fatherName").keyup(function(){
+           
+           if( $("#fatherName").val() != $("#hidden_father_name").val() ){
+                $('#submitBtn').attr('type', 'submit');
+           }
+     
+       });
+
+
+
+       $("#max_qualification").keyup(function(){
+           
+           if(  $("#max_qualification").val() != $("#hidden_max_qualification").val() ){
+                $('#submitBtn').attr('type', 'submit');
+           }
+     
+       });
+       $("#pan").keyup(function(){
+           
+           if( $("#pan").val() != $("#hidden_pan").val() ){
+                $('#submitBtn').attr('type', 'submit');
+           }
+     
+       });
+       $("#drivingLicense").keyup(function(){
+           
+           if( $("#drivingLicense").val() != $("#hidden_driving_license_no").val() ){
+                $('#submitBtn').attr('type', 'submit');
+           }
+     
+       });
+       $("#passportNo").keyup(function(){
+           
+           if( $("#passportNo").val() != $("#hidden_passport_no").val() ){
+                $('#submitBtn').attr('type', 'submit');
+           }
+     
+       });
+
+
+ 
+});
+
+
 </script>
 </body>
 </html>

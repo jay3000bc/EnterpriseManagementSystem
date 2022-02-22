@@ -40,11 +40,15 @@ if($companyInfo['theme_color'] == 'skin-black') {
         <div class="row">
             <div class="col-md-11">
                 <p class="well">Tags:
+
+                    <?php if(isset($_COOKIE['world']) && $_COOKIE['world'] == 1) { ?>
+                    <span class="tags world"> #Facebook &nbsp;<span onclick="removeFeeds('world');">&times;</span></span>
+                    <?php } ?>
                     <?php if(isset($_COOKIE['outlook']) && $_COOKIE['outlook'] == 1) { ?> 
-                    <span class="tags outlook"> #Outlook India &nbsp;<span onclick="removeFeeds('outlook');">&times;</span></span>
+                    <span class="tags outlook"> #Latest News &nbsp;<span onclick="removeFeeds('outlook');">&times;</span></span>
                     <?php } ?>
                     <?php if(isset($_COOKIE['assam']) && $_COOKIE['assam'] == 1) { ?>
-                    <span class="tags assam"> #Assam &nbsp;<span onclick="removeFeeds('assam');">&times;</span></span>
+                    <span class="tags assam"> #The Sentinel &nbsp;<span onclick="removeFeeds('assam');">&times;</span></span>
                      <?php } ?>
                      <?php if(isset($_COOKIE['technology']) && $_COOKIE['technology'] == 1) { ?>
                     <span class="tags technology"> #Technology &nbsp;<span onclick="removeFeeds('technology');">&times;</span></span>
@@ -53,14 +57,12 @@ if($companyInfo['theme_color'] == 'skin-black') {
                     <span class="tags sports"> #Sports &nbsp;<span onclick="removeFeeds('sports');">&times;</span></span>
                     <?php } ?>
                     <?php if(isset($_COOKIE['politics']) && $_COOKIE['politics'] == 1) { ?>
-                    <span class="tags politics"> #Politics &nbsp;<span onclick="removeFeeds('politics');">&times;</span></span>
+                    <span class="tags politics"> #World News &nbsp;<span onclick="removeFeeds('politics');">&times;</span></span>
                     <?php } ?> 
                     <?php if(isset($_COOKIE['ndtv']) && $_COOKIE['ndtv'] == 1) { ?>
-                    <span class="tags ndtv"> #NDTV News &nbsp;<span onclick="removeFeeds('ndtv');">&times;</span></span>
+                    <span class="tags ndtv"> #NDTV - Top Stories &nbsp;<span onclick="removeFeeds('ndtv');">&times;</span></span>
                     <?php } ?> 
-                    <?php if(isset($_COOKIE['world']) && $_COOKIE['world'] == 1) { ?>
-                    <span class="tags world"> #World &nbsp;<span onclick="removeFeeds('world');">&times;</span></span>
-                    <?php } ?>
+              
                     
                 </p>
             </div>
@@ -69,6 +71,20 @@ if($companyInfo['theme_color'] == 'skin-black') {
             </div>
         </div>
         <div class="row">
+
+            <div class="col-md-4 feeds-box ">
+                <div class="panel">
+                    <div class="panel-heading <?php echo $theme_color;?>">
+                        Facebook - Alegra Labs
+                    </div>
+                    <div class="panel-body  panel-height">
+                    <div id="fb-root"></div>
+                        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v13.0&appId=1040098503231700&autoLogAppEvents=1" nonce="DGh3dDvk"></script>
+                        <div class="fb-page" data-href="https://www.facebook.com/Alegralabs/" data-tabs="timeline" data-width="520" data-height="370" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/Alegralabs/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/Alegralabs/">Alegra Labs</a></blockquote></div>
+                    </div>
+                </div>
+            </div>
+
             <?php if(isset($_COOKIE['outlook']) && $_COOKIE['outlook'] == 1) { ?>
             <div class="col-md-4 feeds-box outlook">
                 <div class="panel">
@@ -141,8 +157,8 @@ if($companyInfo['theme_color'] == 'skin-black') {
                 </div>
             </div>
             <?php } ?> 
-            <?php if(isset($_COOKIE['world']) && $_COOKIE['world'] == 1) { ?>
-            <div class="col-md-4 feeds-box world">
+            <?php //if(isset($_COOKIE['world']) && $_COOKIE['world'] == 1) { ?>
+            <!--<div class="col-md-4 feeds-box world">
                 <div class="panel">
                     <div class="panel-heading <?php echo $theme_color;?>">
                         <?php echo $feedWorldHeading;?>
@@ -151,8 +167,8 @@ if($companyInfo['theme_color'] == 'skin-black') {
                         <?php echo $feedWorldDesc;?>
                     </div>
                 </div>
-            </div>
-            <?php } ?>
+            </div>-->
+            <?php //} ?>
         </div>        
     </section>
 <!-- /.content -->
