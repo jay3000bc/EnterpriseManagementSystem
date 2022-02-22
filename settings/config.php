@@ -10,11 +10,11 @@
 	// Path of target folder  where you will install EMS. (say) if your site is http://www.example.com
 	// and you install EMS inside a folder called "ems". Than $absoluteUrl will be http://www.example.com/ems 
 
-	$absoluteUrl = 'https://www.alegralabs.com/ems/';
+	$absoluteUrl = 'http://www.tomatoinc.com/ems/';
 
 	// EMS email address for all out going emails
 
-	$fromEMS = 'admin@alegralabs.com';
+	$fromEMS = 'admin@tomatoinc.com';
 
 	// working hours a day for the employees default is 8, you can change it according to your company
 
@@ -51,7 +51,7 @@
 
 	//  footer format text with tags
 
-	$footerMessage = '<strong>Copyright &copy; &lt;ALEGRA LABS /&gt;<sup>TM</sup> 2017-2018.</strong> All rights reserved.';
+	$footerMessage = '<strong>Copyright &copy; 2017-2018.</strong> All rights reserved.';
 
 	// Salary pay currency type
 
@@ -59,6 +59,6 @@
 
 	// Set dashboard logo size
 
-	$dasboardLogoSize = 'width:80%;';
+	$dasboardLogoSize = 'width:70%;';
 
 ?>
