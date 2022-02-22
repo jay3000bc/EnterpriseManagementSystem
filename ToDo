@@ -1,9 +1,2 @@
-EMS Version 2 Update/ Improvement
-+++++++++++++++++++++++++++++
-
-(1) All dates, should be in Indian format i.e., dd/mm/yyyy
-(2) If I edit an Invoice, and (say) I changed the currency from USD to EURO, it always shows the new invoice with USD.
-(3) For Received Invoice, the Autosuggest does not work for fields like - Description of Service, SAC/HSN etc.
-(4) In Received Invoice, currency does not work correctly.
-(5) In Received Invoice, Price & Tax calculation does not work, when Price is in Decimal.
-(6) We cannot edit Received Invoice
+Currently there is no improvement
+Updated on 17th feb,2022
