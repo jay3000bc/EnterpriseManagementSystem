@@ -184,49 +184,55 @@ foreach ($currencies as $key => $currency) {
 					</tbody>
 				</table><hr>
 				<table class="table table-bordered">
-					<thead>
-						<tr>
-							<th>Bank Details</th>
-							<th>Certified that the particulars given above are true and correct</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php 
-						$abankDetails = $adminManager->getABankDetails($invoiceDetails['bank_id']); 
-						?>
-						<tr>
-							<td>Bank Name: 
-								<?php echo $abankDetails['bank_name']; 
-								?></td>
-							<td class="text-center">For Alegra Labs</td>
-						</tr>
-						<tr>
-							<td>Bank A/C No.: 
-								<?php echo $abankDetails['bank_account_no']; 
-								?></td>
-							<td rowspan="3" class="text-center">
-								<?php 
-								if($companyInfo['signature'] != '') { ?>
-									<img style="width: 200px; padding-top: 15px;" src="<?php echo 'uploads/company_profile_images/'.$companyInfo['signature'];?>" alt="signature">
-								<?php 	
-								} else {
-									echo 'This is a computer generated invoice and does not require a signature'; 
-								} ?>	
-							</td>
-						</tr>
-						<tr>
-							<td>Bank IFSC: <?php echo $abankDetails['ifsc']; 
-								?> </td>
-						</tr>
-						<tr>
-							<td>PAN No.: <?php echo $companyInfo['pan']; ?></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td class="text-center">Authorised Signatory</td>
-						</tr>
-					</tbody>
-				</table>
+				<thead>
+					<tr>
+						<th>Bank Details</th>
+						<th>Certified that the particulars given above are true and correct</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php 
+					$abankDetails = $adminManager->getABankDetails($invoiceDetails['bank_id']); 
+					?>
+					<tr>
+						<td>Bank Name: 
+							<?php echo $abankDetails['bank_name']; 
+							?></td>
+						<td class="text-center">For Alegra Labs</td>
+					</tr>
+					<tr>
+						<td>Bank A/C No.: 
+							<?php echo $abankDetails['bank_account_no']; 
+							?></td>
+						<td rowspan="3" class="text-center">
+							<?php 
+							if($companyInfo['signature'] != '') { ?>
+								<img style="width: 200px;padding-top:10px" src="<?php echo 'uploads/company_profile_images/'.$companyInfo['signature'];?>" alt="signature">
+							<?php 	
+							} else {
+								echo 'This is a computer generated invoice and does not require a signature'; 
+							} ?>	
+						</td>
+					</tr>
+					<tr>
+						<td>
+							BIC/ SWIFT Code: SBININBB159
+						</td>
+					</tr>
+					<tr>
+						<td>Bank IFSC: <?php echo $abankDetails['ifsc']; 
+							?> </td>
+					</tr>
+					<tr>
+						<td>PAN No.: <?php echo $companyInfo['pan']; ?></td>
+						<td class="text-center">Authorised Signatory</td>
+					</tr>
+					<!-- <tr>
+						<td></td>
+						<td class="text-center">Authorised Signatory</td>
+					</tr> -->
+				</tbody>
+			</table>
 			</div>
 		</div>
 	</div>

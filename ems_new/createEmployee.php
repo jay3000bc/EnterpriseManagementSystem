@@ -151,7 +151,7 @@ if($manageIdStatus['employee_id'] ==1) {
                                           <div class="input-group-addon calender-icon">
                                             <i class="fa fa-calendar"></i>
                                           </div>
-                                          <input name="date_of_joining" value="<?php if(isset($_SESSION['session_date_of_joining'])) echo htmlspecialchars($_SESSION['session_date_of_joining']); unset($_SESSION['session_date_of_joining']); ?>" class="form-control pull-right" id="datepicker_date_of_joining" type="text">
+                                          <input name="date_of_joining" value="<?php if(isset($_SESSION['session_date_of_joining'])) echo htmlspecialchars($_SESSION['session_date_of_joining']); unset($_SESSION['session_date_of_joining']); ?>" class="form-control pull-right " id="datepicker_date_of_joining" type="text" data-date-format="dd/mm/yy">
                                         </div>
                                     </div> 
                                     <div class="form-group">
@@ -160,7 +160,7 @@ if($manageIdStatus['employee_id'] ==1) {
                                             <div class="input-group-addon calender-icon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input name="date_of_birth" value="<?php if(isset($_SESSION['session_date_of_birth'])) echo htmlspecialchars($_SESSION['session_date_of_birth']); unset($_SESSION['session_date_of_birth']); ?>" class="form-control pull-right" id="datepicker_date_of_birth" type="text">
+                                            <input name="date_of_birth" value="<?php if(isset($_SESSION['session_date_of_birth'])) echo htmlspecialchars($_SESSION['session_date_of_birth']); unset($_SESSION['session_date_of_birth']); ?>" class="form-control pull-right" id="datepicker_date_of_birth" type="text" data-date-format="dd/mm/yy">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -277,6 +277,9 @@ if($manageIdStatus['employee_id'] ==1) {
     $('.calender-icon').click(function() {
         $(this).next('input').focus();
     });
+
+
+
 </script>
 <?php
 if(isset($_SESSION['employeeIdTypeSelected'])) {

@@ -1,7 +1,13 @@
 <?php
 session_start();
 include('settings/config.php');
-require("PHPMailer_5.2.0/class.phpmailer.php");
+//require("PHPMailer_5.2.0/class.phpmailer.php");
+
+require("phpMailer/vendor/autoload.php");
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 date_default_timezone_set('Asia/Kolkata');
 $current_date = time();
 include_once 'DBManager.php';
@@ -50,16 +56,26 @@ if (isset($_POST["savePayroll"])) {
     } else {
     	$bonus= 0.00;
     }
+
     if($_POST['overtime'] != '') {
     	$overtime = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['overtime']));
     } else {
     	$overtime = 0.00;
     }
+
+	if($_POST['food_allowance'] != '') {
+    	$food_allowance = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['food_allowance']));
+    } else {
+    	$food_allowance = 0.00;
+    }
+
+
     if($_POST['overtimeAmount'] != '') {
     	$overtimeAmount = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['overtimeAmount']));
     } else {
     	$overtimeAmount = 0.00;
     }
+	
     if($_POST['professional_tax'] != '') {
     	$professional_tax = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['professional_tax']));
     } else {
@@ -114,7 +130,8 @@ if (isset($_POST["savePayroll"])) {
 	}
 	$status = mysqli_real_escape_string($DBManager->conn,$_POST['status']);	
 	$name_clean=preg_replace('/\s+/', '', $name);
-	$pdf_name = $employee_id.date("dmY",$current_date).'.pdf';
+	//$pdf_name = $employee_id.date("dmY",$current_date).'.pdf';
+	$pdf_name = $employee_id.uniqid().'.pdf';
 	$target_dir = "uploads/payroll_pdf/";
 	$target_file = $target_dir . $pdf_name;
 	if (file_exists($target_file)) {
@@ -129,7 +146,7 @@ if (isset($_POST["savePayroll"])) {
 		header ("Location: payroll");
 	}
 	else {
-		$result = $payrollManager->savePayroll($employee_id, $basic, $house_rent_allowance, $conveyance_allowance, $special_allowance, $bonus, $overtime, $overtimeAmount, $professional_tax, $income_tax, $provident_fund, $health_insurance, $un_paid_days_amount, $misc, $gross_earnings, $gross_deductions, $net_pay, $pdf_name, $paid_days_count, $un_paid_days_count, $status);
+		$result = $payrollManager->savePayroll($employee_id, $basic, $house_rent_allowance, $conveyance_allowance, $special_allowance, $bonus, $overtime, $overtimeAmount,$food_allowance, $professional_tax, $income_tax, $provident_fund, $health_insurance, $un_paid_days_amount, $misc, $gross_earnings, $gross_deductions, $net_pay, $pdf_name, $paid_days_count, $un_paid_days_count, $status);
 		if($result) {
 			$generatePdfUrl = $absoluteUrl.'generatePayrollPdf.php?employee_id='.$employee_id;
 
@@ -146,14 +163,16 @@ if (isset($_POST["savePayroll"])) {
                 //global $mail_error;
                  $mail = new PHPMailer();  // create a new object
                  $mail->IsSMTP(); // enable SMTP
-                 $mail->SMTPDebug = 1;  // debugging: 1 = errors and messages, 2 = messages only
+                 $mail->SMTPDebug = 0;  // debugging: 1 = errors and messages, 2 = messages only
                  $mail->SMTPAuth = true;  // authentication enabled
-                 $mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for GMail
-                 $mail->Host = 'smtp.gmail.com';
-                 $mail->Port = 465; 
-                 $mail->Username = "info@alegralabs.com";
-                 $mail->Password = "HLXpro1913";
-                 $mail->SetFrom("info@alegralabs.com", "Jay J. Das");
+                 //$mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for GMail
+				 $mail->SMTPSecure = 'tls';
+				 $mail->Host = 'smtp.gmail.com';
+                 $mail->Port = 587; 
+				 $mail->Username = "INFO_MAIL";
+                 $mail->Password = "APP_KEY_PASSWORD";
+				 $mail->Username = "INFO_MAIL";
+                 $mail->SetFrom("INFO_MAIL", "Jay J. Das");
                  $mail->Subject = $payslipSubject;
                  $mail->IsHTML(true);
                  $mail->Body = $paysilipMessage;
@@ -214,6 +233,14 @@ if (isset($_POST["previewPayroll"])) {
     } else {
     	$overtimeAmount = 0.00;
     }
+
+	if($_POST['food_allowance'] != '') {
+    	$food_allowance = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['food_allowance']));
+    } else {
+    	$food_allowance = 0.00;
+    }
+
+
     if($_POST['professional_tax'] != '') {
     	$professional_tax = mysqli_real_escape_string($DBManager->conn, $validate->removeComma($_POST['professional_tax']));
     } else {
@@ -267,8 +294,10 @@ if (isset($_POST["previewPayroll"])) {
 		$un_paid_days_count = 0.00;
 	}
 	$status = mysqli_real_escape_string($DBManager->conn,$_POST['status']);	
-	$pdf_name = $employee_id.date("dmY",$current_date).'.pdf';
-	$result = $payrollManager->previewPayroll($employee_id, $basic, $house_rent_allowance, $conveyance_allowance, $special_allowance, $bonus, $overtime, $overtimeAmount, $professional_tax, $income_tax, $provident_fund, $health_insurance, $un_paid_days_amount, $misc, $gross_earnings, $gross_deductions, $net_pay, $pdf_name, $paid_days_count, $un_paid_days_count, $status);
+	// generate random number.
+	//$pdf_name = $employee_id.date("dmY",$current_date).'.pdf';
+	$pdf_name = $employee_id.uniqid().'.pdf';
+	$result = $payrollManager->previewPayroll($employee_id, $basic, $house_rent_allowance, $conveyance_allowance, $special_allowance, $bonus, $overtime, $overtimeAmount, $food_allowance, $professional_tax, $income_tax, $provident_fund, $health_insurance, $un_paid_days_amount, $misc, $gross_earnings, $gross_deductions, $net_pay, $pdf_name, $paid_days_count, $un_paid_days_count, $status);
 	if($result) {
 		echo "success";
 	} else {
@@ -291,7 +320,8 @@ if(isset($_POST['deletePayrollId'])) {
     $payrollDetails = $payrollManager->getAPayroll($deletePayrollId);
     $created_at = date("dmY", strtotime($payrollDetails['created_at']));
 
-    $pdf_name = $payrollDetails['employee_id'].$created_at.'.pdf';
+   // $pdf_name = $payrollDetails['employee_id'].$created_at.'.pdf';
+	$pdf_name = $employee_id.uniqid().'.pdf';
     $target_dir = "uploads/payroll_pdf/";
     $target_file = $target_dir . $pdf_name;
     unlink( $target_file );

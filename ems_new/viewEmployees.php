@@ -22,6 +22,8 @@ include_once 'EmployeeManager.php';?>
                         <a href="createEmployee" class="btn btn-primary pull-right"><i class="fa fa-plus" aria-hidden="true"></i> &nbsp;Create New Employee</a>
                     </div>
                     <div class="box-body">
+
+                        <!-- Change the date format of date of joining -->
                         <table id="display_employee_table" class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -58,7 +60,13 @@ include_once 'EmployeeManager.php';?>
                                 <td><?php echo str_pad($employeeManager->employee_id[$i], 4, '0', STR_PAD_LEFT);?></td>
                                 <td><?php echo $employeeManager->name[$i];?></td>
                                 <td><?php echo $employeeManager->designation[$i];?></td>
-                                <td><?php echo $employeeManager->date_of_joining[$i];?></td>
+                                <td>
+                                    <?php 
+                                        echo date("d-m-Y", strtotime($employeeManager->date_of_joining[$i])); 
+                                        //echo $employeeManager->date_of_joining[$i];
+                                    ?>
+                                </td>
+
                                 <td><?php echo $employeeManager->current_address[$i];?></td>
                                 <td>
                                     <a title="View" href="viewEmployeeDetails?employee_id=<?php echo $employeeManager->employee_id[$i]; ?>" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a>

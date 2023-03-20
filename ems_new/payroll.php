@@ -82,8 +82,13 @@ $working_days = $available_calender_days - $weekly_holidays;
                                         <input class="form-control" id="basic" placeholder="Enter Basic Pay Amount" type="text" name="basic" value="<?php if(isset($_SESSION['session_payroll_basic'])) echo htmlspecialchars($_SESSION['session_payroll_basic']); ?>" autocomplete="off" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="overtime">Overtime </label>
-                                        <input class="form-control" id="overtime" placeholder="Enter overtime in hours" type="text" autocomplete="off" name="overtime" value="<?php if(isset($_SESSION['session_payroll_overtime'])) echo htmlspecialchars($_SESSION['session_payroll_overtime']); ?>">
+                                        <label for="food_allowance">Allowances and Reimbursement</label>
+                                        <input class="form-control" id="food_allowance" placeholder="Enter Allowances and Reimbursement Amount" type="text" autocomplete="off" name="food_allowance" value="<?php if(isset($_SESSION['session_food_allowance'])) echo htmlspecialchars($_SESSION['session_payroll_food_allowance']); ?>">
+                                    </div>
+
+                                    <div class="form-group">
+                                      <!--  <label for="overtime">Overtime </label>-->
+                                        <input class="form-control" id="overtime" placeholder="Enter overtime in hours" type="hidden" autocomplete="off" name="overtime" value="<?php if(isset($_SESSION['session_payroll_overtime'])) echo htmlspecialchars($_SESSION['session_payroll_overtime']); ?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="house_rent_allowance">House Rent Allowance </label>
@@ -276,6 +281,7 @@ $('.project_title_input').blur(function() {
     var basic = 0;
     var overtime = 0;
     var house_rent_allowance = 0;
+    var food_allowance = 0;
     var conveyance_allowance = 0;
     var special_allowance = 0;
     var totalIncome = 0;
@@ -321,7 +327,7 @@ $('.project_title_input').blur(function() {
             $('#basic').val(ReplaceNumberWithCommas(basic));
             basic=basic.replace(/\,/g,'');
             basic = parseFloat(basic).toFixed(2);
-            totalIncome = parseFloat(basic) + parseFloat(overtime) + parseFloat(house_rent_allowance) + parseFloat(conveyance_allowance) + parseFloat(special_allowance) + parseFloat(bonus);
+            totalIncome = parseFloat(basic) + parseFloat(overtime) + parseFloat(house_rent_allowance) +parseFloat(food_allowance) + parseFloat(food_allowance) + parseFloat(conveyance_allowance) + parseFloat(special_allowance) + parseFloat(bonus);
             $('#gross_earnings').val(ReplaceNumberWithCommas(totalIncome));
 
             net_pay = parseFloat(totalIncome) - parseFloat(totalDeduction);
@@ -329,7 +335,7 @@ $('.project_title_input').blur(function() {
             //alert(ReplaceNumberWithCommas(net_pay));
         }
         else {
-            totalIncome = parseFloat(overtime) + parseFloat(house_rent_allowance) + parseFloat(conveyance_allowance) + parseFloat(special_allowance) + parseFloat(bonus);
+            totalIncome = parseFloat(overtime) + parseFloat(house_rent_allowance) +parseFloat(food_allowance) + parseFloat(conveyance_allowance) + parseFloat(special_allowance) + parseFloat(bonus);
             $('#gross_earnings').val(ReplaceNumberWithCommas(totalIncome));
             net_pay = parseFloat(totalIncome) - parseFloat(totalDeduction);
             $('#net_pay').val(ReplaceNumberWithCommas(net_pay));
@@ -347,7 +353,7 @@ $('.project_title_input').blur(function() {
                     overtime = overtime * basic * 1.5 / totalWorkingHrs;
                     overtime = overtime.toFixed(2);
                     $('#overtimeAmount').val(overtime);
-                    totalIncome = parseFloat(basic) + parseFloat(overtime) + parseFloat(house_rent_allowance) + parseFloat(conveyance_allowance) + parseFloat(special_allowance) + parseFloat(bonus);
+                    totalIncome = parseFloat(basic) + parseFloat(overtime) + parseFloat(house_rent_allowance) +parseFloat(food_allowance) + parseFloat(conveyance_allowance) + parseFloat(special_allowance) + parseFloat(bonus);
                     $('#gross_earnings').val(ReplaceNumberWithCommas(totalIncome));
                     net_pay = parseFloat(totalIncome) - parseFloat(totalDeduction);
                     $('#net_pay').val(ReplaceNumberWithCommas(net_pay));
@@ -359,7 +365,7 @@ $('.project_title_input').blur(function() {
             }
         }
         else {
-            totalIncome = parseFloat(basic) + parseFloat(house_rent_allowance) + parseFloat(conveyance_allowance) + parseFloat(special_allowance) + parseFloat(bonus);
+            totalIncome = parseFloat(basic) + parseFloat(house_rent_allowance) +parseFloat(food_allowance) + parseFloat(conveyance_allowance) + parseFloat(special_allowance) + parseFloat(bonus);
             $('#gross_earnings').val(ReplaceNumberWithCommas(totalIncome));
             net_pay = parseFloat(totalIncome) - parseFloat(totalDeduction);
             $('#net_pay').val(ReplaceNumberWithCommas(net_pay));
@@ -374,19 +380,41 @@ $('.project_title_input').blur(function() {
             $('#house_rent_allowance').val(ReplaceNumberWithCommas(house_rent_allowance));
             house_rent_allowance=house_rent_allowance.replace(/\,/g,'');
             house_rent_allowance = parseFloat(house_rent_allowance).toFixed(2);
-            totalIncome = parseFloat(basic) + parseFloat(overtime) + parseFloat(house_rent_allowance) + parseFloat(conveyance_allowance) + parseFloat(special_allowance) + parseFloat(bonus);
+            totalIncome = parseFloat(basic) + parseFloat(overtime) + parseFloat(house_rent_allowance) + parseFloat(food_allowance) + parseFloat(conveyance_allowance) + parseFloat(special_allowance) + parseFloat(bonus);
             $('#gross_earnings').val(ReplaceNumberWithCommas(totalIncome));
             net_pay = parseFloat(totalIncome) - parseFloat(totalDeduction);
             $('#net_pay').val(ReplaceNumberWithCommas(net_pay));
         }
         else {
-            totalIncome = parseFloat(basic) + parseFloat(overtime) + parseFloat(conveyance_allowance) + parseFloat(special_allowance) + parseFloat(bonus);
+            totalIncome = parseFloat(basic) + parseFloat(overtime) + parseFloat(conveyance_allowance) + parseFloat(food_allowance) + parseFloat(special_allowance) + parseFloat(bonus);
             $('#gross_earnings').val(ReplaceNumberWithCommas(totalIncome));
             net_pay = parseFloat(totalIncome) - parseFloat(totalDeduction);
             $('#net_pay').val(ReplaceNumberWithCommas(net_pay));
             house_rent_allowance = 0;
         }   
     });
+
+    $('#food_allowance').blur(function() {
+        food_allowance = $(this).val();
+        if(food_allowance.length > 0) {
+            $('#food_allowance').val(ReplaceNumberWithCommas(food_allowance));
+            food_allowance=food_allowance.replace(/\,/g,'');
+            food_allowance = parseFloat(food_allowance).toFixed(2);
+            totalIncome = parseFloat(basic) + parseFloat(overtime) + parseFloat(house_rent_allowance) + parseFloat(food_allowance) + parseFloat(conveyance_allowance) + parseFloat(special_allowance) + parseFloat(bonus);
+            $('#gross_earnings').val(ReplaceNumberWithCommas(totalIncome));
+            net_pay = parseFloat(totalIncome) - parseFloat(totalDeduction);
+            $('#net_pay').val(ReplaceNumberWithCommas(net_pay));
+        }
+        else {
+            totalIncome = parseFloat(basic) + parseFloat(overtime)  + parseFloat(house_rent_allowance) + parseFloat(conveyance_allowance) + parseFloat(special_allowance) + parseFloat(bonus);
+            $('#gross_earnings').val(ReplaceNumberWithCommas(totalIncome));
+            net_pay = parseFloat(totalIncome) - parseFloat(totalDeduction);
+            $('#net_pay').val(ReplaceNumberWithCommas(net_pay));
+            food_allowance = 0;
+        }   
+    });
+
+
     $('#conveyance_allowance').blur(function() {
         conveyance_allowance = $(this).val();
         if(conveyance_allowance.length > 0) {
@@ -394,13 +422,13 @@ $('.project_title_input').blur(function() {
             conveyance_allowance = conveyance_allowance.replace(/\,/g,'');
             conveyance_allowance = parseFloat(conveyance_allowance).toFixed(2);
 
-            totalIncome = parseFloat(basic) + parseFloat(overtime) + parseFloat(house_rent_allowance) + parseFloat(conveyance_allowance) + parseFloat(special_allowance) + parseFloat(bonus);
+            totalIncome = parseFloat(basic) + parseFloat(overtime) + parseFloat(house_rent_allowance) +parseFloat(food_allowance) + parseFloat(conveyance_allowance) + parseFloat(special_allowance) + parseFloat(bonus);
             $('#gross_earnings').val(ReplaceNumberWithCommas(totalIncome));
             net_pay = parseFloat(totalIncome) - parseFloat(totalDeduction);
             $('#net_pay').val(ReplaceNumberWithCommas(net_pay));
         }
         else {
-            totalIncome = parseFloat(basic) + parseFloat(overtime) + parseFloat(house_rent_allowance) + parseFloat(special_allowance) + parseFloat(bonus);
+            totalIncome = parseFloat(basic) + parseFloat(overtime) + parseFloat(house_rent_allowance) +parseFloat(food_allowance) + parseFloat(special_allowance) + parseFloat(bonus);
             $('#gross_earnings').val(ReplaceNumberWithCommas(totalIncome));
             net_pay = parseFloat(totalIncome) - parseFloat(totalDeduction);
             $('#net_pay').val(ReplaceNumberWithCommas(net_pay));
@@ -414,13 +442,13 @@ $('.project_title_input').blur(function() {
             special_allowance = special_allowance.replace(/\,/g,'');
             special_allowance = parseFloat(special_allowance).toFixed(2);
 
-            totalIncome = parseFloat(basic) + parseFloat(overtime) + parseFloat(house_rent_allowance) + parseFloat(conveyance_allowance) + parseFloat(special_allowance) + parseFloat(bonus);
+            totalIncome = parseFloat(basic) + parseFloat(overtime) + parseFloat(house_rent_allowance) + parseFloat(food_allowance) + parseFloat(conveyance_allowance) + parseFloat(special_allowance) + parseFloat(bonus);
             $('#gross_earnings').val(ReplaceNumberWithCommas(totalIncome));
             net_pay = parseFloat(totalIncome) - parseFloat(totalDeduction);
             $('#net_pay').val(ReplaceNumberWithCommas(net_pay));
         }
         else {
-            totalIncome = parseFloat(basic) + parseFloat(overtime) + parseFloat(house_rent_allowance) + parseFloat(conveyance_allowance) + parseFloat(bonus);
+            totalIncome = parseFloat(basic) + parseFloat(overtime) + parseFloat(house_rent_allowance) + parseFloat(food_allowance) + parseFloat(conveyance_allowance) + parseFloat(bonus);
             $('#gross_earnings').val(ReplaceNumberWithCommas(totalIncome));
             net_pay = parseFloat(totalIncome) - parseFloat(totalDeduction);
             $('#net_pay').val(ReplaceNumberWithCommas(net_pay));
@@ -434,13 +462,13 @@ $('.project_title_input').blur(function() {
             bonus = bonus.replace(/\,/g,'');
             bonus = parseFloat(bonus).toFixed(2);
 
-            totalIncome = parseFloat(basic) + parseFloat(overtime) + parseFloat(house_rent_allowance) + parseFloat(conveyance_allowance) + parseFloat(special_allowance) + parseFloat(bonus);
+            totalIncome = parseFloat(basic) + parseFloat(overtime) + parseFloat(house_rent_allowance) + parseFloat(food_allowance) + parseFloat(conveyance_allowance) + parseFloat(special_allowance) + parseFloat(bonus);
             $('#gross_earnings').val(ReplaceNumberWithCommas(totalIncome));
             net_pay = parseFloat(totalIncome) - parseFloat(totalDeduction);
             $('#net_pay').val(ReplaceNumberWithCommas(net_pay));
         }
         else {
-            totalIncome = parseFloat(basic) + parseFloat(overtime) + parseFloat(house_rent_allowance) + parseFloat(conveyance_allowance) + parseFloat(special_allowance);
+            totalIncome = parseFloat(basic) + parseFloat(overtime) + parseFloat(house_rent_allowance) + parseFloat(food_allowance) + parseFloat(conveyance_allowance) + parseFloat(special_allowance);
             $('#gross_earnings').val(ReplaceNumberWithCommas(totalIncome));
             net_pay = parseFloat(totalIncome) - parseFloat(totalDeduction);
             $('#net_pay').val(ReplaceNumberWithCommas(net_pay));
@@ -609,14 +637,23 @@ $('.project_title_input').blur(function() {
 <!-- preview payroll -->
 <script type="text/javascript">
     $('.preview-btn').click(function() {
+
+        $("#payrollForm").valid();
+
         var btn_text = $(this).val();
         var form = $("#payrollForm");
         $('.generate-pdf-btn').attr('disabled','disabled');
+
+        // console.log("Preview Btn Press",form);
+
         $.ajax({
             type:"POST",
             url:form.attr("action"),
             data:form.serialize(),
             success: function(response) {
+
+            //    console.log("Preview Response",response);
+
                if(response == 'success') {
                      $('.generate-pdf-btn').removeAttr('disabled','disabled');
                     if(btn_text == 'Preview') {

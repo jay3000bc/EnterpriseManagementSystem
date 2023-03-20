@@ -52,8 +52,8 @@ $companyInfo = $adminManager->getAdminDetails();
                 <img src="uploads/company_profile_images/logo-black.png" alt="logo">
                 <?php } ?><br>
 			</div>
-			<div class="col-md-12">
-				<h4>Payslip for the Month of <?php echo date("F Y",strtotime("-1 month"));?><br> Financial year 
+			<div class="col-md-12" >
+				<h4 style="color:#0083A3 !important;font-weight:bold !important">Payslip for the Month of <?php echo date("F Y",strtotime("-1 month"));?><br> Financial year 
 					<?php 
 					if(date('m') > 03) {
 					   $d = date('Y-m-d', strtotime('+1 years'));
@@ -62,10 +62,12 @@ $companyInfo = $adminManager->getAdminDetails();
 					  $d = date('Y-m-d', strtotime('-1 years'));
 					  echo   date('Y', strtotime($d)).'-'.date('y');
 					} ?>
-				</h4><br>
+				</h4>
+				<!--<br>-->
+				<h4><label style="color:#0083A3 !important;font-weight:bold !important">Private &amp; Confidential</label></h4>
 			</div>
 			<div class="col-md-12">
-				<h4><label>Private &amp; Confidential</label></h4>
+				<!--<h4><label>Private &amp; Confidential</label></h4>-->
 				<table class="table table-bordered" style="width: 100%;">
 					<thead>
 						<tr class="table-heading" style="background: #7cc576 !important;">
@@ -74,7 +76,7 @@ $companyInfo = $adminManager->getAdminDetails();
 					</thead>
 					<tbody>
 						<tr>
-							<td colspan="2">Name of Employee: <?php echo $result['name'];?></td>
+							<td colspan="2" style="color:#0083A3 !important;font-size:16px !important;font-weight:bold !important">Name of Employee: <?php echo $result['name'];?></td>
 						</tr>
 						<tr>
 							<td style="width: 50%;">Associate Id: <?php echo str_pad($result['employee_id'], 4, '0', STR_PAD_LEFT);?></td>
@@ -122,53 +124,53 @@ $companyInfo = $adminManager->getAdminDetails();
 					</thead>
 					<tbody>
 						<tr>
-							<td><span class="amount-name">Basic </span><span class="amount-value"><?php echo money_format('%!i', $resultPayroll['basic']);?></span></td>
-							<td><span class="amount-name">Professional Tax</span><span class="amount-value"><?php echo money_format('%!i', $resultPayroll['professional_tax']);?></span></td>
+							<td><span class="amount-name">Basic </span><span class="amount-value"><?php echo $resultPayroll['basic']; //money_format('%!i', $resultPayroll['basic']);?></span></td>
+							<td><span class="amount-name">Professional Tax</span><span class="amount-value"><?php echo $resultPayroll['professional_tax']; //money_format('%!i', $resultPayroll['professional_tax']);?></span></td>
 						</tr>
 						<tr>
-							<td><span class="amount-name">House rent allowance </span><span class="amount-value"><?php echo money_format('%!i', $resultPayroll['house_rent_allowance']);?></span></td>
-							<td><span class="amount-name">Income Tax </span><span class="amount-value"><?php echo money_format('%!i', $resultPayroll['income_tax']);?></span></td>
+							<td><span class="amount-name">House rent allowance </span><span class="amount-value"><?php echo $resultPayroll['house_rent_allowance']; //money_format('%!i', $resultPayroll['house_rent_allowance']);?></span></td>
+							<td><span class="amount-name">Income Tax </span><span class="amount-value"><?php echo $resultPayroll['income_tax']; //money_format('%!i', $resultPayroll['income_tax']);?></span></td>
 						</tr>
 						<tr>
-							<td><span class="amount-name">Conveyance allowance </span><span class="amount-value"><?php  echo money_format('%!i', $resultPayroll['conveyance_allowance']);?></span></td>
-							<td><span class="amount-name">Provident Fund  </span><span class="amount-value"><?php echo money_format('%!i', $resultPayroll['provident_fund']);?></span></td>
+							<td><span class="amount-name">Conveyance allowance </span><span class="amount-value"><?php  echo $resultPayroll['conveyance_allowance']; //money_format('%!i', $resultPayroll['conveyance_allowance']);?></span></td>
+							<td><span class="amount-name">Provident Fund  </span><span class="amount-value"><?php echo $resultPayroll['provident_fund'] //money_format('%!i', $resultPayroll['provident_fund']);?></span></td>
 						</tr>
 						<tr>
-							<td><span class="amount-name">Special Allowance </span><span class="amount-value"><?php  echo money_format('%!i', $resultPayroll['special_allowance']);?></span>
+							<td><span class="amount-name">Special Allowance </span><span class="amount-value"><?php  echo $resultPayroll['special_allowance']; //money_format('%!i', $resultPayroll['special_allowance']);?></span>
 							</td>
 							<td>
 								<?php if($resultPayroll['health_insurance'] != 0) {?>
-								<span class="amount-name">Health Insurance </span><span class="amount-value"><?php  echo money_format('%!i', $resultPayroll['health_insurance']);?></span>
+								<span class="amount-name">Health Insurance </span><span class="amount-value"><?php  echo $resultPayroll['health_insurance']; //money_format('%!i', $resultPayroll['health_insurance']);?></span>
 								<?php } ?>
 							</td>
 						</tr>
 						<tr>
-							<td><span class="amount-name">Bonus </span><span class="amount-value"><?php  echo money_format('%!i', $resultPayroll['bonus']);?></span>
+							<td><span class="amount-name">Bonus </span><span class="amount-value"><?php  echo $resultPayroll['bonus']; //money_format('%!i', $resultPayroll['bonus']);?></span>
 							</td>
 							<td>
 								<?php if($resultPayroll['un_paid_days'] != 0) {?>
-								<span class="amount-name">Un-paid days </span><span class="amount-value"><?php  echo money_format('%!i', $resultPayroll['un_paid_days']);?></span>
+								<span class="amount-name">Un-paid days </span><span class="amount-value"><?php  echo $resultPayroll['un_paid_days'] //money_format('%!i', $resultPayroll['un_paid_days']);?></span>
 								<?php } ?>
 							</td>
 						</tr>
 						<tr>
-							<td><span class="amount-name">Overtime 
-								<!-- if you don't want overtime hours to be displayed then comment below echo variable -->
-								(<?php  echo $resultPayroll['overtime']; if($resultPayroll['overtime'] ==1 || $resultPayroll['overtime'] == 0) echo ' hour'; else echo ' hours';?>)</span><span class="amount-value"><?php  echo money_format('%!i', $resultPayroll['overtimeAmount']);?></span>
+							<td><span class="amount-name">Allowances and Reimbursement</span><span class="amount-value"><?php  echo $resultPayroll['food_allowance']; //money_format('%!i', $resultPayroll['food_allowance']);?></span>
 							</td>
 							<td>
 								<?php if($resultPayroll['misc'] != 0) {?>
-								<span class="amount-name">Misc </span><span class="amount-value"><?php  echo money_format('%!i', $resultPayroll['misc']);?></span>
+								<span class="amount-name">Misc </span><span class="amount-value"><?php  echo $resultPayroll['misc']; //money_format('%!i', $resultPayroll['misc']);?></span>
 								<?php } ?>
 							</td>
 						</tr>
 						<tr>
-							<td><span class="amount-name">Gross Earning:</span><span class="amount-value"><?php  echo money_format('%!i', $resultPayroll['gross_earnings']);?></span></td>
-							<td><span class="amount-name">Gross Deduction:</span><span class="amount-value"><?php  echo money_format('%!i', $resultPayroll['gross_deductions']);?></span></td>
+							<td></td>
+							<td><span class="amount-name">Gross Deduction:</span><span class="amount-value"><?php  echo $resultPayroll['gross_deductions'] //money_format('%!i', $resultPayroll['gross_deductions']);?></span></td>
 						</tr>
 						<tr>
-							<td><span class="amount-name" style="text-align: right; width: 100%;">Net pay</span></td>
-							<td><span class="amount-name" style="text-align: left"><?php echo money_format('%!i', $resultPayroll['net_pay']);?></span></td>
+							<td><span class="amount-name">Gross Earning:</span><span class="amount-value"><?php  echo  $resultPayroll['gross_earnings']; //money_format('%!i', $resultPayroll['gross_earnings']);?></span></td>
+							<td><span class="amount-name">Net Earning:</span><span class="amount-value"><?php echo $resultPayroll['net_pay'];   ?></span></td>
+							<!--<td><span class="amount-name" style="text-align: right; width: 100%;">Net pay</span></td>-->
+							<!--<td><span class="amount-name" style="text-align: left"><?php //echo  $resultPayroll['net_pay']; ?></span></td>-->
 						</tr>
 					</tbody>
 				</table>

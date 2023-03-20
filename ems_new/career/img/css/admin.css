@@ -1,0 +1,236 @@
+.admin-section{
+	margin-top: 80px;
+    padding-top: 50px;
+    padding-bottom: 60px;
+}
+.dataTables_filter label input{
+	border: 2px solid #000;
+	border-radius: 0 !important;
+    height: 37px !important;
+    width: 84% !important;
+}
+.dataTables_filter label{
+    font-weight: 500 !important;
+}
+
+select.custom-select{
+	border: 2px solid #000;
+	border-radius: 0 !important;
+    height: 37px !important;
+}
+.form-control:focus{
+    box-shadow: none !important;
+}
+.dataTables_filter label{
+	width: 50%;
+}
+table.dataTable thead>tr>th{
+    border-top: 1.5px solid #000;
+    border-bottom: 1.5px solid #000;
+       
+}
+#applicant_data_table_length label{
+    font-weight: 500;
+}
+
+#applicant_data_table tbody tr td{
+   overflow-wrap: break-word;
+}
+
+#applicant_data_table{
+    width: 100%;
+    table-layout: fixed;
+    display: table;	
+    padding-bottom: 20px;
+}
+.action-btn a{
+	padding: 8px 7px;
+    margin-bottom: 5px;
+    border: 1.5px solid #000;
+    display: inline-flex;
+}
+.action-btn a:nth-child(3){
+    cursor: pointer;
+}
+.skill p{
+	margin-bottom: 0px;
+}
+.skill ul{
+	padding-inline-start: 0;
+}
+.skill ul li{
+    display: inline-flex;
+    margin-bottom: 5px;
+    align-items: center;
+    margin-top: 10px;
+}
+.skill .skill-name{
+	font-weight: 500;
+    border: 2px solid #fff;
+    background-color: #000;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 15px;
+}
+.skill .skill-yr{
+    border-radius: 100%;
+    padding: 2px 7px;
+    border: 2px solid #fff;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    vertical-align: middle;
+    align-items: center;
+    margin-left: -10px;
+    font-size: 12px;
+    background: #000;
+    position: relative;
+    top: -18px;
+}
+#applicant_data_table_wrapper .row:nth-child(1){
+    padding-bottom: 15px;
+}
+.pagination .paginate_button a{
+    border: 2px solid #000 !important;
+    color: #000 !important;  
+    border-radius: 0px !important;
+    font-weight: 500 !important;
+    background-color: #fff !important;
+
+}
+#applicant_data_table_info{
+    font-weight: 500; 
+}
+#applicant_data_table tbody tr td p{
+    font-weight: 500 !important;
+}
+#reply-modal .modal-content{
+    border-radius: 0;
+}
+.upper{
+    text-transform: uppercase; 
+}
+
+#reply-modal .modal-dialog{
+    margin-top: 10%;
+}
+#reply-modal .modal-body{
+    padding: 20px 40px;
+}
+#reply-modal .modal-body .form-inline{
+    margin-bottom: 15px;
+}
+#reply-modal .modal-content .modal-header{
+    text-align: center;
+}
+#reply-modal .modal-content .modal-header .modal-title{
+    width: 100%;
+    text-align: center;
+}
+#reply-modal .modal-content .modal-header .close{
+    position: absolute;
+    right: 25px;
+}
+#reply-modal .modal-content .modal-footer{
+    text-align: center;
+}
+#reply-modal .modal-content .modal-footer button{
+    margin: auto; 
+        background: #000;
+    border-radius: 0;
+    font-weight: 500;
+}
+#reply-modal .form-inline label{
+    font-weight: 500;
+}
+#reply-modal .form-inline .form-control{
+    border-radius: 0px;
+    border: 1.5px solid #000;
+}
+#reply-modal .form-inline textarea.form-control{
+    resize: none;
+}
+
+.loader {
+  max-width: 10rem;
+  width: 100%;
+  height: auto;
+  margin: auto;
+  stroke-linecap: round;
+
+}
+
+
+circle {
+  fill: none;
+  stroke-width: 3.5;
+  -webkit-animation-name: preloader;
+          animation-name: preloader;
+  -webkit-animation-duration: 3s;
+          animation-duration: 3s;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+  -webkit-transform-origin: 170px 170px;
+          transform-origin: 170px 170px;
+  will-change: transform;
+}
+circle:nth-of-type(1) {
+  stroke-dasharray: 550;
+}
+circle:nth-of-type(2) {
+  stroke-dasharray: 500;
+}
+circle:nth-of-type(3) {
+  stroke-dasharray: 450;
+}
+circle:nth-of-type(4) {
+  stroke-dasharray: 300;
+}
+circle:nth-of-type(1) {
+  -webkit-animation-delay: -0.15s;
+          animation-delay: -0.15s;
+}
+circle:nth-of-type(2) {
+  -webkit-animation-delay: -0.3s;
+          animation-delay: -0.3s;
+}
+circle:nth-of-type(3) {
+  -webkit-animation-delay: -0.45s;
+  -moz-animation-delay:  -0.45s;
+          animation-delay: -0.45s;
+}
+circle:nth-of-type(4) {
+  -webkit-animation-delay: -0.6s;
+  -moz-animation-delay: -0.6s;
+          animation-delay: -0.6s;
+}
+
+@-webkit-keyframes preloader {
+  50% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes preloader {
+  50% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+.preloader-inner{
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    z-index: 100000000000000;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+}
+.preloader{
+    display: none;
+}
+

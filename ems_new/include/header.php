@@ -194,6 +194,14 @@ else {
             <li class="<?php if($current_link == $absoluteUrl.'notifications') echo 'active'; ?>"><a href="notifications"><i class="fa fa-circle"></i>Notifications</a></li>
           </ul>  
         </li>
+        <?php if(isset($_SESSION['username']) =='admin') { ?>
+        <li class="treeview">
+          <a href="career/index">
+            <i class="fa fa-file-text" aria-hidden="true"></i>
+            <span>Career</span>
+          </a>
+        </li>
+        <? } ?>
         <li class="treeview">
           <a href="logout.php">
             <i class="fa fa-sign-out" aria-hidden="true"></i>

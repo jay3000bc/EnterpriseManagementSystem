@@ -8,6 +8,28 @@ class InvoiceManager {
         $result = $db->getARecord($sql);
         return $result;
     }
+
+    public function getCounter(){
+        $db = new DBManager();
+        $sql = "SELECT * from ems_setup WHERE id='1'";
+        $result = $db->getARecord($sql);
+        return $result;
+    }
+
+    public function updateCounter($update_counter){
+        $db = new DBManager();
+        $sql = "UPDATE ems_setup SET counter = '$update_counter' WHERE id='1' ";
+        $result = $db->execute($sql);
+    }
+
+    public function updateCounter_Year($reset_counter,$reset_year){
+        $db = new DBManager();
+        $sql = "UPDATE ems_setup SET counter = '$reset_counter', year='$reset_year'  WHERE id='1' ";
+        $result = $db->execute($sql);
+    }
+
+
+
     // updateNatioanlId
     public function updateNatioanlId($current_national_id) {
         $db = new DBManager();
@@ -182,6 +204,60 @@ class InvoiceManager {
         }
         return $total;
     }
+
+    // fetch invoice by id
+
+    public function fetchReceivedInvoicesById($id){
+
+        $db = new DBManager();
+        
+
+        if (is_numeric($id)) {
+            $sql = "SELECT * from ems_receive_invoice where id=$id";
+        }
+        else {
+            $sql = "SELECT * from ems_receive_invoice where id='$id'";
+
+        }
+        //echo $sql;
+        $receiveInvoice = $db->getARecord($sql);
+        
+        return $receiveInvoice;
+
+
+    }
+
+    public function fetchInvoiceReceiveAmount($invoice_id){
+
+        $db = new DBManager();
+
+        $sql = "SELECT * from ems_invoice_receive_amount where invoice_id ='$invoice_id'";
+
+        $data = $db->getAllRecords($sql);
+        $total = $db->getNumRow($sql);
+
+        $arrayNameList =array();
+        $arrayName = array();
+        
+        while ($row = $db->getNextRow()) {
+            $this->id[] = $row['id'];
+            //$this->invoice_id[] = $row['invoice_id'];
+            $arrayName['id'] = $row['id'];
+            $arrayName['desc_of_service'] = $row['desc_of_service'];
+            $arrayName['sac_code'] = $row['sac_code'];
+            $arrayName['quantity'] = $row['quantity'];
+            $arrayName['price'] = $row['price'];
+            $arrayName['sgst'] = $row['sgst'];
+            $arrayName['cgst'] = $row['cgst'];
+            $arrayName['igst'] = $row['igst'];
+
+            array_push($arrayNameList, $arrayName);
+        }
+
+        return $arrayNameList;
+
+    }
+
     // list of Description of Services
 
     public function listDescOfServices($searchKey) {
@@ -214,6 +290,119 @@ class InvoiceManager {
         return $result;
 
     }
+
+    // receive invoice update function
+
+    public function saveReceiveInvoiceUpdate($receive_id,$invoice_id, $name, $address, $email, $contact_no, $invoice_date, $currency_type, $invoice_amount, $gstin, $upload_invoice, $invoice_date_new ) {
+        $db = new DBManager();
+
+
+        //$sql = "INSERT into ems_receive_invoice(invoice_id, name, address, email, contact_no, invoice_date, currency_type, invoice_amount, gstin, upload_invoice, created_at) '
+        //values ('$invoice_id', '$name', '$address', '$email', '$contact_no', '$invoice_date', '$currency_type' ,'$invoice_amount', '$gstin', '$upload_invoice', '$invoice_date_new')";
+       
+       if( !empty($upload_invoice) ){
+
+            $sql = "UPDATE ems_receive_invoice SET
+                invoice_id = '$invoice_id',
+                name = '$name',
+                address = '$address',
+                email = '$email',
+                contact_no = '$contact_no',
+                invoice_date = '$invoice_date',
+                currency_type = '$currency_type',
+                invoice_amount = '$invoice_amount',
+                gstin = '$gstin',
+                upload_invoice = '$upload_invoice',
+                created_at = '$invoice_date_new'
+                WHERE id = $receive_id";
+
+       }
+       else if(empty($upload_invoice)){
+
+            $sql = "UPDATE ems_receive_invoice SET
+            invoice_id = '$invoice_id',
+            name = '$name',
+            address = '$address',
+            email = '$email',
+            contact_no = '$contact_no',
+            invoice_date = '$invoice_date',
+            currency_type = '$currency_type',
+            invoice_amount = '$invoice_amount',
+            gstin = '$gstin',
+            created_at = '$invoice_date_new'
+            WHERE id = $receive_id";
+
+       }
+
+        $result = $db->execute($sql);
+        return $result;
+    }
+
+
+    // receive invoice chek id is available or not function
+
+    public function checkID($id){
+        $db = new DBManager();
+        $sql = "SELECT * FROM  ems_receive_invoice WHERE id=$id";
+        $avail = $db->execute($sql);
+        return $avail;
+    }
+
+    // receive invoice chek id is available or not function
+
+
+    public function saveReceiveInvoiceAmountUpdate($invoice_receive_amount_id,$invoice_id, $desc_of_service, $sac_code, $quantity, $price, $cgst, $sgst, $igst) {
+        $db = new DBManager();
+        //$sql = "INSERT into ems_invoice_receive_amount(invoice_id, desc_of_service, sac_code, quantity, price, cgst, sgst, igst)
+        // values ('$invoice_id', '$desc_of_service', '$sac_code', '$quantity', '$price', '$cgst', '$sgst', '$igst')";
+        //echo $sql;
+        //die();
+
+       // $check = "SELECT * FROM ems_invoice_receive_amount WHERE id=$invoice_receive_amount_id";
+       
+
+        if(!empty($invoice_receive_amount_id)){
+
+            $sql = "UPDATE ems_invoice_receive_amount SET 
+            invoice_id = '$invoice_id',
+            desc_of_service = '$desc_of_service',
+            sac_code = '$sac_code',
+            quantity = '$quantity',
+            price = '$price',
+            cgst = '$cgst',
+            sgst = '$sgst',
+            igst = '$igst'
+            WHERE id = $invoice_receive_amount_id";
+
+        }
+        else {
+            $sql = "INSERT into ems_invoice_receive_amount(invoice_id, desc_of_service, sac_code, quantity, price, cgst, sgst, igst) values ('$invoice_id', '$desc_of_service', '$sac_code', '$quantity', '$price', '$cgst', '$sgst', '$igst')";
+        }
+
+        $result = $db->execute($sql);
+        return $result;
+
+    
+
+    }
+    // receive invoice update function
+
+    //delete receive amount row
+
+    public function deleteReceiveAmountRow($id){
+
+        $db = new DBManager();
+        $sql = "DELETE from ems_invoice_receive_amount where id = '$id'";
+        $result = $db->execute($sql);
+        if($result){
+            return 1;
+        }
+        
+
+
+    }
+
+
     // list seller name 
     public function listSellerName($searchKey) {
         $db = new DBManager();

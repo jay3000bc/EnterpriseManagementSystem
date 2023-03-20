@@ -196,11 +196,16 @@ foreach ($currencies as $key => $currency) {
 						<td rowspan="3" class="text-center">
 							<?php 
 							if($companyInfo['signature'] != '') { ?>
-								<img style="width: 200px; padding-top: 15px;" src="<?php echo 'uploads/company_profile_images/'.$companyInfo['signature'];?>" alt="signature">
+								<img style="width: 200px;padding-top:10px" src="<?php echo 'uploads/company_profile_images/'.$companyInfo['signature'];?>" alt="signature">
 							<?php 	
 							} else {
 								echo 'This is a computer generated invoice and does not require a signature'; 
 							} ?>	
+						</td>
+					</tr>
+					<tr>
+						<td>
+							BIC/ SWIFT Code: SBININBB159
 						</td>
 					</tr>
 					<tr>
@@ -209,11 +214,12 @@ foreach ($currencies as $key => $currency) {
 					</tr>
 					<tr>
 						<td>PAN No.: <?php echo $companyInfo['pan']; ?></td>
-					</tr>
-					<tr>
-						<td></td>
 						<td class="text-center">Authorised Signatory</td>
 					</tr>
+					<!-- <tr>
+						<td></td>
+						<td class="text-center">Authorised Signatory</td>
+					</tr> -->
 				</tbody>
 			</table>
 		</div>

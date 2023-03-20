@@ -1,4 +1,6 @@
 <?php 
+
+
 $title = 'View Invoices';
 include('include/header.php');
 include_once 'DBManager.php';
@@ -101,6 +103,7 @@ if(isset($_POST['invoice_type'])) {
                                             <th>Status</th>
                                             <th>Invoice pdf</th>
                                             <th>Credit Note</th>
+                                            <th>Edit</th>
                                             <?php } else { ?>
                                             <th>#</th>
                                             <th>Invoice Id</th>
@@ -110,6 +113,9 @@ if(isset($_POST['invoice_type'])) {
                                             <th>Status</th>
                                             <th>Action</th>
                                             <th>Credit Note</th>
+                                            <?php if(isset($_POST['invoice_type']) and ($_POST['invoice_type'] ==1 )) { ?>
+                                            <th>Edit</th>
+                                            <?php } ?>
                                             <?php } ?>
                                         </tr>
                                     </thead>
@@ -173,6 +179,13 @@ if(isset($_POST['invoice_type'])) {
                                                 
                                             <?php } ?>
                                             </td>
+                                            <?php if(isset($_POST['invoice_type']) and ($_POST['invoice_type'] ==1 )) { ?>
+                                            <td>
+                                            <a style="<?php echo $creditNoteButton;?>" 
+                                                href="edit_receive_invoice?id=<?php echo $invoiceManager->id[$i]; ?>" 
+                                                class="btn btn-sm btn-primary" target="_blank">Edit</a>
+                                            </td>
+                                            <?php } ?>
                                         </tr>
                                         <?php
                                         }

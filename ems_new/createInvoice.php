@@ -13,13 +13,46 @@ $invoiceManager = new InvoiceManager();
 $generate_export_invoice_id = '';
 $generate_india__based_invoice_id = '';
 if($manageIdStatus['invoice_id'] ==1) {
+   
+   
     $invoiceId = $invoiceManager->getInvoiceId();
-    $export_auto_generated_id = str_pad(($invoiceId['current_export_id'] + $invoiceId['id']), $invoiceId['digits'], '0', STR_PAD_LEFT);
+   /* $export_auto_generated_id = str_pad(($invoiceId['current_export_id'] + $invoiceId['id']), $invoiceId['digits'], '0', STR_PAD_LEFT);
     $generate_export_invoice_id = $invoiceId['export_invoice_prefix'].$export_auto_generated_id;
 
     $national_auto_generated_id = str_pad(($invoiceId['current_india_based_id'] + $invoiceId['id']), $invoiceId['digits'], '0', STR_PAD_LEFT);
-    $generate_india__based_invoice_id = $invoiceId['india_based_prefix'].$national_auto_generated_id;
+    $generate_india__based_invoice_id = $invoiceId['india_based_prefix'].$national_auto_generated_id; */
+
+// Code to Generate Invoice Number
+$counter = $invoiceManager->getCounter();
+
+$reset_counter = 0;
+$reset_year = 0;
+
+
+if($counter['year'] == date("y")){
+
+    $generate_export_invoice_id = "E-AL".str_pad($counter['counter'],3,"0",STR_PAD_LEFT).$counter['year'];
+    $generate_india__based_invoice_id = "AL".str_pad($counter['counter'],3,"0",STR_PAD_LEFT).$counter['year'];
+   // $update_counter = $counter['counter'] + 1;
+
 }
+else if($counter['year'] != date("y")) {
+    
+    $generate_export_invoice_id = "E-AL".str_pad(1,3,"0",STR_PAD_LEFT).$counter['year']+1;
+    $generate_india__based_invoice_id = "AL".str_pad(1,3,"0",STR_PAD_LEFT).$counter['year']+1;
+
+    $reset_counter = 2;
+    $reset_year = date("y");
+
+}
+// Code to Generate Invoice Number
+
+
+
+}
+
+
+
 $bankDetails= $adminManager->getBankDetails();
 ?>
 
@@ -42,6 +75,12 @@ $bankDetails= $adminManager->getBankDetails();
                         <form role="form" id="invoiceForm" method="POST" action="InvoiceController.php">
                             <input type="hidden" name="current_export_id" value="<?php echo $invoiceId['current_export_id']+1;?>">
                             <input type="hidden" name="current_national_id" value="<?php echo $invoiceId['current_india_based_id']+1;?>">
+
+                            <!-- Send Counter and Year data for update -->
+                            <input type="hidden" name="update_counter" value="<?php echo $counter['counter'] ?>">
+                            <input type="hidden" name="reset_year" value="<?php echo $reset_year ?>">
+                            <input type="hidden" name="reset_counter" value="<?php echo $reset_counter  ?>">
+
                             <div class="form-content">
                                 <div class="row">
                                     <?php 
@@ -183,9 +222,25 @@ $bankDetails= $adminManager->getBankDetails();
                                             <?php } ?>
                                         </select>
                                     </div>
+
+                                    <div class="form-group hide bankInfo">
+                                        <label for="admin_bank_account">Beneficiary Name </label>
+                                        <input id="" name="" class="form-control" value="Alegra Labs" readonly/>
+                                    </div>
+                    
+                                    <div class="form-group hide bankInfo">
+                                        <label for="admin_bank_account">Phone Number </label>
+                                        <input id="" name="" class="form-control" value="8822774191" readonly/>
+                                    </div>
+
+                                    <div class="form-group hide bankInfo">
+                                        <label for="admin_bank_account">Email ID </label>
+                                        <input id="" name="" class="form-control" value="info@alegralabs.com" readonly/>
+                                    </div>
+
                                     <div class="form-group">
                                         <label class="checkbox-inline">
-                                            <input id="toggleEmailSend" name="sendEmailToClient" type="checkbox" value="1" checked>Send email to client
+                                            <input id="toggleEmailSend" name="sendEmailToClient" type="checkbox" value="0">Send email to client
                                         </label>
                                         <a id="sendAddEmailCCBtn" class="btn btn-primary btn-sm pull-right">Send additional CC</a>
                                     </div>
@@ -741,6 +796,15 @@ unset($_SESSION['errorMsg']);
     function removeAddEmailInput(sendAddEmailCount) {
         $('#sendAddEmailInput'+sendAddEmailCount).remove();
     }
+
+
+    // Show Bank details when bank account number is choosen
+
+    $('#admin_bank_account').on('change', '', function (e) {
+
+        $( ".bankInfo" ).removeClass( "hide" )
+    });
+
 </script>
 </body>
 </html>

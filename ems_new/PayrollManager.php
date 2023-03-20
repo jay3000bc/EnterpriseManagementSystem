@@ -4,14 +4,14 @@ include_once 'DBManager.php';
 class PayrollManager {
 
     //function to save payroll
-    function savePayroll($employee_id, $basic, $house_rent_allowance, $conveyance_allowance, $special_allowance, $bonus, $overtime, $overtimeAmount, $professional_tax, $income_tax, $provident_fund, $health_insurance, $un_paid_days, $misc, $gross_earnings, $gross_deductions, $net_pay, $pdf_name, $paid_days_count, $un_paid_days_count, $status) {
+    function savePayroll($employee_id, $basic, $house_rent_allowance, $conveyance_allowance, $special_allowance, $bonus, $overtime, $overtimeAmount,$food_allowance, $professional_tax, $income_tax, $provident_fund, $health_insurance, $un_paid_days, $misc, $gross_earnings, $gross_deductions, $net_pay, $pdf_name, $paid_days_count, $un_paid_days_count, $status) {
         
         date_default_timezone_set('Asia/Kolkata');
         $current_date = time();
         $created_at = date("Y-m-d", $current_date);
         $db = new DBManager();
-        $sql = "INSERT into ems_payroll (employee_id, basic, house_rent_allowance, conveyance_allowance, special_allowance, bonus, overtime, overtimeAmount, professional_tax, income_tax, provident_fund, health_insurance, un_paid_days, misc, gross_earnings, gross_deductions, net_pay, pdf_name, paid_days_count, un_paid_days_count, status, created_at) 
-        Values('$employee_id', '$basic', '$house_rent_allowance', '$conveyance_allowance', '$special_allowance', '$bonus', '$overtime', '$overtimeAmount' ,'$professional_tax', '$income_tax', '$provident_fund', '$health_insurance', '$un_paid_days', '$misc', '$gross_earnings', '$gross_deductions', '$net_pay', '$pdf_name','$paid_days_count', '$un_paid_days_count', '$status', '$created_at')";
+        $sql = "INSERT into ems_payroll (employee_id, basic, house_rent_allowance, conveyance_allowance, special_allowance, bonus, overtime, overtimeAmount, food_allowance, professional_tax, income_tax, provident_fund, health_insurance, un_paid_days, misc, gross_earnings, gross_deductions, net_pay, pdf_name, paid_days_count, un_paid_days_count, status, created_at) 
+        Values('$employee_id', '$basic', '$house_rent_allowance', '$conveyance_allowance', '$special_allowance', '$bonus', '$overtime', '$overtimeAmount','$food_allowance','$professional_tax', '$income_tax', '$provident_fund', '$health_insurance', '$un_paid_days', '$misc', '$gross_earnings', '$gross_deductions', '$net_pay', '$pdf_name','$paid_days_count', '$un_paid_days_count', '$status', '$created_at')";
         $result = $db->execute($sql);
         return $result;
     }
@@ -74,7 +74,7 @@ class PayrollManager {
     }
 
     //function to preview payroll
-    function previewPayroll($employee_id, $basic, $house_rent_allowance, $conveyance_allowance, $special_allowance, $bonus, $overtime, $overtimeAmount, $professional_tax, $income_tax, $provident_fund, $health_insurance, $un_paid_days, $misc, $gross_earnings, $gross_deductions, $net_pay, $pdf_name, $paid_days_count, $un_paid_days_count, $status) {
+    function previewPayroll($employee_id, $basic, $house_rent_allowance, $conveyance_allowance, $special_allowance, $bonus, $overtime, $overtimeAmount, $food_allowance, $professional_tax, $income_tax, $provident_fund, $health_insurance, $un_paid_days, $misc, $gross_earnings, $gross_deductions, $net_pay, $pdf_name, $paid_days_count, $un_paid_days_count, $status) {
         
         date_default_timezone_set('Asia/Kolkata');
         $current_date = time();
@@ -82,8 +82,8 @@ class PayrollManager {
         $db = new DBManager();
         $sql = "DELETE from ems_preview_payroll";
         $result = $db->execute($sql);
-        $sql = "INSERT into ems_preview_payroll (employee_id, basic, house_rent_allowance, conveyance_allowance, special_allowance, bonus, overtime, overtimeAmount, professional_tax, income_tax, provident_fund, health_insurance, un_paid_days, misc, gross_earnings, gross_deductions, net_pay, pdf_name, paid_days_count, un_paid_days_count, status, created_at) 
-        Values('$employee_id', '$basic', '$house_rent_allowance', '$conveyance_allowance', '$special_allowance', '$bonus', '$overtime', '$overtimeAmount' ,'$professional_tax', '$income_tax', '$provident_fund', '$health_insurance', '$un_paid_days', '$misc', '$gross_earnings', '$gross_deductions', '$net_pay', '$pdf_name','$paid_days_count', '$un_paid_days_count', '$status', '$created_at')";
+        $sql = "INSERT into ems_preview_payroll (employee_id, basic, house_rent_allowance, conveyance_allowance, special_allowance, bonus, overtime, overtimeAmount, food_allowance, professional_tax, income_tax, provident_fund, health_insurance, un_paid_days, misc, gross_earnings, gross_deductions, net_pay, pdf_name, paid_days_count, un_paid_days_count, status, created_at) 
+        Values('$employee_id', '$basic', '$house_rent_allowance', '$conveyance_allowance', '$special_allowance', '$bonus', '$overtime', '$overtimeAmount','$food_allowance' ,'$professional_tax', '$income_tax', '$provident_fund', '$health_insurance', '$un_paid_days', '$misc', '$gross_earnings', '$gross_deductions', '$net_pay', '$pdf_name','$paid_days_count', '$un_paid_days_count', '$status', '$created_at')";
         $result = $db->execute($sql);
         return $result;
     }
